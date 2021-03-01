@@ -13,9 +13,9 @@ namespace OnlineSchool.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IStudentService _service;
+        private readonly ITutorService _service;
 
-        public HomeController(ILogger<HomeController> logger, IStudentService service)
+        public HomeController(ILogger<HomeController> logger, ITutorService service)
         {
             _logger = logger;
             _service = service;
@@ -23,7 +23,7 @@ namespace OnlineSchool.Controllers
 
         public IActionResult Index()
         {
-            //return Content(_service.GetCount().ToString());
+            return Content(_service.GetCount().ToString());
             return View();
         }
 

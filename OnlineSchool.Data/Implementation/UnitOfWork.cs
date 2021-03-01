@@ -10,11 +10,12 @@ namespace OnlineSchool.Data.Implementation
     {
         private readonly ApplicationDbContext _context;
         public StudentRepo StudentRepo { get; set; }
-
+        public TutorRepo TutorRepo { get; set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             this._context = context;
             this.StudentRepo = new StudentRepo(this._context);
+            this.TutorRepo = new TutorRepo(this._context);
         }
 
         public async Task Save()

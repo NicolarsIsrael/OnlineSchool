@@ -22,5 +22,6 @@ namespace OnlineSchool.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
         public DbSet<Student> Student { get; set; }
+        public DbSet<Tutor> Tutor { get; set; }
     }
 }

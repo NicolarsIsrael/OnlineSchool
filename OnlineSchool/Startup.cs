@@ -73,7 +73,7 @@ namespace OnlineSchool
             services.AddScoped(serviceType: typeof(IStudentService), implementationType: typeof(StudentService));
             services.AddScoped(serviceType: typeof(ITutorService), implementationType: typeof(TutorService));
             services.AddScoped(serviceType: typeof(ICourseService), implementationType: typeof(CourseService));
-
+            services.AddScoped(serviceType: typeof(ILectureService), implementationType: typeof(LectureService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

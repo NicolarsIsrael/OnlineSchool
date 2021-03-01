@@ -12,12 +12,14 @@ namespace OnlineSchool.Data.Implementation
         public StudentRepo StudentRepo { get; set; }
         public TutorRepo TutorRepo { get; set; }
         public CourseRepo CourseRepo { get; set; }
+        public LectureRepo LectureRepo { get; set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             this._context = context;
             this.StudentRepo = new StudentRepo(this._context);
             this.TutorRepo = new TutorRepo(this._context);
             this.CourseRepo = new CourseRepo(this._context);
+            this.LectureRepo = new LectureRepo(this._context);
         }
 
         public async Task Save()

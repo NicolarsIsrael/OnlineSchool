@@ -13,9 +13,9 @@ namespace OnlineSchool.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ITutorService _service;
+        private readonly ICourseService _service;
 
-        public HomeController(ILogger<HomeController> logger, ITutorService service)
+        public HomeController(ILogger<HomeController> logger, ICourseService service)
         {
             _logger = logger;
             _service = service;

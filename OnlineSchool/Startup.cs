@@ -72,6 +72,7 @@ namespace OnlineSchool
             //services
             services.AddScoped(serviceType: typeof(IStudentService), implementationType: typeof(StudentService));
             services.AddScoped(serviceType: typeof(ITutorService), implementationType: typeof(TutorService));
+            services.AddScoped(serviceType: typeof(ICourseService), implementationType: typeof(CourseService));
 
         }
 

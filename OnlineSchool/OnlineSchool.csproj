@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OnlineSchool.Data\OnlineSchool.Data.csproj" />
     <ProjectReference Include="..\OnlineSchool.Service\OnlineSchool.Service.csproj" />
+    <ProjectReference Include="..\OnlineSchool.Utility\OnlineSchool.Utility.csproj" />
   </ItemGroup>
 
 </Project>

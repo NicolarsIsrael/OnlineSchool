@@ -1,19 +1,47 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using OnlineSchool.Data;
 
 namespace OnlineSchool
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = Host.CreateDefaultBuilder(args)
+              .UseContentRoot(Directory.GetCurrentDirectory())
+              .ConfigureWebHostDefaults(webBuilder =>
+              {
+                  webBuilder
+                      .UseKestrel()
+                      .UseIIS()
+                      .UseStartup<Startup>();
+              }).Build();
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<ApplicationDbContext>();
+                    context.Database.Migrate();
+                    await DatabaseSeeder.Initialize(services);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception();
+                }
+            }
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -8,7 +8,5 @@ namespace OnlineSchool.Core
     public class ApplicationUser : IdentityUser
     {
         public ApplicationUser() : base() { }
-        public bool IsAccountSetUpComplete { get; set; }
-        //public bool IsBasicAccountSetupComplete { get; set; }
     }
 }

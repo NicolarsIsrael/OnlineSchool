@@ -1,0 +1,15 @@
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\obj\Debug\netcoreapp3.1\OnlineSchool.Data.AssemblyInfoInputs.cache
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\obj\Debug\netcoreapp3.1\OnlineSchool.Data.AssemblyInfo.cs
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\obj\Debug\netcoreapp3.1\OnlineSchool.Data.csprojAssemblyReference.cache
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\bin\Debug\netcoreapp3.1\OnlineSchool.Data.deps.json
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\bin\Debug\netcoreapp3.1\OnlineSchool.Data.runtimeconfig.json
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\bin\Debug\netcoreapp3.1\OnlineSchool.Data.runtimeconfig.dev.json
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\bin\Debug\netcoreapp3.1\OnlineSchool.Data.dll
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\bin\Debug\netcoreapp3.1\OnlineSchool.Data.pdb
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\bin\Debug\netcoreapp3.1\OnlineSchool.Core.dll
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\bin\Debug\netcoreapp3.1\OnlineSchool.Core.pdb
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\obj\Debug\netcoreapp3.1\OnlineSchool.Data.csproj.CopyComplete
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\obj\Debug\netcoreapp3.1\OnlineSchool.Data.dll
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\obj\Debug\netcoreapp3.1\OnlineSchool.Data.pdb
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\obj\Debug\netcoreapp3.1\OnlineSchool.Data.genruntimeconfig.cache
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Data\obj\Debug\netcoreapp3.1\OnlineSchool.Data.csproj.CoreCompileInputs.cache

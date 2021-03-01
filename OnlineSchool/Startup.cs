@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +11,11 @@ using OnlineSchool.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OnlineSchool.Data.Contract;
+using OnlineSchool.Data.Implementation;
+using OnlineSchool.Service.Contract;
+using OnlineSchool.Service.Implementation;
+using OnlineSchool.Core;
 
 namespace OnlineSchool
 {
@@ -27,13 +31,45 @@ namespace OnlineSchool
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+            services.AddScoped<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
+            services.AddScoped<UserManager<ApplicationUser>, UserManager<ApplicationUser>>();
+
+            services.AddIdentity<ApplicationUser, ApplicationRole>(
+                options => {
+                    options.Stores.MaxLengthForKeys = 128;
+                    options.User.RequireUniqueEmail = true;
+
+                    //password validation
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequiredUniqueChars = 0;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+
+                })
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                //.AddDefaultUI()
+                .AddDefaultTokenProviders();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddScoped(serviceType: typeof(IUnitOfWork), implementationType: typeof(UnitOfWork));
+
+            //repos
+            services.AddScoped(serviceType: typeof(ICoreRepo<>), implementationType: typeof(CoreRepo<>));
+
+            //services
+            services.AddScoped(serviceType: typeof(IStudentService), implementationType: typeof(StudentService));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

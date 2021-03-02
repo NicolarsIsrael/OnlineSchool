@@ -1,0 +1,24 @@
+﻿@model OnlineSchool.Models.AddTutorModel
+@{
+    ViewData["Title"] = "Add Tutor";
+}
+
+<h1>Add Tutor</h1>
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Email" class=""></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Fullname" class=""></label>
+        <input asp-for="Fullname" class="form-control" />
+        <span asp-validation-for="Fullname" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn custom-primary-btn">Add tutor</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

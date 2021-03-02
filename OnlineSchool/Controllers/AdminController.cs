@@ -18,11 +18,13 @@ namespace OnlineSchool.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IStudentService _studentService;
-        public AdminController(UserManager<ApplicationUser> userManager, IStudentService studentService, RoleManager<ApplicationRole> roleManager)
+        private readonly ITutorService _tutorService;
+        public AdminController(UserManager<ApplicationUser> userManager, IStudentService studentService, RoleManager<ApplicationRole> roleManager,ITutorService tutorService)
         {
             _userManager = userManager;
             _studentService = studentService;
             _roleManager = roleManager;
+            _tutorService = tutorService;
         }
         public IActionResult Index()
         {
@@ -88,6 +90,62 @@ namespace OnlineSchool.Controllers
             student = model.Edit(student, url);
             await _studentService.Update(student);
             return RedirectToAction(nameof(Students));
+        }
+
+        public IActionResult Tutors()
+        {
+            var tutors = _tutorService.GetAll();
+            var model = tutors.Select(t => new ViewTutorModel(t)).OrderBy(t => t.Email);
+            return View(model);
+        }
+
+        public IActionResult AddTutor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddTutor(AddTutorModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "One or more validations failed");
+                return View(model);
+            }
+            var user = await CreateUserAccount(AppConstant.LecturerRole, model.Email);
+            try
+            {
+                var tutor = model.Add(user.Id);
+                await _tutorService.Add(tutor);
+                return RedirectToAction(nameof(Tutors));
+            }
+            catch (Exception ex)
+            {
+                await _userManager.DeleteAsync(user);
+                throw;
+            }
+        }
+
+        public IActionResult EditTutor(int id)
+        {
+            var tutor = _tutorService.Get(id);
+            var model = new EditTutorModel(tutor);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTutor(EditTutorModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "One or more validations failed");
+                return View(model);
+            }
+
+            var tutor = _tutorService.Get(model.Id);
+            tutor = model.Edit(tutor);
+            await _tutorService.Update(tutor);
+            return RedirectToAction(nameof(Tutors));
         }
 
         private async Task<ApplicationUser> CreateUserAccount(string userRole, string email)

@@ -8,7 +8,7 @@ namespace OnlineSchool.Core
     {
         public string CourseCode { get; set; }
         public string CourseTitle { get; set; }
-
+        public string Description { get; set; }
         public int TutorId { get; set; }
         public Tutor Tutor { get; set; }
         public ICollection<Student> Students { get; set; }

@@ -19,12 +19,15 @@ namespace OnlineSchool.Controllers
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IStudentService _studentService;
         private readonly ITutorService _tutorService;
-        public AdminController(UserManager<ApplicationUser> userManager, IStudentService studentService, RoleManager<ApplicationRole> roleManager,ITutorService tutorService)
+        private readonly ICourseService _courseService;
+        public AdminController(UserManager<ApplicationUser> userManager, IStudentService studentService, RoleManager<ApplicationRole> roleManager,ITutorService tutorService,
+            ICourseService courseService)
         {
             _userManager = userManager;
             _studentService = studentService;
             _roleManager = roleManager;
             _tutorService = tutorService;
+            _courseService = courseService;
         }
         public IActionResult Index()
         {
@@ -148,6 +151,34 @@ namespace OnlineSchool.Controllers
             return RedirectToAction(nameof(Tutors));
         }
 
+        public IActionResult Courses()
+        {
+            var courses = _courseService.GetAll();
+            var model = courses.Select(c => new ViewCourseModel(c)).OrderBy(c => c.CourseCode);
+            return View(model);
+        }
+
+        public IActionResult AddCourse()
+        {
+            var tutors = _tutorService.GetAll();
+            var model = new AddCourseViewModel(tutors);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCourse(AddCourseViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "One or more validations failed");
+                return View(model);
+            }
+            var tutor = _tutorService.Get(model.SelectedTutor);
+            var course = model.Add(tutor);
+            await _courseService.Add(course);
+            return RedirectToAction(nameof(Courses));
+        }
+
         private async Task<ApplicationUser> CreateUserAccount(string userRole, string email)
         {
 
@@ -168,6 +199,14 @@ namespace OnlineSchool.Controllers
             if (user == null)
                 return true;
 
+            return false;
+        }
+
+        public bool UniqueCourseCode(string courseCode)
+        {
+            var course = _courseService.GetByCourseCode(courseCode);
+            if (course == null)
+                return true;
             return false;
         }
 

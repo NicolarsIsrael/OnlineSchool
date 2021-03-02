@@ -66,6 +66,30 @@ namespace OnlineSchool.Controllers
             }
         }
 
+        public IActionResult EditStudent(int id)
+        {
+            var student = _studentService.Get(id);
+            var model = new EditStudentModel(student);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditStudent(EditStudentModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "One or more validations failed");
+                return View(model);
+            }
+            var student = _studentService.Get(model.Id);
+            var url = student.ProfilePicturePath;
+            if (model.ProfileImage != null)
+                url = await FileService.SaveDoc(model.ProfileImage, "ProfileImages", FileService.FileType.Image);
+            student = model.Edit(student, url);
+            await _studentService.Update(student);
+            return RedirectToAction(nameof(Students));
+        }
+
         private async Task<ApplicationUser> CreateUserAccount(string userRole, string email)
         {
 

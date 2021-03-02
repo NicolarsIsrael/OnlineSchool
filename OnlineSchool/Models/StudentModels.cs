@@ -65,4 +65,45 @@ namespace OnlineSchool.Models
             };
         }
     }
+
+    public class EditStudentModel
+    {
+        public int Id { get; set; }
+        public string Email { get; set; }
+        [Display(Name ="Matric number")]
+        public string MatricNumber { get; set; }
+
+        [Display(Name = "First name")]
+        [Required(ErrorMessage = "First name is required")]
+        [RegularExpression("^[a-zA-Z0-9].*$", ErrorMessage = "First name should begin with letter or number")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last name")]
+        [Required(ErrorMessage = "Last name is required")]
+        [RegularExpression("^[a-zA-Z0-9].*$", ErrorMessage = "Last name should begin with letter or number")]
+        public string LastName { get; set; }
+        public string ProfilePicture { get; set; }
+        public IFormFile ProfileImage { get; set; }
+        public EditStudentModel()
+        {
+
+        }
+        public EditStudentModel(Student student)
+        {
+            Id = student.Id;
+            Email = student.Email;
+            MatricNumber = student.MatricNumber;
+            FirstName = student.FirstName;
+            LastName = student.LastName;
+            ProfilePicture = GeneralFunction.GetUrlPath(student.ProfilePicturePath);
+        }
+       
+        public Student Edit(Student student, string url)
+        {
+            student.FirstName = FirstName;
+            student.LastName = LastName;
+            student.ProfilePicturePath = url;
+            return student;
+        }
+    }
 }

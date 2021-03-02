@@ -216,3 +216,4 @@ C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\bin\Debug\netcoreapp3.1\Onl
 C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\bin\Debug\netcoreapp3.1\OnlineSchool.Utility.pdb
 C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AddStudent.cshtml.g.cs
 C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Students.cshtml.g.cs
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Admin\EditStudent.cshtml.g.cs

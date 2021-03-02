@@ -25,29 +25,33 @@
                 @Html.DisplayNameFor(model => model.MatricNumber)
             </th>
             <th>
-                
+
             </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Firstname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lastname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MatricNumber)
-            </td>
-            <td>
-                <img src="@Url.Content(item.ProfilePicture)" style="width:50px;height:50px" />
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatricNumber)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.ProfilePicture)" style="width:50px;height:50px" />
+                </td>
+                <td>
+                    <a asp-controller="Admin" asp-action="EditStudent" asp-route-id="@item.Id">Edit</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

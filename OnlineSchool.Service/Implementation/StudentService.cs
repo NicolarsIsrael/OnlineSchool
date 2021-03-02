@@ -22,6 +22,14 @@ namespace OnlineSchool.Service.Implementation
             return _uow.StudentRepo.Count();
         }
 
+        public Student Get(int id, bool allowNull = false)
+        {
+            var student = _uow.StudentRepo.Get(id);
+            if (!allowNull && student == null)
+                throw new Exception();
+            return student;
+        }
+
         public IEnumerable<Student> GetAll()
         {
             return _uow.StudentRepo.GetAll();

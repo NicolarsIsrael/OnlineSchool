@@ -179,6 +179,30 @@ namespace OnlineSchool.Controllers
             return RedirectToAction(nameof(Courses));
         }
 
+        public IActionResult EditCourse(int id)
+        {
+            var course = _courseService.Get(id);
+            var tutors = _tutorService.GetAll();
+            var model = new EditCourseViewModel(course, tutors);
+            TempData["CurrentCourseCode"] = course.CourseCode;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCourse(EditCourseViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "One or more validations failed");
+                return View(model);
+            }
+            var course = _courseService.Get(model.Id);
+            var tutor = _tutorService.Get(model.SelectedTutor);
+            course = model.Edit(course,tutor);
+            await _courseService.Update(course);
+            return RedirectToAction(nameof(Courses));
+        }
+
         private async Task<ApplicationUser> CreateUserAccount(string userRole, string email)
         {
 
@@ -210,5 +234,23 @@ namespace OnlineSchool.Controllers
             return false;
         }
 
+        public bool UniqueCourseCodeEdit(string courseCode)
+        {
+            string currentCourseCode = TempData["CurrentCourseCode"].ToString();
+            if (string.Compare(courseCode, currentCourseCode, true) == 0)
+            {
+                TempData["CurrentCourseCode"] = currentCourseCode;
+                return true;
+            }
+            var course = _courseService.GetByCourseCode(courseCode);
+            if (course == null)
+            {
+                TempData["CurrentCourseCode"] = currentCourseCode;
+                return true;
+            }
+            TempData["CurrentCourseCode"] = currentCourseCode;
+            return false;
+
+        }
     }
 }

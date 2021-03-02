@@ -69,3 +69,23 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.custom-primary-btn {
+    /*//border: 2px solid #9bde21;*/
+    background-color: #712e2e;
+    color: white !important;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 20px;
+}
+
+.custom-secondary-btn {
+    /*//border: 2px solid #9bde21;*/
+    background-color: #00db6f;
+    color: white !important;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 20px;
+}

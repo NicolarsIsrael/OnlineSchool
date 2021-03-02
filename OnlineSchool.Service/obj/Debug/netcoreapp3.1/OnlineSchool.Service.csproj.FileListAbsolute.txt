@@ -15,3 +15,5 @@ C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Service\obj\Debug\netcoreap
 C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Service\obj\Debug\netcoreapp3.1\OnlineSchool.Service.pdb
 C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Service\obj\Debug\netcoreapp3.1\OnlineSchool.Service.genruntimeconfig.cache
 C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Service\obj\Debug\netcoreapp3.1\OnlineSchool.Service.csproj.CoreCompileInputs.cache
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Service\bin\Debug\netcoreapp3.1\OnlineSchool.Utility.dll
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool.Service\bin\Debug\netcoreapp3.1\OnlineSchool.Utility.pdb

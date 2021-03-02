@@ -2794,7 +2794,8 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.10",
           "Microsoft.AspNetCore.Identity.UI": "3.1.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.10",
-          "OnlineSchool.Data": "1.0.0"
+          "OnlineSchool.Data": "1.0.0",
+          "OnlineSchool.Utility": "1.0.0"
         },
         "compile": {
           "bin/placeholder/OnlineSchool.Service.dll": {}

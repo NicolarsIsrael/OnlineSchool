@@ -14,7 +14,8 @@
           "Microsoft.AspNetCore.Identity.UI": "3.1.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.10",
           "Microsoft.EntityFrameworkCore.Tools": "3.1.10",
-          "OnlineSchool.Data": "1.0.0"
+          "OnlineSchool.Data": "1.0.0",
+          "OnlineSchool.Utility": "1.0.0"
         },
         "runtime": {
           "OnlineSchool.Service.dll": {}
@@ -1114,6 +1115,17 @@
         "runtime": {
           "OnlineSchool.Data.dll": {}
         }
+      },
+      "OnlineSchool.Utility/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNet.Identity.EntityFramework": "2.2.3",
+          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "3.1.12",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.10"
+        },
+        "runtime": {
+          "OnlineSchool.Utility.dll": {}
+        }
       }
     }
   },
@@ -1885,6 +1897,11 @@
       "sha512": ""
     },
     "OnlineSchool.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OnlineSchool.Utility/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -23,7 +23,7 @@ namespace OnlineSchool.Controllers
 
         public IActionResult Index()
         {
-            return Content(_service.GetCount().ToString());
+            //return Content(_service.GetCount().ToString());
             return View();
         }
 

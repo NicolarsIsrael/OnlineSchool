@@ -1,0 +1,126 @@
+﻿@model OnlineSchool.Models.AddStudentModel
+@{
+    ViewData["Title"] = "Add Student";
+}
+
+<h1>Add Student</h1>
+<form method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label asp-for="Email" class=""></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FirstName" class=""></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName" class=""></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProfileImage" class=""></label>
+        <img class="img-responsive d-block mb-3" id="targetImg" style="height:100px;width:100px;" src="@Url.Content("/default-profile-image.jpg")" />
+        <input asp-for="ProfileImage" class="form-control" />
+        <span asp-validation-for="ProfileImage" class="text-danger"></span>
+        <p class="text-danger mb-0" id="imgFileSizeError"></p>
+        <p class="text-danger mb-0" id="imgFileFormatError"></p>
+    </div>
+    <button type="submit" class="btn custom-primary-btn" onclick="return validate()">Add student</button>
+</form>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+<script>
+
+
+    var imgFileSizeError = document.getElementById("imgFileSizeError");
+    var imgFile = document.getElementById("ProfileImage");
+    var imgFileFormatError = document.getElementById("imgFileFormatError");
+
+
+    $(document).ready(function () {
+        $("#ProfileImage").change(function () {
+            var File = this.files;
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+        })
+    })
+
+
+    var ReadImage = function (file) {
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+            image.src = _file.target.result;
+            image.onload = function () {
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+                $("#targetImg").attr('src', _file.target.result);
+                $("#imgPreview").show();
+            }
+        }
+    }
+
+
+    $(document).ready(function () {
+        $('#ProfileImage').bind('change', function () {
+            var exten = imgFile.value.split('.').pop();
+            exten = exten.toLowerCase();
+            if (!(exten == "png" || exten == "jpg" || exten == "jpeg")) {
+                imgFileFormatError.textContent = "Invalid format.";
+                //alertify.warning("Invalid format");
+
+            } else {
+                imgFileFormatError.textContent = "";
+            }
+
+            // check if the file is larger than 4mb
+            if (this.files[0].size > (10 * 1000 * 1024)) {
+                imgFileSizeError.textContent = "File too large. File should be less than 10mb";
+                //alertify.warning("File too large. File should be less than 4mb");
+            }
+            else {
+                // passed.
+                imgFileSizeError.textContent = "";
+            }
+        });
+    })
+
+
+    function validate() {
+        //if (imgFile.files[0] == null)
+        //    return true;
+
+        if (imgFile.files[0].size > (10 * 1000 * 1024)) {
+
+            imgFileSizeError.textContent = "File too large. File should be less than 10mb";
+            //file too large
+            imgFile.focus();
+
+            return false;
+        }
+        var exten = imgFile.value.split('.').pop();
+        exten = exten.toLowerCase();
+        if (!(exten == "png" || exten == "jpg" || exten == "jpeg")) {
+
+            imgFileFormatError.textContent = "Invalid format.";
+            //invalid format
+            imgFile.focus();
+
+            return false;
+
+        }
+
+    }
+</script>

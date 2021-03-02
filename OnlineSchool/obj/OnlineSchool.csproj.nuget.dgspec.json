@@ -214,6 +214,9 @@
             "projectReferences": {
               "C:\\Users\\DELL\\source\\repos\\OnlineSchool\\OnlineSchool.Data\\OnlineSchool.Data.csproj": {
                 "projectPath": "C:\\Users\\DELL\\source\\repos\\OnlineSchool\\OnlineSchool.Data\\OnlineSchool.Data.csproj"
+              },
+              "C:\\Users\\DELL\\source\\repos\\OnlineSchool\\OnlineSchool.Utility\\OnlineSchool.Utility.csproj": {
+                "projectPath": "C:\\Users\\DELL\\source\\repos\\OnlineSchool\\OnlineSchool.Utility\\OnlineSchool.Utility.csproj"
               }
             }
           }

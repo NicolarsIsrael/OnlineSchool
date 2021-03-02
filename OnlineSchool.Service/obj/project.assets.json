@@ -1593,6 +1593,25 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "OnlineSchool.Utility/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Microsoft.AspNet.Identity.EntityFramework": "2.2.3",
+          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "3.1.12",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.10"
+        },
+        "compile": {
+          "bin/placeholder/OnlineSchool.Utility.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/OnlineSchool.Utility.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -5815,6 +5834,11 @@
       "type": "project",
       "path": "../OnlineSchool.Data/OnlineSchool.Data.csproj",
       "msbuildProject": "../OnlineSchool.Data/OnlineSchool.Data.csproj"
+    },
+    "OnlineSchool.Utility/1.0.0": {
+      "type": "project",
+      "path": "../OnlineSchool.Utility/OnlineSchool.Utility.csproj",
+      "msbuildProject": "../OnlineSchool.Utility/OnlineSchool.Utility.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5825,7 +5849,8 @@
       "Microsoft.AspNetCore.Identity.UI >= 3.1.10",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.10",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.10",
-      "OnlineSchool.Data >= 1.0.0"
+      "OnlineSchool.Data >= 1.0.0",
+      "OnlineSchool.Utility >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5863,6 +5888,9 @@
           "projectReferences": {
             "C:\\Users\\DELL\\source\\repos\\OnlineSchool\\OnlineSchool.Data\\OnlineSchool.Data.csproj": {
               "projectPath": "C:\\Users\\DELL\\source\\repos\\OnlineSchool\\OnlineSchool.Data\\OnlineSchool.Data.csproj"
+            },
+            "C:\\Users\\DELL\\source\\repos\\OnlineSchool\\OnlineSchool.Utility\\OnlineSchool.Utility.csproj": {
+              "projectPath": "C:\\Users\\DELL\\source\\repos\\OnlineSchool\\OnlineSchool.Utility\\OnlineSchool.Utility.csproj"
             }
           }
         }

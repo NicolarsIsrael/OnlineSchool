@@ -9,6 +9,7 @@ namespace OnlineSchool.Utility
         public const string SuperAdminRole = "SuperAdminRole";
         public const string StudentRole = "StudentRole";
         public const string LecturerRole = "LecturerRole";
+        public const string MatricNumberStarter = "150408";
     }
 
     public class AppSettings

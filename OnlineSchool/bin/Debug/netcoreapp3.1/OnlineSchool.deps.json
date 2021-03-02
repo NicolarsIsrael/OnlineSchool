@@ -2419,7 +2419,8 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.12",
           "Microsoft.AspNetCore.Identity.UI": "3.1.12",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.12",
-          "OnlineSchool.Data": "1.0.0"
+          "OnlineSchool.Data": "1.0.0",
+          "OnlineSchool.Utility": "1.0.0"
         },
         "runtime": {
           "OnlineSchool.Service.dll": {}

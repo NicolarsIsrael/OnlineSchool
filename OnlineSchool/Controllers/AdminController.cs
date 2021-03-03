@@ -20,14 +20,16 @@ namespace OnlineSchool.Controllers
         private readonly IStudentService _studentService;
         private readonly ITutorService _tutorService;
         private readonly ICourseService _courseService;
+        private readonly IEmailSender _emailSender;
         public AdminController(UserManager<ApplicationUser> userManager, IStudentService studentService, RoleManager<ApplicationRole> roleManager,ITutorService tutorService,
-            ICourseService courseService)
+            ICourseService courseService, IEmailSender emailSender)
         {
             _userManager = userManager;
             _studentService = studentService;
             _roleManager = roleManager;
             _tutorService = tutorService;
             _courseService = courseService;
+            _emailSender = emailSender;
         }
         public IActionResult Index()
         {
@@ -54,7 +56,8 @@ namespace OnlineSchool.Controllers
                 ModelState.AddModelError("", "One or more validations failed");
                 return View(model);
             }
-            var user = await CreateUserAccount(AppConstant.StudentRole, model.Email);
+            var password = GeneralFunction.GeneratePassword();
+            var user = await CreateUserAccount(AppConstant.StudentRole, model.Email,password);
             try
             {
                 var url = "wwwroot/default-profile-image.jpg";
@@ -62,13 +65,23 @@ namespace OnlineSchool.Controllers
                     url = await FileService.SaveDoc(model.ProfileImage, "ProfileImages", FileService.FileType.Image);
                 var student = model.Add(user.Id, url);
                 await _studentService.Add(student);
-                return RedirectToAction(nameof(Students));
             }
             catch (Exception ex)
             {
                 await _userManager.DeleteAsync(user);
                 throw;
             }
+            try
+            {
+                await _emailSender.SendEmailAsync(model.Email,
+                       "Student account",
+                                $"A student account has been created for you with the following credentials." +
+                                $"<br>Email: {model.Email}<br>Password: {password}" +
+                                $"<br>Login and change password to a more familiar one.");
+            }
+            catch (Exception ex)
+            { }
+            return RedirectToAction(nameof(Students));
         }
 
         public IActionResult EditStudent(int id)
@@ -115,18 +128,29 @@ namespace OnlineSchool.Controllers
                 ModelState.AddModelError("", "One or more validations failed");
                 return View(model);
             }
-            var user = await CreateUserAccount(AppConstant.LecturerRole, model.Email);
+            var password = GeneralFunction.GeneratePassword();
+            var user = await CreateUserAccount(AppConstant.LecturerRole, model.Email, password);
             try
             {
                 var tutor = model.Add(user.Id);
                 await _tutorService.Add(tutor);
-                return RedirectToAction(nameof(Tutors));
             }
             catch (Exception ex)
             {
                 await _userManager.DeleteAsync(user);
                 throw;
             }
+            try
+            {
+                await _emailSender.SendEmailAsync(model.Email,
+                       "Lecturer account",
+                                $"A lecturer account has been created for you with the following credentials." +
+                                $"<br>Email: {model.Email}<br>Password: {password}" +
+                                $"<br>Login and change your password to a more familiar one");
+            }
+            catch (Exception ex)
+            { }
+            return RedirectToAction(nameof(Tutors));
         }
 
         public IActionResult EditTutor(int id)
@@ -203,17 +227,17 @@ namespace OnlineSchool.Controllers
             return RedirectToAction(nameof(Courses));
         }
 
-        private async Task<ApplicationUser> CreateUserAccount(string userRole, string email)
+        private async Task<ApplicationUser> CreateUserAccount(string userRole, string email,string password)
         {
 
             if (await _roleManager.FindByNameAsync(userRole) == null)
                 await _roleManager.CreateAsync(new ApplicationRole(userRole));
 
             var user = new ApplicationUser() { Email = email, UserName = email };
-            var result = await _userManager.CreateAsync(user, GeneralFunction.GeneratePassword());
+            var result = await _userManager.CreateAsync(user, password);
             if (!result.Succeeded)
                 throw new Exception();
-            await _userManager.AddToRoleAsync(user, AppConstant.SuperAdminRole);
+            await _userManager.AddToRoleAsync(user, userRole);
             return user;
         }
 

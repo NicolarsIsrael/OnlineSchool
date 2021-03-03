@@ -16,6 +16,7 @@ using OnlineSchool.Data.Implementation;
 using OnlineSchool.Service.Contract;
 using OnlineSchool.Service.Implementation;
 using OnlineSchool.Core;
+using OnlineSchool.Utility;
 
 namespace OnlineSchool
 {
@@ -74,6 +75,10 @@ namespace OnlineSchool
             services.AddScoped(serviceType: typeof(ITutorService), implementationType: typeof(TutorService));
             services.AddScoped(serviceType: typeof(ICourseService), implementationType: typeof(CourseService));
             services.AddScoped(serviceType: typeof(ILectureService), implementationType: typeof(LectureService));
+
+
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.AddTransient<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

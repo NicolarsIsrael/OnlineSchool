@@ -14,5 +14,6 @@ namespace OnlineSchool.Service.Contract
         Course GetByCourseCode(string courseCode);
         Task Add(Course course);
         Task Update(Course course);
+        bool CheckIfStudentOfferCourse(Student student, Course course);
     }
 }

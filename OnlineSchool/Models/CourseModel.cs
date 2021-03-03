@@ -119,4 +119,30 @@ namespace OnlineSchool.Models
             return course;
         }
     }
+
+    public class CourseRegModel
+    {
+        public List<CourseRegisterationViewModel> Courses { get; set; }
+        public CourseRegModel() { }
+        public CourseRegModel(List<CourseRegisterationViewModel> courses)
+        {
+            Courses = courses;
+        }
+    }
+
+    public class CourseRegisterationViewModel
+    {
+        public int Id { get; set; }
+        public string CourseCode { get; set; }
+        public string CourseTitle { get; set; }
+        public bool IsSelected { get; set; }
+        public CourseRegisterationViewModel() { }
+        public CourseRegisterationViewModel(Course course, bool isSelected)
+        {
+            Id = course.Id;
+            CourseCode = course.CourseCode;
+            CourseTitle = course.CourseTitle;
+            IsSelected = isSelected;
+        }
+    }
 }

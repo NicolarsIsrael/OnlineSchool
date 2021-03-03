@@ -223,3 +223,5 @@ C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Raz
 C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AddCourse.cshtml.g.cs
 C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Courses.cshtml.g.cs
 C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Admin\EditCourse.cshtml.g.cs
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Course\Registeration.cshtml.g.cs
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Course\Index.cshtml.g.cs

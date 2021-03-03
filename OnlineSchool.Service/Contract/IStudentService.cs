@@ -11,6 +11,7 @@ namespace OnlineSchool.Service.Contract
         IEnumerable<Student> GetAll();
         int GetCount();
         Student Get(int id, bool allowNull = false);
+        Student GetByUserId(string userId, bool allowNull = false);
         Task Add(Student student);
         Task Update(Student student);
     }

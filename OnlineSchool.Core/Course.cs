@@ -11,7 +11,6 @@ namespace OnlineSchool.Core
         public string Description { get; set; }
         public int TutorId { get; set; }
         public Tutor Tutor { get; set; }
-        public ICollection<Student> Students { get; set; }
         public ICollection<Lecture> Lectures { get; set; }
     }
 }

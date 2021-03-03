@@ -35,6 +35,19 @@ namespace OnlineSchool.Service.Implementation
             return _uow.CourseRepo.GetAllInclude();
         }
 
+        public bool CheckIfStudentOfferCourse(Student student, Course course)
+        {
+            var count = student.Courses.Where(c=>c.Id==course.Id).Count();
+            if (count == 0)
+                return false;
+            return true;
+        }
+
+        //public IEnumerable<Course> GetAllForStudent(int studentId)
+        //{
+        //    return _uow.CourseRepo.Find(c=>c.)
+        //}
+
         public Course GetByCourseCode(string courseCode)
         {
             return _uow.CourseRepo.GetAll().Where(c => string.Compare(c.CourseCode, courseCode, true) == 0).ToList().FirstOrDefault();

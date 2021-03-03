@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineSchool.Data;
 
 namespace OnlineSchool.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210303133355_studnetCourse")]
+    partial class studnetCourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,15 +252,10 @@ namespace OnlineSchool.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("StudentId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TutorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
 
                     b.HasIndex("TutorId");
 
@@ -351,6 +348,21 @@ namespace OnlineSchool.Data.Migrations
                     b.ToTable("Student");
                 });
 
+            modelBuilder.Entity("OnlineSchool.Core.StudentCourse", b =>
+                {
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("StudentCourse");
+                });
+
             modelBuilder.Entity("OnlineSchool.Core.Tutor", b =>
                 {
                     b.Property<int>("Id")
@@ -440,10 +452,6 @@ namespace OnlineSchool.Data.Migrations
 
             modelBuilder.Entity("OnlineSchool.Core.Course", b =>
                 {
-                    b.HasOne("OnlineSchool.Core.Student", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("StudentId");
-
                     b.HasOne("OnlineSchool.Core.Tutor", "Tutor")
                         .WithMany("Courses")
                         .HasForeignKey("TutorId")
@@ -456,6 +464,21 @@ namespace OnlineSchool.Data.Migrations
                     b.HasOne("OnlineSchool.Core.Course", "Course")
                         .WithMany("Lectures")
                         .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OnlineSchool.Core.StudentCourse", b =>
+                {
+                    b.HasOne("OnlineSchool.Core.Course", "Course")
+                        .WithMany("StudentCourse")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnlineSchool.Core.Student", "Student")
+                        .WithMany("StudentCourse")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

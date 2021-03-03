@@ -5,6 +5,7 @@ using OnlineSchool.Service.Contract;
 using OnlineSchool.Utility;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,14 @@ namespace OnlineSchool.Service.Implementation
         public Student Get(int id, bool allowNull = false)
         {
             var student = _uow.StudentRepo.Get(id);
+            if (!allowNull && student == null)
+                throw new Exception();
+            return student;
+        }
+
+        public Student GetByUserId(string userId, bool allowNull = false)
+        {
+            var student = _uow.StudentRepo.GetAllInclude().Where(s => s.UserId == userId).FirstOrDefault();
             if (!allowNull && student == null)
                 throw new Exception();
             return student;

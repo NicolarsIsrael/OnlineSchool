@@ -12,5 +12,6 @@ namespace OnlineSchool.Core
         public string MatricNumber { get; set; }
         public string ProfilePicturePath { get; set; }
         public string UserId { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
     }
 }

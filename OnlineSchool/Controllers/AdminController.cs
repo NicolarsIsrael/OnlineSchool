@@ -20,9 +20,9 @@ namespace OnlineSchool.Controllers
         private readonly IStudentService _studentService;
         private readonly ITutorService _tutorService;
         private readonly ICourseService _courseService;
-        private readonly IEmailSender _emailSender;
+        private readonly IEmailService _emailSender;
         public AdminController(UserManager<ApplicationUser> userManager, IStudentService studentService, RoleManager<ApplicationRole> roleManager,ITutorService tutorService,
-            ICourseService courseService, IEmailSender emailSender)
+            ICourseService courseService, IEmailService emailSender)
         {
             _userManager = userManager;
             _studentService = studentService;

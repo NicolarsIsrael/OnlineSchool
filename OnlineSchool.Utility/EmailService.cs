@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace OnlineSchool.Utility
 {
-    public interface IEmailSender
+    public interface IEmailService
     {
         Task SendEmailAsync(string email, string subject, string message, List<string> multipleCCmail = null);
     }
-    public class EmailSender : IEmailSender
+    public class EmailService : IEmailService
     {
         public EmailSettings _emailSettings { get; }
-        public EmailSender(IOptions<EmailSettings> emailSettings)
+        public EmailService(IOptions<EmailSettings> emailSettings)
         {
             _emailSettings = emailSettings.Value;
         }

@@ -18,11 +18,13 @@ namespace OnlineSchool.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IStudentService _studentService;
         private readonly ICourseService _courseService;
-        public CourseController(UserManager<ApplicationUser> userManager, IStudentService studentService, ICourseService courseService)
+        private readonly ILectureService _lectureService;
+        public CourseController(UserManager<ApplicationUser> userManager, IStudentService studentService, ICourseService courseService, ILectureService lectureService)
         {
             _userManager = userManager;
             _studentService = studentService;
             _courseService = courseService;
+            _lectureService = lectureService;
         }
 
         [Authorize(Roles =AppConstant.StudentRole)]
@@ -30,6 +32,17 @@ namespace OnlineSchool.Controllers
         {
             var student = GetLoggedInStudent();
             var model = student.Courses.Select(c => new ViewCourseModel(c));
+            return View(model);
+        }
+
+        public IActionResult View(int id)
+        {
+            var student = GetLoggedInStudent();
+            var course = _courseService.Get(id);
+            if (!student.Courses.Contains(course))
+                return NotFound();
+            var lectures = _lectureService.GetAllForCourse(course.Id);
+            var model = new ViewCourseDetailsModel(course, lectures);
             return View(model);
         }
 

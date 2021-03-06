@@ -1,0 +1,24 @@
+﻿@model OnlineSchool.Models.ViewCourseDetailsModel
+@{
+    ViewData["Title"] = "Course";
+}
+
+<h1>Course</h1>
+<h4>@Model.CourseTitle</h4>
+<h6>@Model.CourseDescription</h6>
+<h6>@Model.TutorName</h6>
+<hr />
+<div>Lectures (@Model.NumberOfLectures)</div>
+<hr />
+@foreach (var lecture in Model.Lectures)
+{
+    <div>
+        <div>@lecture.Title</div>
+        <div>@lecture.BriefDescription</div>
+        <div>
+            <a href="@Url.Content(lecture.FilePath)" target="_blank">View</a>
+        </div>
+    </div>
+    <hr />
+}
+

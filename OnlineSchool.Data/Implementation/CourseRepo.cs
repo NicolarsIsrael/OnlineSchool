@@ -4,6 +4,7 @@ using OnlineSchool.Data.Contract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace OnlineSchool.Data.Implementation
@@ -29,6 +30,11 @@ namespace OnlineSchool.Data.Implementation
         {
             return _dbSet.Where(c => !c.IsDeleted)
                .Include(c => c.Tutor);
+        }
+        public IEnumerable<Course> FindInclude(Expression<Func<Course, bool>> predicate)
+        {
+            return _dbSet.Where(predicate).Where(t => t.IsDeleted == false)
+                   .Include(m => m.Tutor);
         }
     }
 }

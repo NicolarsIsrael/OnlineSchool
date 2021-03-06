@@ -30,6 +30,31 @@ namespace OnlineSchool.Models
         }
     }
 
+    public class ViewCourseDetailsModel
+    {
+        public int Id { get; set; }
+        [Display(Name = "Course title")]
+        public string CourseTitle { get; set; }
+        [Display(Name = "Course code")]
+        public string CourseCode { get; set; }
+        [Display(Name = "Description")]
+        public string CourseDescription { get; set; }
+        [Display(Name = "Tutor")]
+        public string TutorName { get; set; }
+        public int NumberOfLectures { get; set; }
+        public IEnumerable<ViewLectureModel> Lectures { get; set; }
+        public ViewCourseDetailsModel(Course course,IEnumerable<Lecture> lectures)
+        {
+            Id = course.Id;
+            CourseTitle = course.CourseTitle;
+            CourseCode = course.CourseCode;
+            CourseDescription = course.Description;
+            TutorName = course.Tutor.Fullname;
+            Lectures = lectures.Select(l => new ViewLectureModel(l));
+            NumberOfLectures = lectures.Count();
+        }
+    }
+
     public class AddCourseViewModel
     {
         [Required(ErrorMessage ="Course code is required")]

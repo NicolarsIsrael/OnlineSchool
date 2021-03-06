@@ -11,7 +11,7 @@ namespace OnlineSchool.Utility
     {
         public enum FileType
         {
-            Document, Image, ImageOrPdf, Video
+            Document, Image, ImageOrPdf, Video, All
         }
 
         public static async Task<string> SaveDoc(IFormFile file, string folderName, FileType fileType)

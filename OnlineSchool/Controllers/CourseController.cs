@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineSchool.Core;
 using OnlineSchool.Models;
 using OnlineSchool.Service.Contract;
+using OnlineSchool.Utility;
 
 namespace OnlineSchool.Controllers
 {
@@ -22,6 +24,8 @@ namespace OnlineSchool.Controllers
             _studentService = studentService;
             _courseService = courseService;
         }
+
+        [Authorize(Roles =AppConstant.StudentRole)]
         public IActionResult Index()
         {
             var student = GetLoggedInStudent();
@@ -29,6 +33,7 @@ namespace OnlineSchool.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = AppConstant.StudentRole)]
         public IActionResult Registeration()
         {
             var student = GetLoggedInStudent();
@@ -39,6 +44,7 @@ namespace OnlineSchool.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = AppConstant.StudentRole)]
         public async Task<IActionResult> Registeration(CourseRegModel model)
         {
             var student = GetLoggedInStudent();

@@ -4,6 +4,7 @@ using OnlineSchool.Data.Implementation;
 using OnlineSchool.Service.Contract;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,14 @@ namespace OnlineSchool.Service.Implementation
         public Tutor Get(int id, bool allowNull = false)
         {
             var tutor = _uow.TutorRepo.Get(id);
+            if (!allowNull && tutor == null)
+                throw new Exception();
+            return tutor;
+        }
+
+        public Tutor GetByUserId(string userId, bool allowNull = false)
+        {
+            var tutor = _uow.TutorRepo.FindInclude(t=>t.UserId==userId).FirstOrDefault();
             if (!allowNull && tutor == null)
                 throw new Exception();
             return tutor;

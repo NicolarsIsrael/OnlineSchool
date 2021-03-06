@@ -10,7 +10,9 @@ namespace OnlineSchool.Service.Contract
     {
         int GetCount();
         Course Get(int id, bool allowNull = false);
+        Course GetForTutor(int id, int tutorId, bool allowNull = false);
         IEnumerable<Course> GetAll();
+        IEnumerable<Course> GetAllForTutor(int tutorId);
         Course GetByCourseCode(string courseCode);
         Task Add(Course course);
         Task Update(Course course);

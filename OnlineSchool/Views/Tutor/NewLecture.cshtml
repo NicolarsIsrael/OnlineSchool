@@ -1,0 +1,68 @@
+﻿@model OnlineSchool.Models.AddLectureModel
+@{
+    ViewData["Title"] = "NewLecture";
+}
+
+<h1>New Lecture</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <input hidden asp-for="CourseId" />
+    <div class="form-group">
+        <label asp-for="Title" class=""></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BriefDescription" class=""></label>
+        <input asp-for="BriefDescription" class="form-control" />
+        <span asp-validation-for="BriefDescription" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="File" class=""></label>
+        <input asp-for="File" class="form-control" />
+        <span asp-validation-for="File" class="text-danger"></span>
+        <p class="text-danger mb-0" id="FileSizeError"></p>
+    </div>
+    <button type="submit" class="btn custom-primary-btn" onclick="return validate()">Add lecture</button>
+</form>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script>
+
+
+    var FileSizeError = document.getElementById("FileSizeError");
+    var File = document.getElementById("File");
+    var FileFormatError = document.getElementById("FileFormatError");
+
+    $(document).ready(function () {
+        $('#File').bind('change', function () {
+           
+            // check if the file is larger than 4mb
+            if (this.files[0].size > (50 * 1000 * 1024)) {
+                FileSizeError.textContent = "File too large. File should be less than 50mb";
+                //alertify.warning("File too large. File should be less than 4mb");
+            }
+            else {
+                // passed.
+                FileSizeError.textContent = "";
+            }
+        });
+    })
+
+
+    function validate() {
+        if (File.files[0].size > (50 * 1000 * 1024)) {
+
+            FileSizeError.textContent = "File too large. File should be less than 50mb";
+            //file too large
+            File.focus();
+
+            return false;
+        }
+    }
+</script>

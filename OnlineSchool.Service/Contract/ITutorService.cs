@@ -9,6 +9,7 @@ namespace OnlineSchool.Service.Contract
     public interface ITutorService
     {
         int GetCount();
+        Tutor GetByUserId(string userId, bool allowNull = false);
         IEnumerable<Tutor> GetAll();
         Tutor Get(int id, bool allowNull = false);
         Task Add(Tutor tutor);

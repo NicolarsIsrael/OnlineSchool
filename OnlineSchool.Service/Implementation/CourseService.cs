@@ -43,10 +43,18 @@ namespace OnlineSchool.Service.Implementation
             return true;
         }
 
-        //public IEnumerable<Course> GetAllForStudent(int studentId)
-        //{
-        //    return _uow.CourseRepo.Find(c=>c.)
-        //}
+        public Course GetForTutor(int id, int tutorId, bool allowNull = false)
+        {
+            var course = _uow.CourseRepo.FindInclude(l => l.Id == id && l.TutorId == tutorId).FirstOrDefault();
+            if (!allowNull && course == null)
+                throw new Exception();
+            return course;
+        }
+
+        public IEnumerable<Course> GetAllForTutor(int tutorId)
+        {
+            return _uow.CourseRepo.Find(c => c.TutorId == tutorId);
+        }
 
         public Course GetByCourseCode(string courseCode)
         {

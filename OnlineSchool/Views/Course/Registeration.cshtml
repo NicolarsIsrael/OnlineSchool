@@ -21,7 +21,7 @@
                 <tr>
 
                     <td style="width:30px">
-                        <input asp-for="Courses[i].IsSelected" type="checkbox" />
+                        <input asp-for="Courses[i].IsSelected" type="checkbox" class="coursesCheckBox"/>
                     </td>
                     <td>@Model.Courses[i].CourseCode</td>
                     <td>@Model.Courses[i].CourseTitle</td>
@@ -29,5 +29,29 @@
             }
         </tbody>
     </table>
-    <input type="submit" class="btn custom-primary-btn" value="Register"/>
+    <div class="my-2">
+        <input type="button" class="btn btn-primary btn-sm" value="Check all" onclick="selectAll()" />
+        <input type="button" class="btn btn-secondary btn-sm" value="Uncheck all" onclick="UnSelectAll()" />
+    </div>
+    <input type="submit" class="btn custom-primary-btn" value="Register" />
 </form>
+
+
+
+<script type="text/javascript">
+    function selectAll() {
+        var items = document.getElementsByClassName('coursesCheckBox');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = true;
+        }
+    }
+
+    function UnSelectAll() {
+        var items = document.getElementsByClassName('coursesCheckBox');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = false;
+        }
+    }
+</script>

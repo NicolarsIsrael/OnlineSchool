@@ -265,6 +265,59 @@ namespace OnlineSchool.Data.Migrations
                     b.ToTable("Course");
                 });
 
+            modelBuilder.Entity("OnlineSchool.Core.Exam", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("CoursePerentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateCreatedUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModifiedUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeadlineEndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeadlineStartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DurationInMinute")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExamTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TotalScore")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Exam");
+                });
+
             modelBuilder.Entity("OnlineSchool.Core.Lecture", b =>
                 {
                     b.Property<int>("Id")
@@ -304,6 +357,85 @@ namespace OnlineSchool.Data.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Lecture");
+                });
+
+            modelBuilder.Entity("OnlineSchool.Core.McqOption", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateCreatedUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModifiedUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Option")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OptionFile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("McqOption");
+                });
+
+            modelBuilder.Entity("OnlineSchool.Core.McqQuestion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnswerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateCreatedUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModifiedUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Question")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QuestionFile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExamId");
+
+                    b.ToTable("McqQuestion");
                 });
 
             modelBuilder.Entity("OnlineSchool.Core.Student", b =>
@@ -451,11 +583,34 @@ namespace OnlineSchool.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("OnlineSchool.Core.Exam", b =>
+                {
+                    b.HasOne("OnlineSchool.Core.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId");
+                });
+
             modelBuilder.Entity("OnlineSchool.Core.Lecture", b =>
                 {
                     b.HasOne("OnlineSchool.Core.Course", "Course")
                         .WithMany("Lectures")
                         .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OnlineSchool.Core.McqOption", b =>
+                {
+                    b.HasOne("OnlineSchool.Core.McqQuestion", "Question")
+                        .WithMany("Options")
+                        .HasForeignKey("QuestionId");
+                });
+
+            modelBuilder.Entity("OnlineSchool.Core.McqQuestion", b =>
+                {
+                    b.HasOne("OnlineSchool.Core.Exam", "Exam")
+                        .WithMany("MultiChoiceQuestions")
+                        .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

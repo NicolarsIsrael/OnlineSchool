@@ -25,5 +25,8 @@ namespace OnlineSchool.Data
         public DbSet<Tutor> Tutor { get; set; }
         public DbSet<Course> Course { get; set; }
         public DbSet<Lecture> Lecture { get; set; }
+        public DbSet<Exam> Exam { get; set; }
+        public DbSet<McqOption> McqOption { get; set; }
+        public DbSet<McqQuestion> McqQuestion { get; set; }
     }
 }

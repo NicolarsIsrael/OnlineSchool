@@ -75,6 +75,9 @@ namespace OnlineSchool
             services.AddScoped(serviceType: typeof(ITutorService), implementationType: typeof(TutorService));
             services.AddScoped(serviceType: typeof(ICourseService), implementationType: typeof(CourseService));
             services.AddScoped(serviceType: typeof(ILectureService), implementationType: typeof(LectureService));
+            services.AddScoped(serviceType: typeof(IExamService), implementationType: typeof(ExamService));
+            services.AddScoped(serviceType: typeof(IMcqOptionService), implementationType: typeof(McqOptionService));
+            services.AddScoped(serviceType: typeof(IMcqQuestionService), implementationType: typeof(McqQuestionService));
 
 
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));

@@ -13,6 +13,9 @@ namespace OnlineSchool.Data.Implementation
         public TutorRepo TutorRepo { get; set; }
         public CourseRepo CourseRepo { get; set; }
         public LectureRepo LectureRepo { get; set; }
+        public ExamRepo ExamRepo { get; set; }
+        public McqOptionRepo McqOptionRepo { get; set; }
+        public McqQuestionRepo McqQuestionRepo { get; set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             this._context = context;
@@ -20,6 +23,9 @@ namespace OnlineSchool.Data.Implementation
             this.TutorRepo = new TutorRepo(this._context);
             this.CourseRepo = new CourseRepo(this._context);
             this.LectureRepo = new LectureRepo(this._context);
+            this.ExamRepo = new ExamRepo(this._context);
+            this.McqQuestionRepo = new McqQuestionRepo(this._context);
+            this.McqOptionRepo = new McqOptionRepo(this._context);
         }
 
         public async Task Save()

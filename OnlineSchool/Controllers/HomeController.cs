@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OnlineSchool.Core;
 using OnlineSchool.Models;
 using OnlineSchool.Service.Contract;
+using OnlineSchool.Utility;
 
 namespace OnlineSchool.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ILectureService _service;
 
-        public HomeController(ILogger<HomeController> logger, ILectureService service)
+        public HomeController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService, IExamService examService, IEmailService emailSender)
+            : base(userManager, roleManager, studentService, lectureService, tutorService, courseService, examService, emailSender)
         {
-            _logger = logger;
-            _service = service;
         }
-
         public IActionResult Index()
         {
             //return Content(_service.GetCount().ToString());

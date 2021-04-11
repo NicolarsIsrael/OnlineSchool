@@ -7,7 +7,7 @@ namespace OnlineSchool.Core
     public class Exam : Entity
     {
         public string ExamTitle { get; set; }
-        public int TotalScore { get; set; }
+        public decimal TotalScore { get; set; }
         public decimal CoursePerentage { get; set; }
         public int DurationInMinute { get; set; }
         public Course Course { get; set; }

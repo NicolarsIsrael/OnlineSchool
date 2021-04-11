@@ -8,12 +8,28 @@ using System.Threading.Tasks;
 
 namespace OnlineSchool.Models
 {
+    public class TutorCourseModel
+    {
+        public int NumberOfLectures { get; set; }
+        public int NumberOfExams { get; set; }
+        public IEnumerable<ViewLectureModel> Lectures { get; set; }
+        public IEnumerable<ViewExamModel> Exams { get; set; }
+
+        public TutorCourseModel(IEnumerable<ViewLectureModel> lectures, IEnumerable<ViewExamModel> exams)
+        {
+            Exams = exams;
+            Lectures = lectures;
+            NumberOfExams = exams.Count();
+            NumberOfLectures = lectures.Count();
+        }
+    }
+
     public class ViewTutorModel
     {
         public int Id { get; set; }
         public string UserId { get; set; }
         public string Email { get; set; }
-        [Display(Name="Full name")]
+        [Display(Name = "Full name")]
         public string Fullname { get; set; }
         public ViewTutorModel(Tutor tutor)
         {

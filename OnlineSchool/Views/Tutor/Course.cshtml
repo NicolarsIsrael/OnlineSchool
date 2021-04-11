@@ -24,3 +24,16 @@
     <hr />
 }
 
+<hr />
+<div>Exams (@Model.NumberOfExams)</div>
+<div>
+    <a asp-action="NewExam" asp-controller="Tutor" asp-route-id="@Model.Id">New Exam</a>
+</div>
+@foreach(var exam in Model.Exams)
+{
+    <div>
+        <div>@exam.Title</div>
+        <div>@exam.TotalScore</div>
+        <div>@exam.StartTime</div>
+    </div>
+}

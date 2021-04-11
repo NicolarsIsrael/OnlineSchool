@@ -13,18 +13,11 @@ using OnlineSchool.Utility;
 
 namespace OnlineSchool.Controllers
 {
-    public class CourseController : Controller
+    public class CourseController : BaseController
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IStudentService _studentService;
-        private readonly ICourseService _courseService;
-        private readonly ILectureService _lectureService;
-        public CourseController(UserManager<ApplicationUser> userManager, IStudentService studentService, ICourseService courseService, ILectureService lectureService)
+        public CourseController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService, IExamService examService, IEmailService emailSender)
+            : base(userManager, roleManager, studentService, lectureService, tutorService, courseService, examService, emailSender)
         {
-            _userManager = userManager;
-            _studentService = studentService;
-            _courseService = courseService;
-            _lectureService = lectureService;
         }
 
         [Authorize(Roles =AppConstant.StudentRole)]
@@ -69,20 +62,5 @@ namespace OnlineSchool.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private ApplicationUser GetLoggedInUser(bool allowNull=false)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = _userManager.Users.Where(u => u.Id == userId).FirstOrDefault();
-            if (!allowNull && user == null)
-                throw new Exception();
-            return user;
-        }
-
-        private Student GetLoggedInStudent()
-        {
-            var userId = GetLoggedInUser().Id;
-            var student = _studentService.GetByUserId(userId);
-            return student;
-        }
     }
 }

@@ -13,23 +13,11 @@ using OnlineSchool.Utility;
 namespace OnlineSchool.Controllers
 {
     [Authorize(Roles =AppConstant.SuperAdminRole)]
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<ApplicationRole> _roleManager;
-        private readonly IStudentService _studentService;
-        private readonly ITutorService _tutorService;
-        private readonly ICourseService _courseService;
-        private readonly IEmailService _emailSender;
-        public AdminController(UserManager<ApplicationUser> userManager, IStudentService studentService, RoleManager<ApplicationRole> roleManager,ITutorService tutorService,
-            ICourseService courseService, IEmailService emailSender)
+        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService, IExamService examService, IEmailService emailSender)
+            : base(userManager, roleManager, studentService, lectureService, tutorService, courseService, examService, emailSender)
         {
-            _userManager = userManager;
-            _studentService = studentService;
-            _roleManager = roleManager;
-            _tutorService = tutorService;
-            _courseService = courseService;
-            _emailSender = emailSender;
         }
         public IActionResult Index()
         {

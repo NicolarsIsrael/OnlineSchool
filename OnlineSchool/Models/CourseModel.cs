@@ -42,8 +42,10 @@ namespace OnlineSchool.Models
         [Display(Name = "Tutor")]
         public string TutorName { get; set; }
         public int NumberOfLectures { get; set; }
+        public int NumberOfExams { get; set; }
         public IEnumerable<ViewLectureModel> Lectures { get; set; }
-        public ViewCourseDetailsModel(Course course,IEnumerable<Lecture> lectures)
+        public IEnumerable<ViewExamModel> Exams { get; set; }
+        public ViewCourseDetailsModel(Course course, IEnumerable<Lecture> lectures)
         {
             Id = course.Id;
             CourseTitle = course.CourseTitle;
@@ -52,6 +54,19 @@ namespace OnlineSchool.Models
             TutorName = course.Tutor.Fullname;
             Lectures = lectures.Select(l => new ViewLectureModel(l));
             NumberOfLectures = lectures.Count();
+        }
+
+        public ViewCourseDetailsModel(Course course,IEnumerable<Lecture> lectures, IEnumerable<ViewExamModel> exams)
+        {
+            Id = course.Id;
+            CourseTitle = course.CourseTitle;
+            CourseCode = course.CourseCode;
+            CourseDescription = course.Description;
+            TutorName = course.Tutor.Fullname;
+            Lectures = lectures.Select(l => new ViewLectureModel(l));
+            NumberOfLectures = lectures.Count();
+            Exams = exams;
+            NumberOfExams = exams.Count();
         }
     }
 

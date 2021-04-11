@@ -66,5 +66,12 @@ namespace OnlineSchool.Utility
             return $"~/{url.Remove(0, 8)}";
         }
 
+        public static string DateInString(DateTime date, bool includeTime= true)
+        {
+            if (includeTime)
+                return date.ToString("dd/MMM/yyyy - hh:mm:ss");
+            else
+                return date.ToString("dd/MMM/yyyy");
+        }
     }
 }

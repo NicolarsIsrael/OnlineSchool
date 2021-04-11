@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineSchool.Core;
@@ -12,18 +13,12 @@ using OnlineSchool.Utility;
 
 namespace OnlineSchool.Controllers
 {
-    public class TutorController : Controller
+    [Authorize(Roles =AppConstant.LecturerRole)]
+    public class TutorController : BaseController
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ICourseService _courseService;
-        private readonly ILectureService _lectureService;
-        private readonly ITutorService _tutorService;
-        public TutorController(ICourseService courseService, ILectureService lectureService, ITutorService tutorService, UserManager<ApplicationUser> userManager)
+        public TutorController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService,IExamService examService, IEmailService emailSender)
+            : base(userManager, roleManager, studentService, lectureService, tutorService, courseService, examService, emailSender)
         {
-            _courseService = courseService;
-            _lectureService = lectureService;
-            _tutorService = tutorService;
-            _userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -43,7 +38,8 @@ namespace OnlineSchool.Controllers
             var tutor = GetLoggedInTutor();
             var course = _courseService.GetForTutor(id, tutor.Id);
             var lectures = _lectureService.GetAllForCourse(course.Id);
-            var model = new ViewCourseDetailsModel(course, lectures);
+            var exams = _examService.GetForCourse(id).Select(e => new ViewExamModel(e));
+            var model = new ViewCourseDetailsModel(course, lectures,exams);
             return View(model);
         }
 
@@ -70,21 +66,24 @@ namespace OnlineSchool.Controllers
             return RedirectToAction(nameof(Course), new { id = lecture.CourseId });
         }
 
-
-        private ApplicationUser GetLoggedInUser(bool allowNull = false)
+        public IActionResult NewExam(int id)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = _userManager.Users.Where(u => u.Id == userId).FirstOrDefault();
-            if (!allowNull && user == null)
-                throw new Exception();
-            return user;
+            var course = _courseService.Get(id);
+            return View(new NewExamModel(course.Id));
         }
 
-        private Tutor GetLoggedInTutor()
+        [HttpPost]
+        public async Task<IActionResult> NewExam(NewExamModel model)
         {
-            var userId = GetLoggedInUser().Id;
-            var tutor = _tutorService.GetByUserId(userId);
-            return tutor;
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "One or more validations failed");
+                return View(model);
+            }
+            var course = _courseService.Get(model.CourseId);
+            var exam = model.Add(course);
+            await _examService.Add(exam);
+            return RedirectToAction(nameof(Course), new { id = model.CourseId });
         }
     }
 }

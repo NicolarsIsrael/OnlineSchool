@@ -85,5 +85,25 @@ namespace OnlineSchool.Controllers
             await _examService.Add(exam);
             return RedirectToAction(nameof(Course), new { id = model.CourseId });
         }
+
+        public IActionResult EditExam(int id)
+        {
+            var exam = _examService.Get(id);
+            return View(new EditExamModel(exam));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditExam(EditExamModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "One or more validations failed");
+                return View(model);
+            }
+            var exam = _examService.Get(model.ExamId);
+            exam = model.Edit(exam);
+            await _examService.Update(exam);
+            return RedirectToAction(nameof(Course), new { id = model.CourseId });
+        }
     }
 }

@@ -11,5 +11,7 @@ namespace OnlineSchool.Service.Contract
         Task Add(Exam exam);
         IEnumerable<Exam> GetAll();
         IEnumerable<Exam> GetForCourse(int courseId);
+        Task Update(Exam exam);
+        Exam Get(int id, bool allowNull = false);
     }
 }

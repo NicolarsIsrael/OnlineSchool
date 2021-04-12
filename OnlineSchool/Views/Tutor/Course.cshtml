@@ -24,8 +24,8 @@
     <hr />
 }
 
-<hr />
 <div>Exams (@Model.NumberOfExams)</div>
+<hr />
 <div>
     <a asp-action="NewExam" asp-controller="Tutor" asp-route-id="@Model.Id">New Exam</a>
 </div>
@@ -35,5 +35,7 @@
         <div>@exam.Title</div>
         <div>@exam.TotalScore</div>
         <div>@exam.StartTime</div>
+        <a asp-action="EditExam" asp-controller="Tutor" asp-route-id="@exam.Id">Edit</a>
+        <hr />
     </div>
 }

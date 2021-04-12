@@ -10,6 +10,7 @@ namespace OnlineSchool.Models
 {
     public class ViewExamModel
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public decimal TotalScore { get; set; }
         public decimal CoursePercentage { get; set; }
@@ -21,6 +22,7 @@ namespace OnlineSchool.Models
         public string DeadlineEndTime { get; set; }
         public ViewExamModel(Exam exam)
         {
+            Id = exam.Id;
             Title = exam.ExamTitle;
             CoursePercentage = exam.CoursePerentage;
             DurationInMinutes = exam.DurationInMinute;
@@ -89,6 +91,67 @@ namespace OnlineSchool.Models
                 DeadlineStartTime = DeadlineStartTime,
                 DeadlineEndTime = DeadlineEndTime,
             };
+        }
+    }
+    public class EditExamModel
+    {
+        public int ExamId { get; set; }
+
+        [RegularExpression("^[a-zA-Z0-9].*$", ErrorMessage = "Title should begin with letter or number")]
+        [Required(ErrorMessage = "Title is required")]
+        public string Title { get; set; }
+
+        [Display(Name = "Course percentage")]
+        [Range(0, 100, ErrorMessage = "Course percentage should be between 0 and 100")]
+        [Required(ErrorMessage = "Course percentage is required")]
+        public decimal CoursePerentage { get; set; }
+
+        [Display(Name = "Duration in minute")]
+        [Range(0, int.MaxValue, ErrorMessage = "Duration can not be negative")]
+        [Required(ErrorMessage = "Duration is required")]
+        public int DurationInMinute { get; set; }
+
+        public int CourseId { get; set; }
+
+        [Display(Name = "Start time")]
+        [Required(ErrorMessage = "Start time is required")]
+        public DateTime StartTime { get; set; }
+
+        [Display(Name = "Deadline start time")]
+        [Required(ErrorMessage = "Deadline start time is required")]
+        public DateTime DeadlineStartTime { get; set; }
+
+        [Display(Name = "Deadline end time")]
+        [Required(ErrorMessage = "Deadline end time is required")]
+        public DateTime DeadlineEndTime { get; set; }
+
+        public EditExamModel()
+        {
+
+        }
+
+        public EditExamModel(Exam exam)
+        {
+            ExamId = exam.Id;
+            Title = exam.ExamTitle;
+            CoursePerentage = exam.CoursePerentage;
+            DurationInMinute = exam.DurationInMinute;
+            StartTime = exam.StartTime;
+            DeadlineEndTime = exam.DeadlineEndTime;
+            DeadlineStartTime = exam.DeadlineStartTime;
+            CourseId = exam.Course.Id;
+        }
+
+        public Exam Edit(Exam exam)
+        {
+            exam.ExamTitle = Title;
+            exam.CoursePerentage = CoursePerentage;
+            exam.DurationInMinute = DurationInMinute;
+            exam.StartTime = StartTime;
+            exam.DeadlineEndTime = DeadlineEndTime;
+            exam.DeadlineStartTime = DeadlineStartTime;
+
+            return exam;
         }
     }
 }

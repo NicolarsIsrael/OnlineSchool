@@ -23,6 +23,20 @@ namespace OnlineSchool.Service.Implementation
             await _uow.Save();
         }
 
+        public async Task Update(Exam exam)
+        {
+            _uow.ExamRepo.Update(exam);
+            await _uow.Save();
+        }
+
+        public Exam Get(int id, bool allowNull = false)
+        {
+            var exam = _uow.ExamRepo.GetInclude(id);
+            if (exam == null && !allowNull)
+                throw new Exception();
+            return exam;
+        }
+
         public IEnumerable<Exam> GetAll()
         {
             return _uow.ExamRepo.GetAllInclude();

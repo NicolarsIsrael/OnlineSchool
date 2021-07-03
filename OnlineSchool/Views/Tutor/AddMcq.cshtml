@@ -1,0 +1,46 @@
+﻿@model OnlineSchool.Models.AddMcqModel
+@{
+    ViewData["Title"] = "Add mcq";
+}
+
+<h1>Add mcq</h1>
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="ExamId" hidden />
+    <div class="form-group">
+        <label asp-for="Question" class=""></label>
+        <input asp-for="Question" class="form-control" />
+        <span asp-validation-for="Question" class="text-danger"></span>
+    </div>
+
+    <div class="row">
+        @for (int i = 0, j=1; i < 4; i++,j++)
+        {
+            <div class="form-group col-md-6">
+                <label class="">Option @j</label>
+                <input name="Options[@i].AnsId" hidden value="@i" />
+                <input name="Options[@i].Option" class="form-control" />
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label asp-for="AnswerId"></label>
+            <select asp-for="AnswerId" class="form-control">
+                @for (int i = 0, j=1; i < 4; i++,j++)
+                {
+                    <option value="@i">Option @j</option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Score" class=""></label>
+            <input asp-for="Score" class="form-control" />
+            <span asp-validation-for="Score" class="text-danger"></span>
+        </div>
+    </div>
+    <button type="submit" class="btn custom-primary-btn">Add mcq</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

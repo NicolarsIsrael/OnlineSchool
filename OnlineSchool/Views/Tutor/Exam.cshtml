@@ -1,0 +1,31 @@
+﻿@model OnlineSchool.Models.ViewExamModel
+@{
+    ViewData["Title"] = "Exam";
+}
+
+<h3>@Model.CourseCode</h3>
+<h4>@Model.CourseTitle</h4>
+<h6>@Model.Title</h6>
+<hr />
+<div>Total score: @Model.TotalScore</div>
+<div>Duration :@Model.DurationInMinutes minutes</div>
+<div>Start time: @Model.StartTime</div>
+<div>Deadline start time: @Model.DeadlineStartTime</div>
+<div>End time: @Model.DeadlineEndTime</div>
+
+<hr />
+<a asp-action="AddMcq" asp-controller="tutor" asp-route-id="@Model.Id" class="btn custom-primary-btn">Add MCQ</a>
+@foreach (var mcq in Model.McqQuestions)
+{
+    <div>
+        <div>@mcq.Question</div>
+        @foreach (var option in mcq.Options)
+        {
+            <div>@option.Option</div>
+        }
+    </div>
+    <div>[@mcq.Score marks]</div>
+    <a asp-action="EditMcq" asp-route-id="@mcq.Id">Edit</a>
+    <hr />
+}
+

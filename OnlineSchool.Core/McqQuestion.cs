@@ -12,5 +12,6 @@ namespace OnlineSchool.Core
         public int AnswerId { get; set; }
         public int ExamId { get; set; }
         public Exam Exam { get; set; }
+        public decimal Score { get; set; }
     }
 }

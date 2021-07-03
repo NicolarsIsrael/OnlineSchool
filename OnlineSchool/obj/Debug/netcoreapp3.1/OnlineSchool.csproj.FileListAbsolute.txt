@@ -231,3 +231,6 @@ C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Raz
 C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Course\View.cshtml.g.cs
 C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Tutor\NewExam.cshtml.g.cs
 C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Tutor\EditExam.cshtml.g.cs
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Tutor\Exam.cshtml.g.cs
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Tutor\AddMcq.cshtml.g.cs
+C:\Users\DELL\source\repos\OnlineSchool\OnlineSchool\obj\Debug\netcoreapp3.1\Razor\Views\Tutor\EditMcq.cshtml.g.cs

@@ -23,18 +23,24 @@ namespace OnlineSchool.Data.Implementation
         {
             return _dbSet.Where(c => c.Id == id && !c.IsDeleted)
                 .Include(c => c.Course)
+                .Include(c=>c.MultiChoiceQuestions)
+                    .ThenInclude(c=>c.Options)
                 .FirstOrDefault();
         }
 
         public IEnumerable<Exam> GetAllInclude()
         {
             return _dbSet.Where(c => !c.IsDeleted)
-               .Include(c => c.Course);
+               .Include(c => c.Course)
+                .Include(c => c.MultiChoiceQuestions)
+                    .ThenInclude(c => c.Options);
         }
         public IEnumerable<Exam> FindInclude(Expression<Func<Exam, bool>> predicate)
         {
             return _dbSet.Where(predicate).Where(t => t.IsDeleted == false)
-                   .Include(m => m.Course);
+                   .Include(m => m.Course)
+                .Include(c => c.MultiChoiceQuestions)
+                    .ThenInclude(c => c.Options);
         }
     }
 }

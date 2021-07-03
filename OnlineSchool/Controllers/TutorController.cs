@@ -16,9 +16,15 @@ namespace OnlineSchool.Controllers
     [Authorize(Roles =AppConstant.LecturerRole)]
     public class TutorController : BaseController
     {
-        public TutorController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService,IExamService examService, IEmailService emailSender)
+        public readonly IMcqQuestionService _mcqQuestionService;
+        public readonly IMcqOptionService _mcqOptionService;
+
+        public TutorController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService,IExamService examService, IEmailService emailSender, IMcqQuestionService mcqQuestionService,
+            IMcqOptionService mcqOptionService)
             : base(userManager, roleManager, studentService, lectureService, tutorService, courseService, examService, emailSender)
         {
+            _mcqQuestionService = mcqQuestionService;
+            _mcqOptionService = mcqOptionService;
         }
         public IActionResult Index()
         {
@@ -66,6 +72,12 @@ namespace OnlineSchool.Controllers
             return RedirectToAction(nameof(Course), new { id = lecture.CourseId });
         }
 
+        public IActionResult Exam(int id)
+        {
+            var exam = _examService.Get(id);
+            return View(new ViewExamModel(exam));
+        }
+
         public IActionResult NewExam(int id)
         {
             var course = _courseService.Get(id);
@@ -104,6 +116,58 @@ namespace OnlineSchool.Controllers
             exam = model.Edit(exam);
             await _examService.Update(exam);
             return RedirectToAction(nameof(Course), new { id = model.CourseId });
+        }
+
+        public IActionResult AddMcq(int id)
+        {
+            var exam = _examService.Get(id);
+            //todo: check if tutor is the course tutor
+            return View(new AddMcqModel(exam));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMcq(AddMcqModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "One or more validations failed");
+                return View(model);
+            }
+            var exam = _examService.Get(model.ExamId);
+            var options = new List<McqOption>();
+            foreach (var option in model.Options)
+                options.Add(option.Add());
+            await _mcqQuestionService.Add(model.Add(options, exam));
+            return RedirectToAction(nameof(Exam), new { id = model.ExamId });
+        }
+
+        public IActionResult EditMcq(int id)
+        {
+            var mcq = _mcqQuestionService.GetById(id);
+            var model = new EditMcqModel(mcq);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditMcq(EditMcqModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "One or more validations failed");
+                return View(model);
+            }
+
+            var mcq = _mcqQuestionService.GetById(model.Id);
+            foreach(var opt in model.Options)
+            {
+                var option = _mcqOptionService.Get(opt.Id);
+                option = opt.Edit(option);
+                await _mcqOptionService.Update(option);
+            }
+            mcq = model.Edit(mcq);
+            await _mcqQuestionService.Update(mcq);
+
+            return RedirectToAction(nameof(Exam), new { id = mcq.ExamId });
         }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineSchool.Data;
 
 namespace OnlineSchool.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210412185039_AnsInOption")]
+    partial class AnsInOption
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -384,18 +386,18 @@ namespace OnlineSchool.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("McqQuestionId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Option")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OptionFile")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("QuestionId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("McqQuestionId");
+                    b.HasIndex("QuestionId");
 
                     b.ToTable("McqOption");
                 });
@@ -609,9 +611,7 @@ namespace OnlineSchool.Data.Migrations
                 {
                     b.HasOne("OnlineSchool.Core.McqQuestion", "Question")
                         .WithMany("Options")
-                        .HasForeignKey("McqQuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuestionId");
                 });
 
             modelBuilder.Entity("OnlineSchool.Core.McqQuestion", b =>

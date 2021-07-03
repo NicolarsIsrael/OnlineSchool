@@ -21,26 +21,36 @@ namespace OnlineSchool.Data.Implementation
 
         public Exam GetInclude(int id)
         {
-            return _dbSet.Where(c => c.Id == id && !c.IsDeleted)
+            var exam = _dbSet.Where(c => c.Id == id && !c.IsDeleted)
                 .Include(c => c.Course)
                 .Include(c=>c.MultiChoiceQuestions)
                     .ThenInclude(c=>c.Options)
                 .FirstOrDefault();
+            exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted);
+            return exam;
         }
 
         public IEnumerable<Exam> GetAllInclude()
         {
-            return _dbSet.Where(c => !c.IsDeleted)
+            var exams = _dbSet.Where(c => !c.IsDeleted)
                .Include(c => c.Course)
                 .Include(c => c.MultiChoiceQuestions)
                     .ThenInclude(c => c.Options);
+
+            foreach(var exam in exams)
+                exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted);
+            return exams;
         }
         public IEnumerable<Exam> FindInclude(Expression<Func<Exam, bool>> predicate)
         {
-            return _dbSet.Where(predicate).Where(t => t.IsDeleted == false)
+            var exams = _dbSet.Where(predicate).Where(t => t.IsDeleted == false)
                    .Include(m => m.Course)
                 .Include(c => c.MultiChoiceQuestions)
                     .ThenInclude(c => c.Options);
+
+            foreach (var exam in exams)
+                exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted);
+            return exams;
         }
     }
 }

@@ -76,10 +76,12 @@ namespace OnlineSchool.Models
 
     public class ViewMcqOptionModel
     {
+        public int AnsId { get; set; }
         public string Option { get; set; }
         public ViewMcqOptionModel(McqOption option)
         {
             Option = option.Option;
+            AnsId = option.AnsId;
         }
     }
 

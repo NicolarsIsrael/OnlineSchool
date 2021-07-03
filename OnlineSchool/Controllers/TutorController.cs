@@ -75,6 +75,8 @@ namespace OnlineSchool.Controllers
         public IActionResult Exam(int id)
         {
             var exam = _examService.Get(id);
+            if (exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
             return View(new ViewExamModel(exam));
         }
 
@@ -101,6 +103,8 @@ namespace OnlineSchool.Controllers
         public IActionResult EditExam(int id)
         {
             var exam = _examService.Get(id);
+            if (exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
             return View(new EditExamModel(exam));
         }
 
@@ -113,6 +117,9 @@ namespace OnlineSchool.Controllers
                 return View(model);
             }
             var exam = _examService.Get(model.ExamId);
+            if (exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
+
             exam = model.Edit(exam);
             await _examService.Update(exam);
             return RedirectToAction(nameof(Course), new { id = model.CourseId });
@@ -121,7 +128,9 @@ namespace OnlineSchool.Controllers
         public IActionResult AddMcq(int id)
         {
             var exam = _examService.Get(id);
-            //todo: check if tutor is the course tutor
+            if (exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
+
             return View(new AddMcqModel(exam));
         }
 
@@ -134,6 +143,9 @@ namespace OnlineSchool.Controllers
                 return View(model);
             }
             var exam = _examService.Get(model.ExamId);
+            if (exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
+
             var options = new List<McqOption>();
             foreach (var option in model.Options)
                 options.Add(option.Add());
@@ -144,6 +156,9 @@ namespace OnlineSchool.Controllers
         public IActionResult EditMcq(int id)
         {
             var mcq = _mcqQuestionService.GetById(id);
+            if (mcq.Exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
+
             var model = new EditMcqModel(mcq);
             return View(model);
         }
@@ -158,7 +173,10 @@ namespace OnlineSchool.Controllers
             }
 
             var mcq = _mcqQuestionService.GetById(model.Id);
-            foreach(var opt in model.Options)
+            if (mcq.Exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
+
+            foreach (var opt in model.Options)
             {
                 var option = _mcqOptionService.Get(opt.Id);
                 option = opt.Edit(option);
@@ -166,6 +184,17 @@ namespace OnlineSchool.Controllers
             }
             mcq = model.Edit(mcq);
             await _mcqQuestionService.Update(mcq);
+
+            return RedirectToAction(nameof(Exam), new { id = mcq.ExamId });
+        }
+
+        public async Task<IActionResult> DeleteMcq(int id)
+        {
+            var mcq = _mcqQuestionService.GetById(id);
+            if (mcq.Exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
+
+            await _mcqQuestionService.Delete(mcq);
 
             return RedirectToAction(nameof(Exam), new { id = mcq.ExamId });
         }

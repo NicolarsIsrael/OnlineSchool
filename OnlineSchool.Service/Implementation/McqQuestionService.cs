@@ -40,5 +40,11 @@ namespace OnlineSchool.Service.Implementation
              _uow.McqQuestionRepo.Update(mcq);
             await _uow.Save();
         }
+
+        public async Task Delete(McqQuestion mcq)
+        {
+            _uow.McqQuestionRepo.Remove(mcq);
+            await _uow.Save();
+        }
     }
 }

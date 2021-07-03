@@ -24,6 +24,7 @@ namespace OnlineSchool.Data.Implementation
             return _dbSet.Where(c => c.Id == id && !c.IsDeleted)
                 .Include(c => c.Options)
                 .Include(c=>c.Exam)
+                    .ThenInclude(e=>e.Course)
                 .FirstOrDefault();
         }
 
@@ -31,13 +32,15 @@ namespace OnlineSchool.Data.Implementation
         {
             return _dbSet.Where(c => !c.IsDeleted)
                .Include(c => c.Options)
-               .Include(c=>c.Exam);
+               .Include(c=>c.Exam)
+                    .ThenInclude(e => e.Course);
         }
         public IEnumerable<McqQuestion> FindInclude(Expression<Func<McqQuestion, bool>> predicate)
         {
             return _dbSet.Where(predicate).Where(t => t.IsDeleted == false)
                    .Include(m => m.Options)
-                   .Include(m=>m.Exam);
+                   .Include(m=>m.Exam)
+                    .ThenInclude(e => e.Course);
         }
     }
 }

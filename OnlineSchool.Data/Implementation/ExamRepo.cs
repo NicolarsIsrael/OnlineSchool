@@ -26,7 +26,7 @@ namespace OnlineSchool.Data.Implementation
                 .Include(c=>c.MultiChoiceQuestions)
                     .ThenInclude(c=>c.Options)
                 .FirstOrDefault();
-            exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted);
+            exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted).ToList();
             return exam;
         }
 
@@ -38,7 +38,7 @@ namespace OnlineSchool.Data.Implementation
                     .ThenInclude(c => c.Options);
 
             foreach(var exam in exams)
-                exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted);
+                exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted).ToList();
             return exams;
         }
         public IEnumerable<Exam> FindInclude(Expression<Func<Exam, bool>> predicate)
@@ -49,7 +49,7 @@ namespace OnlineSchool.Data.Implementation
                     .ThenInclude(c => c.Options);
 
             foreach (var exam in exams)
-                exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted);
+                exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted).ToList();
             return exams;
         }
     }

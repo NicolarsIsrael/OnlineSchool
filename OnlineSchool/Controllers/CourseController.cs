@@ -35,7 +35,8 @@ namespace OnlineSchool.Controllers
             if (!student.Courses.Contains(course))
                 return NotFound();
             var lectures = _lectureService.GetAllForCourse(course.Id);
-            var model = new ViewCourseDetailsModel(course, lectures);
+            var exams = _examService.GetForCourse(course.Id).ToList();
+            var model = new ViewCourseDetailsModel(course, lectures, exams.Select(e=> new ViewExamModel(e)));
             return View(model);
         }
 

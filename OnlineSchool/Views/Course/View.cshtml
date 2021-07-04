@@ -22,3 +22,11 @@
     <hr />
 }
 
+<h4>Exams</h4>
+<hr />
+@foreach(var exam in Model.Exams)
+{
+    <div>@exam.Title [@exam.TotalScore]</div>
+    <a asp-action="index" asp-controller="exam" asp-route-id="@exam.Id">Take exam</a>
+}
+

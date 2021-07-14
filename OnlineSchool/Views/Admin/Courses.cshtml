@@ -1,54 +1,61 @@
 ﻿@model IEnumerable<OnlineSchool.Models.ViewCourseModel>
 
 @{
-    ViewData["Title"] = "Students";
+    ViewData["Title"] = "Students"; 
+    Layout = "_AdminLayout";
+
 }
 
-<h1>Courses</h1>
+<div class="element-wrapper">
+    <div class="element-actions">
+        <a class="mr-2 mb-2 btn btn-primary btn-rounded" asp-action="AddCourse">Create New</a>
+    </div>
+    <h6 class="element-header">
+        Courses
+    </h6>
+    <div class="table-responsive">
+        <table class="table table-lightborder">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseDescription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TutorName)
+                    </th>
+                    <th>
 
-<p>
-    <a asp-action="AddCourse">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TutorName)
-            </th>
-            <th>
-
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CourseCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CourseTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CourseDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TutorName)
-                </td>
-                <td>
-                    <a asp-controller="Admin" asp-action="EditCourse" asp-route-id="@item.Id">Edit</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TutorName)
+                        </td>
+                        <td>
+                            <a class="mr-2 mb-2 btn btn-secondary" asp-controller="Admin" asp-action="EditCourse" asp-route-id="@item.Id">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

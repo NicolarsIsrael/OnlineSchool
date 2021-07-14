@@ -76,25 +76,25 @@ function os_init_sub_menus() {
 
 $(function () {
 
-  // #1. CHAT APP
+  //// #1. CHAT APP
 
-  $('.floated-chat-btn, .floated-chat-w .chat-close').on('click', function () {
-    $('.floated-chat-w').toggleClass('active');
-    return false;
-  });
+  //$('.floated-chat-btn, .floated-chat-w .chat-close').on('click', function () {
+  //  $('.floated-chat-w').toggleClass('active');
+  //  return false;
+  //});
 
-  $('.message-input').on('keypress', function (e) {
-    if (e.which == 13) {
-      $('.chat-messages').append('<div class="message self"><div class="message-content">' + $(this).val() + '</div></div>');
-      $(this).val('');
-      var $messages_w = $('.floated-chat-w .chat-messages');
-      $messages_w.scrollTop($messages_w.prop("scrollHeight"));
-      $messages_w.perfectScrollbar('update');
-      return false;
-    }
-  });
+  //$('.message-input').on('keypress', function (e) {
+  //  if (e.which == 13) {
+  //    $('.chat-messages').append('<div class="message self"><div class="message-content">' + $(this).val() + '</div></div>');
+  //    $(this).val('');
+  //    var $messages_w = $('.floated-chat-w .chat-messages');
+  //    $messages_w.scrollTop($messages_w.prop("scrollHeight"));
+  //    $messages_w.perfectScrollbar('update');
+  //    return false;
+  //  }
+  //});
 
-  $('.floated-chat-w .chat-messages').perfectScrollbar();
+  //$('.floated-chat-w .chat-messages').perfectScrollbar();
 
   // #2. CALENDAR INIT
 
@@ -675,22 +675,22 @@ $(function () {
     $('.all-wrapper').toggleClass('content-panel-active');
   });
 
-  // #13. EMAIL APP 
+  //// #13. EMAIL APP 
 
-  $('.more-messages').on('click', function () {
-    $(this).hide();
-    $('.older-pack').slideDown(100);
-    $('.aec-full-message-w.show-pack').removeClass('show-pack');
-    return false;
-  });
+  //$('.more-messages').on('click', function () {
+  //  $(this).hide();
+  //  $('.older-pack').slideDown(100);
+  //  $('.aec-full-message-w.show-pack').removeClass('show-pack');
+  //  return false;
+  //});
 
-  $('.ae-list').perfectScrollbar({ wheelPropagation: true });
+  //$('.ae-list').perfectScrollbar({ wheelPropagation: true });
 
-  $('.ae-list .ae-item').on('click', function () {
-    $('.ae-item.active').removeClass('active');
-    $(this).addClass('active');
-    return false;
-  });
+  //$('.ae-list .ae-item').on('click', function () {
+  //  $('.ae-item.active').removeClass('active');
+  //  $(this).addClass('active');
+  //  return false;
+  //});
 
   // CKEDITOR ACTIVATION FOR MAIL REPLY
   if (typeof CKEDITOR !== 'undefined') {

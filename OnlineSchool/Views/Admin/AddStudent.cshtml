@@ -1,36 +1,48 @@
 ﻿@model OnlineSchool.Models.AddStudentModel
 @{
-    ViewData["Title"] = "Add Student";
+    ViewData["Title"] = "Add Student"; 
+    Layout = "_AdminLayout";
+
 }
 
-<h1>Add Student</h1>
-<form method="post" enctype="multipart/form-data">
-
-    <div class="form-group">
-        <label asp-for="Email" class=""></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+<div class="element-wrapper">
+    <h6 class="element-header">
+        Manage Student
+    </h6>
+    <div class="element-box">
+        <form method="post" enctype="multipart/form-data">
+            <h5 class="form-header">
+                Add Student
+            </h5>
+            <div class="form-group">
+                <label asp-for="Email"> Email address</label>
+                <input class="form-control" placeholder="Enter email" type="email" asp-for="Email" data-error="Email address is invalid">
+                <span asp-validation-for="Email" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName">First Name</label>
+                <input class="form-control" placeholder="First Name" type="text" asp-for="FirstName" data-error="First Name address is invalid">
+                <span asp-validation-for="FirstName" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"> Last Name</label>
+                <input class="form-control" placeholder="Last Name" type="text" asp-for="LastName" data-error="Last Name address is invalid">
+                <span asp-validation-for="LastName" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProfileImage" class=""></label>
+                <img class="img-responsive d-block mb-3" id="targetImg" style="height:100px;width:100px;" src="@Url.Content("/default-profile-image.jpg")" />
+                <input asp-for="ProfileImage" class="form-control" accept="image/x-png,image/jpg,image/jpeg" />
+                <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                <p class="text-danger mb-0" id="imgFileSizeError"></p>
+                <p class="text-danger mb-0" id="imgFileFormatError"></p>
+            </div>
+            <div class="form-buttons-w">
+                <button type="submit" class="btn btn-primary" onclick="return validate()"> Add Student</button>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="FirstName" class=""></label>
-        <input asp-for="FirstName" class="form-control" />
-        <span asp-validation-for="FirstName" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="LastName" class=""></label>
-        <input asp-for="LastName" class="form-control" />
-        <span asp-validation-for="LastName" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ProfileImage" class=""></label>
-        <img class="img-responsive d-block mb-3" id="targetImg" style="height:100px;width:100px;" src="@Url.Content("/default-profile-image.jpg")" />
-        <input asp-for="ProfileImage" class="form-control" accept="image/x-png,image/jpg,image/jpeg"  />
-        <span asp-validation-for="ProfileImage" class="text-danger"></span>
-        <p class="text-danger mb-0" id="imgFileSizeError"></p>
-        <p class="text-danger mb-0" id="imgFileFormatError"></p>
-    </div>
-    <button type="submit" class="btn custom-primary-btn" onclick="return validate()">Add student</button>
-</form>
+</div>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 @section Scripts {
@@ -124,3 +136,4 @@
 
     }
 </script>
+

@@ -1,22 +1,37 @@
 ﻿@model OnlineSchool.Models.EditTutorModel
 @{
     ViewData["Title"] = "Edit Tutor";
+    Layout = "_AdminLayout";
 }
 
-<h1>Edit Tutor</h1>
-<form method="post" enctype="multipart/form-data">
-    <input hidden asp-for="Id" />
-    <div class="form-group">
-        <label asp-for="Email" class=""></label>
-        <input asp-for="Email" class="form-control" readonly/>
+
+<div class="element-wrapper">
+    <h6 class="element-header">
+        Manage Tutor
+    </h6>
+    <div class="element-box">
+        <form method="post">
+            <input hidden asp-for="Id" />
+            <h5 class="form-header">
+                Edit Tutor
+            </h5>
+            <div class="form-group">
+                <label asp-for="Email"> Email address</label>
+                <input class="form-control" placeholder="Enter email" type="email" asp-for="Email" data-error="Email address is invalid">
+                <span asp-validation-for="Email" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fullname">First Name</label>
+                <input class="form-control" placeholder="First Name" type="text" asp-for="Fullname" data-error="Full Name address is invalid">
+                <span asp-validation-for="Fullname" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+
+            <div class="form-buttons-w">
+                <button type="submit" class="btn btn-primary"> Add Tutor</button>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Fullname" class=""></label>
-        <input asp-for="Fullname" class="form-control" />
-        <span asp-validation-for="Fullname" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn custom-primary-btn">Edit tutor</button>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

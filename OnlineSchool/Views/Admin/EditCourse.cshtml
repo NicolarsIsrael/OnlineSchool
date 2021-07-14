@@ -1,33 +1,46 @@
 ﻿@model OnlineSchool.Models.EditCourseViewModel
 @{
     ViewData["Title"] = "Edit Course";
+    Layout = "_AdminLayout";
 }
 
-<h1>Edit Course</h1>
-<form method="post" enctype="multipart/form-data">
-    <input hidden asp-for="Id" />
-    <div class="form-group">
-        <label asp-for="CourseCode" class=""></label>
-        <input asp-for="CourseCode" class="form-control" />
-        <span asp-validation-for="CourseCode" class="text-danger"></span>
+
+<div class="element-wrapper">
+    <h6 class="element-header">
+        Manage Course
+    </h6>
+    <div class="element-box">
+        <form  method="post" enctype="multipart/form-data">
+            <input hidden asp-for="Id" />
+            <h5 class="form-header">
+                Edit Course
+            </h5>
+            <div class="form-group">
+                <label asp-for="CourseCode"> Course Code</label>
+                <input class="form-control" placeholder="Enter email" type="text" asp-for="CourseCode" data-error="Course Code is required">
+                <span asp-validation-for="CourseCode" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseTitle"> Course Title</label>
+                <input class="form-control" placeholder="Enter email" type="text" asp-for="CourseTitle" data-error="Course Tile is required">
+                <span asp-validation-for="CourseTitle" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseDescription"> Course Description</label>
+                <input class="form-control" placeholder="Enter email" type="text" asp-for="CourseDescription" data-error="Course Description is required">
+                <span asp-validation-for="CourseDescription" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tutors"></label>
+                <select asp-for="SelectedTutor" class="form-control" asp-items="Model.Tutors"></select>
+                <span asp-validation-for="Tutors" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-buttons-w">
+                <button type="submit" class="btn btn-primary" onclick="return validate()"> Edit Course</button>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="CourseTitle" class=""></label>
-        <input asp-for="CourseTitle" class="form-control" />
-        <span asp-validation-for="CourseTitle" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="CourseDescription" class=""></label>
-        <input asp-for="CourseDescription" class="form-control" />
-        <span asp-validation-for="CourseDescription" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Tutors"></label>
-        <select asp-for="SelectedTutor" class="form-control" asp-items="Model.Tutors"></select>
-        <span asp-validation-for="Tutors" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn custom-primary-btn">Edit course</button>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

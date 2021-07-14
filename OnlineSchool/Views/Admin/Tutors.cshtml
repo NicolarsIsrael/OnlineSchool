@@ -2,41 +2,47 @@
 
 @{
     ViewData["Title"] = "Students";
+    Layout = "_AdminLayout";
 }
 
-<h1>Tutors</h1>
-
-<p>
-    <a asp-action="AddTutor">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fullname)
-            </th>
-            <th>
-
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fullname)
-                </td>
-                <td>
-                    <a asp-controller="Admin" asp-action="EditTutor" asp-route-id="@item.Id">Edit</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="element-wrapper">
+    <div class="element-actions">
+        <a class="mr-2 mb-2 btn btn-primary btn-rounded" asp-action="AddTutor">Create New</a>
+    </div>
+    <h6 class="element-header">
+        Tutors
+    </h6>
+    <div class="table-responsive">
+        <table class="table table-lightborder">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fullname)
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fullname)
+                        </td>
+                        <td>
+                            <a class="mr-2 mb-2 btn btn-secondary" asp-controller="Admin" asp-action="EditTutor" asp-route-id="@item.Id">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

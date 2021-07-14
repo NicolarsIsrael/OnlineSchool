@@ -33,7 +33,7 @@ namespace OnlineSchool.Models
             DeadlineEndTime = GeneralFunction.DateInString(exam.DeadlineEndTime);
             DeadlineStartTime = GeneralFunction.DateInString(exam.DeadlineStartTime);
             TotalScore = TotalScore;
-            McqQuestions = exam.MultiChoiceQuestions.Select(mc => new ViewMcqQuestion(mc,true));
+            McqQuestions = exam.MultiChoiceQuestions.Select(mc => new ViewMcqQuestion(mc, true));
         }
     }
 
@@ -156,4 +156,81 @@ namespace OnlineSchool.Models
             return exam;
         }
     }
+    public class ExamModel
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public decimal TotalScore { get; set; }
+        public decimal CoursePercentage { get; set; }
+        public int DurationInMinutes { get; set; }
+        public string CourseTitle { get; set; }
+        public string CourseCode { get; set; }
+        public string StartTime { get; set; }
+        public string DeadlineStartTime { get; set; }
+        public string DeadlineEndTime { get; set; }
+        public List<ExamMcqQuestion> McqQuestions { get; set; }
+        public ExamModel(Exam exam)
+        {
+            Id = exam.Id;
+            Title = exam.ExamTitle;
+            CoursePercentage = exam.CoursePerentage;
+            DurationInMinutes = exam.DurationInMinute;
+            CourseTitle = exam.Course.CourseTitle;
+            CourseCode = exam.Course.CourseCode;
+            StartTime = GeneralFunction.DateInString(exam.StartTime);
+            DeadlineEndTime = GeneralFunction.DateInString(exam.DeadlineEndTime);
+            DeadlineStartTime = GeneralFunction.DateInString(exam.DeadlineStartTime);
+            TotalScore = TotalScore;
+            McqQuestions = exam.MultiChoiceQuestions.Select(mc => new ExamMcqQuestion(mc)).OrderBy(or => or.Order).ToList();
+        }
+
+        public ExamModel()
+        {
+
+        }
+    }
+
+    public class ExamMcqQuestion
+    {
+        public int Id { get; set; }
+        public string Question { get; set; }
+        public decimal Score { get; set; }
+        public IEnumerable<ExamMcqOptionModel> Options { get; set; }
+        public int SelectedOptionId { get; set; }
+        public int Order { get; set; }
+        public ExamMcqQuestion(McqQuestion question)
+        {
+            SelectedOptionId = -1;
+            Id = question.Id;
+            Question = question.Question;
+            Score = question.Score;
+            Options = question.Options.Select(op => new ExamMcqOptionModel(op)).OrderBy(or => or.Order).ToList();
+            Random rand = new Random();
+            Order = rand.Next(1, 100);
+        }
+
+        public ExamMcqQuestion()
+        {
+
+        }
+    }
+    public class ExamMcqOptionModel
+    {
+        public int AnsId { get; set; }
+        public string Option { get; set; }
+        public int Order { get; set; }
+        public ExamMcqOptionModel(McqOption option)
+        {
+            Option = option.Option;
+            AnsId = option.AnsId;
+            Random rand = new Random();
+            Order = rand.Next(1, 100);
+        }
+
+        public ExamMcqOptionModel()
+        {
+
+        }
+    }
+
 }

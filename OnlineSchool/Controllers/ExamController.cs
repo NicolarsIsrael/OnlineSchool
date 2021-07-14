@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineSchool.Core;
+using OnlineSchool.Models;
 using OnlineSchool.Service.Contract;
 using OnlineSchool.Utility;
 
@@ -16,7 +17,16 @@ namespace OnlineSchool.Controllers
             : base(userManager, roleManager, studentService, lectureService, tutorService, courseService, examService, emailSender)
         {
         }
-        public IActionResult Index()
+
+        public IActionResult Index(int id)
+        {
+            var exam = _examService.Get(id);
+            var model = new ExamModel(exam);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Index(ExamModel model)
         {
             return View();
         }

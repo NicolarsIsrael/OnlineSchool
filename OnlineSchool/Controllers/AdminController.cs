@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineSchool.Core;
 using OnlineSchool.Models;
 using OnlineSchool.Service.Contract;
 using OnlineSchool.Utility;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineSchool.Controllers
 {

@@ -78,8 +78,8 @@
                             <div>@exam.Title</div>
                             <div>@exam.TotalScore</div>
                             <div>@exam.StartTime</div>
-                            <a asp-action="Exam" asp-controller="Tutor" asp-route-id="@exam.Id">View</a>
-                            <a asp-action="EditExam" asp-controller="Tutor" asp-route-id="@exam.Id">Edit</a>
+                            <a class="btn btn-sm btn-secondary" asp-action="Exam" asp-controller="Tutor" asp-route-id="@exam.Id">View</a>
+                            <a class="btn btn-sm btn-info" asp-action="EditExam" asp-controller="Tutor" asp-route-id="@exam.Id">Edit</a>
                             <hr />
                         </div>
                     }

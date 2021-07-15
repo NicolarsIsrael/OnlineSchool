@@ -1,54 +1,61 @@
 ﻿@model OnlineSchool.Models.EditMcqModel
 @{
     ViewData["Title"] = "Edit mcq";
+    Layout = "_AdminLayout";
 }
 
-<h1>Edit mcq</h1>
-<form method="post" enctype="multipart/form-data">
-    <input asp-for="Id" hidden />
-    <div class="form-group">
-        <label asp-for="Question" class=""></label>
-        <input asp-for="Question" class="form-control" />
-        <span asp-validation-for="Question" class="text-danger"></span>
-    </div>
-
-    <div class="row">
-        @for (int i = 0, j=1; i < 4; i++,j++)
-        {
-            <div class="form-group col-md-6">
-                <label class="">Option @j</label>
-                <input asp-for="Options[i].Id" hidden />
-                <input asp-for="Options[i].Option" class="form-control" />
+<div class="element-wrapper">
+    <h6 class="element-header">
+        Manage Exam
+    </h6>
+    <div class="element-box">
+        <h5 class="form-header">Edit mcq</h5>
+        <form method="post" enctype="multipart/form-data">
+            <input asp-for="Id" hidden />
+            <div class="form-group">
+                <label asp-for="Question" class=""></label>
+                <input asp-for="Question" class="form-control" />
+                <span asp-validation-for="Question" class="text-danger"></span>
             </div>
-        }
-    </div>
-    <div class="row">
-        <div class="form-group col-md-6">
-            <label asp-for="AnswerId"></label>
-            <select asp-for="AnswerId" class="form-control">
+
+            <div class="row">
                 @for (int i = 0, j = 1; i < 4; i++, j++)
                 {
-                    if (i == Model.AnswerId)
-                    {
-                        <option value="@i" selected>Option @j</option>
-                    }
-                    else
-                    {
-                        <option value="@i">Option @j</option>
-                    }
-
+                    <div class="form-group col-md-6">
+                        <label class="">Option @j</label>
+                        <input asp-for="Options[i].Id" hidden />
+                        <input asp-for="Options[i].Option" class="form-control" />
+                    </div>
                 }
-            </select>
-        </div>
-        <div class="form-group col-md-6">
-            <label asp-for="Score" class=""></label>
-            <input asp-for="Score" class="form-control" />
-            <span asp-validation-for="Score" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label asp-for="AnswerId"></label>
+                    <select asp-for="AnswerId" class="form-control">
+                        @for (int i = 0, j = 1; i < 4; i++, j++)
+                        {
+                            if (i == Model.AnswerId)
+                            {
+                                <option value="@i" selected>Option @j</option>
+                            }
+                            else
+                            {
+                                <option value="@i">Option @j</option>
+                            }
+
+                        }
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Score" class=""></label>
+                    <input asp-for="Score" class="form-control" />
+                    <span asp-validation-for="Score" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Edit mcq</button>
+        </form>
         </div>
     </div>
-    <button type="submit" class="btn custom-primary-btn">Edit mcq</button>
-</form>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+        @section Scripts {
+            <partial name="_ValidationScriptsPartial" />
+        }

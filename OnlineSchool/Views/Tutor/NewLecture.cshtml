@@ -1,30 +1,40 @@
 ﻿@model OnlineSchool.Models.AddLectureModel
 @{
     ViewData["Title"] = "NewLecture";
+    Layout = "_AdminLayout";
 }
-
-<h1>New Lecture</h1>
-
-<form method="post" enctype="multipart/form-data">
-    <input hidden asp-for="CourseId" />
-    <div class="form-group">
-        <label asp-for="Title" class=""></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+<div class="element-wrapper">
+    <h6 class="element-header">
+        Manage Lecture
+    </h6>
+    <div class="element-box">
+        <form method="post" enctype="multipart/form-data">
+            <input hidden asp-for="CourseId" />
+            <h5 class="form-header">
+                Add Course
+            </h5>
+            <div class="form-group">
+                <label asp-for="Title"> Course Code</label>
+                <input class="form-control" placeholder="Course Title" type="text" asp-for="Title" data-error="Title is required">
+                <span asp-validation-for="Title" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BriefDescription"> Brief Description</label>
+                <input class="form-control" placeholder="Brief Description" type="text" asp-for="BriefDescription" data-error="Course Tile is required">
+                <span asp-validation-for="BriefDescription" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="File" class=""></label>
+                <input asp-for="File" class="form-control" />
+                <span asp-validation-for="File" class="text-danger"></span>
+                <p class="text-danger mb-0" id="FileSizeError"></p>
+            </div>
+            <div class="form-buttons-w">
+                <button type="submit" class="btn btn-primary" onclick="return validate()"> Add Tutor</button>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="BriefDescription" class=""></label>
-        <input asp-for="BriefDescription" class="form-control" />
-        <span asp-validation-for="BriefDescription" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="File" class=""></label>
-        <input asp-for="File" class="form-control" />
-        <span asp-validation-for="File" class="text-danger"></span>
-        <p class="text-danger mb-0" id="FileSizeError"></p>
-    </div>
-    <button type="submit" class="btn custom-primary-btn" onclick="return validate()">Add lecture</button>
-</form>
+</div>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 

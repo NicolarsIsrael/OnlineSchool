@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using OnlineSchool.Core
+@using OnlineSchool.Utility
+@inject UserManager<ApplicationUser> UserManager
 <div class="menu-w color-scheme-light color-style-transparent menu-position-side menu-side-left menu-layout-compact sub-menu-style-over sub-menu-color-bright selected-menu-color-light menu-activated-on-hover menu-has-selected-link">
     <div class="logo-w">
         <a class="logo" asp-controller="home" asp-action="index">
@@ -29,44 +31,52 @@
     <!-- <h1 class="menu-page-header">
             Page Header
         </h1> -->
-    <ul class="main-menu">
-        <li class="sub-header">
-            <span>Controls</span>
-        </li>
-        <li class="selected ">
-            <a asp-controller="admin" asp-action="index">
-                <div class="icon-w">
-                    <div class="os-icon os-icon-layout"></div>
-                </div>
-                <span>Dashboard</span>
-            </a>
-        </li>
-        <li class="selected ">
-            <a asp-controller="admin" asp-action="courses">
-                <div class="icon-w">
-                    <div class="os-icon os-icon-book"></div>
-                </div>
-                <span>Course</span>
-            </a>
-        </li>
-        <li class="selected ">
-            <a asp-controller="admin" asp-action="students">
-                <div class="icon-w">
-                    <div class="os-icon os-icon-user"></div>
-                </div>
-                <span>Student</span>
-            </a>
-        </li>
-        <li class="selected ">
-            <a asp-controller="admin" asp-action="tutors">
-                <div class="icon-w">
-                    <div class="os-icon os-icon-user-plus"></div>
-                </div>
-                <span>Tutor</span>
-            </a>
-        </li>
+    @if (await UserManager.IsInRoleAsync(UserManager.Users.FirstOrDefault(x => x.Email == @User.Identity.Name), AppConstant.SuperAdminRole))
+    {
+        <ul class="main-menu">
+            <li class="sub-header">
+                <span>Controls</span>
+            </li>
+            <li class="selected ">
+                <a asp-controller="admin" asp-action="index">
+                    <div class="icon-w">
+                        <div class="os-icon os-icon-layout"></div>
+                    </div>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="selected ">
+                <a asp-controller="admin" asp-action="courses">
+                    <div class="icon-w">
+                        <div class="os-icon os-icon-book"></div>
+                    </div>
+                    <span>Course</span>
+                </a>
+            </li>
+            <li class="selected ">
+                <a asp-controller="admin" asp-action="students">
+                    <div class="icon-w">
+                        <div class="os-icon os-icon-user"></div>
+                    </div>
+                    <span>Student</span>
+                </a>
+            </li>
+            <li class="selected ">
+                <a asp-controller="admin" asp-action="tutors">
+                    <div class="icon-w">
+                        <div class="os-icon os-icon-user-plus"></div>
+                    </div>
+                    <span>Tutor</span>
+                </a>
+            </li>
 
-    </ul>
+        </ul>
+    }
+    else if(await UserManager.IsInRoleAsync(UserManager.Users.FirstOrDefault(x => x.Email == @User.Identity.Name), AppConstant.LecturerRole))
+    {
+        <partial name="_TutorMenu" />
+    }
+
     <div class="side-menu-magic">
         <h4>
             Light Admin

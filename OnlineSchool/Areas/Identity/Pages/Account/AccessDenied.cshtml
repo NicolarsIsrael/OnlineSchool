@@ -2,9 +2,17 @@
 @model AccessDeniedModel
 @{
     ViewData["Title"] = "Access denied";
+    Layout = "_AdminLayout";
 }
-
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+<div class="big-error-w">
+    <h1>
+        404
+    </h1>
+    <h5>
+        How did we get here?
+    </h5>
+    <h4>
+        Oops, Something went missing...
+    </h4>
+    
+</div>

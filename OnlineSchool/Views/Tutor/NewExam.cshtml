@@ -1,43 +1,54 @@
 ﻿@model OnlineSchool.Models.NewExamModel
 @{
     ViewData["Title"] = "New Exam";
+    Layout = "_AdminLayout";
 }
-
-<h1>Add exam</h1>
-<form method="post" enctype="multipart/form-data">
-    <input asp-for="CourseId" hidden />
-    <div class="form-group">
-        <label asp-for="Title" class=""></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+<div class="element-wrapper">
+    <h6 class="element-header">
+        Manage Exam
+    </h6>
+    <div class="element-box">
+        <form method="post">
+            <input asp-for="CourseId" hidden />
+            <h5 class="form-header">
+                Add Exam
+            </h5>
+            <div class="form-group">
+                <label asp-for="Title"> Email address</label>
+                <input class="form-control" placeholder="Enter email" type="text" asp-for="Title" data-error="Title is required">
+                <span asp-validation-for="Title" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CoursePerentage">Course Perentage</label>
+                <input class="form-control" placeholder="0.00" type="number" asp-for="CoursePerentage" data-error="Course Perentage is invalid">
+                <span asp-validation-for="CoursePerentage" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DurationInMinute">Duration In Minute</label>
+                <input class="form-control" placeholder="0" type="number" asp-for="DurationInMinute" data-error="Duration In Minute is invalid">
+                <span asp-validation-for="DurationInMinute" class="help-block form-text with-errors form-control-feedback"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartTime" class=""></label>
+                <input asp-for="StartTime" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeadlineStartTime" class=""></label>
+                <input asp-for="DeadlineStartTime" class="form-control" />
+                <span asp-validation-for="DeadlineStartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeadlineEndTime" class=""></label>
+                <input asp-for="DeadlineEndTime" class="form-control" />
+                <span asp-validation-for="DeadlineEndTime" class="text-danger"></span>
+            </div>
+            <div class="form-buttons-w">
+                <button type="submit" class="btn btn-primary"> Add Exam</button>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="CoursePerentage" class=""></label>
-        <input asp-for="CoursePerentage" class="form-control" />
-        <span asp-validation-for="CoursePerentage" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="DurationInMinute" class=""></label>
-        <input asp-for="DurationInMinute" class="form-control" />
-        <span asp-validation-for="DurationInMinute" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="StartTime" class=""></label>
-        <input asp-for="StartTime" class="form-control" />
-        <span asp-validation-for="StartTime" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="DeadlineStartTime" class=""></label>
-        <input asp-for="DeadlineStartTime" class="form-control" />
-        <span asp-validation-for="DeadlineStartTime" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="DeadlineEndTime" class=""></label>
-        <input asp-for="DeadlineEndTime" class="form-control" />
-        <span asp-validation-for="DeadlineEndTime" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn custom-primary-btn">Add exam</button>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

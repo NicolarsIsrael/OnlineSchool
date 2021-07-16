@@ -18,7 +18,7 @@ namespace OnlineSchool.Models
         public ViewLectureModel(Lecture lecture)
         {
             Title = lecture.Title;
-            FilePath =GeneralFunction.GetUrlPath(lecture.FilePath);
+            FilePath = string.IsNullOrEmpty(lecture.FilePath) ? "/default-course-img.jpg" : GeneralFunction.GetUrlPath(lecture.FilePath);
             BriefDescription = lecture.BriefDescription;
             CourseId = lecture.CourseId;
         }

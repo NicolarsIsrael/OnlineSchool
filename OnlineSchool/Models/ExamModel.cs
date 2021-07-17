@@ -169,7 +169,7 @@ namespace OnlineSchool.Models
         public string DeadlineStartTime { get; set; }
         public string DeadlineEndTime { get; set; }
         public List<ExamMcqQuestion> McqQuestions { get; set; }
-        public ExamModel(Exam exam)
+        public ExamModel(Exam exam,ExamAttempt attempt)
         {
             Id = exam.Id;
             Title = exam.ExamTitle;
@@ -181,7 +181,14 @@ namespace OnlineSchool.Models
             DeadlineEndTime = GeneralFunction.DateInString(exam.DeadlineEndTime);
             DeadlineStartTime = GeneralFunction.DateInString(exam.DeadlineStartTime);
             TotalScore = TotalScore;
-            McqQuestions = exam.MultiChoiceQuestions.Select(mc => new ExamMcqQuestion(mc)).OrderBy(or => or.Order).ToList();
+            var _mcqQuestions = new List<ExamMcqQuestion>();
+            foreach(var mcq in exam.MultiChoiceQuestions)
+            {
+                var _attempt = attempt.Mcqs.Where(at => at.McqId == mcq.Id).FirstOrDefault();
+                if (_attempt != null)
+                    _mcqQuestions.Add(new ExamMcqQuestion(mcq, _attempt.Id, _attempt.SelectedOptionId));
+            }
+            McqQuestions = _mcqQuestions;
         }
 
         public ExamModel()
@@ -193,15 +200,17 @@ namespace OnlineSchool.Models
     public class ExamMcqQuestion
     {
         public int Id { get; set; }
+        public int AttemptId { get; set; }
         public string Question { get; set; }
         public decimal Score { get; set; }
         public IEnumerable<ExamMcqOptionModel> Options { get; set; }
         public int SelectedOptionId { get; set; }
         public int Order { get; set; }
-        public ExamMcqQuestion(McqQuestion question)
+        public ExamMcqQuestion(McqQuestion question,int attemptId, int selectedOption)
         {
-            SelectedOptionId = -1;
+            SelectedOptionId = selectedOption;
             Id = question.Id;
+            AttemptId = attemptId;
             Question = question.Question;
             Score = question.Score;
             Options = question.Options.Select(op => new ExamMcqOptionModel(op)).OrderBy(or => or.Order).ToList();
@@ -231,6 +240,10 @@ namespace OnlineSchool.Models
         {
 
         }
+    }
+
+    public class McqAttemptModel
+    {
     }
 
 }

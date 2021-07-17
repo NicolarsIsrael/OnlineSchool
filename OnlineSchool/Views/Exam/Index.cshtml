@@ -15,14 +15,14 @@
 <form method="post">
     @{
         int questionNumber = 1;
-        for (int i = 0; i < Model.McqQuestions.Count(); i++)
+        foreach (var mcq in Model.McqQuestions)
         {
-            <div class="font-weight-bold">@questionNumber. @Model.McqQuestions[i].Question</div>
+            <div class="font-weight-bold">@questionNumber. mcq.Question</div>
             int answerNumber = 1;
             string answerLetter = "";
 
             <div class="ml-5">
-                @foreach (var option in Model.McqQuestions[i].Options)
+                @foreach (var option in mcq.Options)
                 {
                     switch (answerNumber)
                     {
@@ -41,7 +41,15 @@
                     }
 
                     <label class="font-italic">@answerLetter.</label>
-                    <input type="radio" asp-for="@Model.McqQuestions[i].SelectedOptionId" value="@option.AnsId" />
+                    @if(option.AnsId == mcq.SelectedOptionId)
+                    {
+                        <input checked type="radio" onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId)"/>
+                    }
+                    else
+                    {
+                        <input type="radio" onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId)"/>
+                    }
+
                     <label class="font-italic mr-3">@option.Option</label>
                     answerNumber++;
                 }
@@ -52,3 +60,16 @@
 
     <input type="submit" value="submit" />
 </form>
+
+<script>
+    function SubmitMcqAnswer(attemptId, answerId) {
+        console.log("changed");
+        $.ajax({
+            url: "/exam/SubmitMcqAnswer",
+            data: { mcqAttemptId: attemptId, answerId: answerId },
+            success: function (result) {
+                console.log("submitted");
+            }
+        })
+    }
+</script>

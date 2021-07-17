@@ -13,16 +13,55 @@ namespace OnlineSchool.Controllers
 {
     public class ExamController : BaseController
     {
-        public ExamController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService, IExamService examService, IEmailService emailSender)
+        private readonly IExamAttemptService _examAttemptService;
+        private readonly IExamMcqAttemptService _examMcqAttemptService;
+        public ExamController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService, IExamService examService, IExamAttemptService examAttemptService, IExamMcqAttemptService examMcqAttemptService, IEmailService emailSender)
             : base(userManager, roleManager, studentService, lectureService, tutorService, courseService, examService, emailSender)
         {
+            _examAttemptService = examAttemptService;
+            _examMcqAttemptService = examMcqAttemptService;
         }
 
-        public IActionResult Index(int id)
+        public async Task<IActionResult> Index(int id)
         {
             var exam = _examService.Get(id);
-            var model = new ExamModel(exam);
+            var student = GetLoggedInStudent();
+            var examAttempt = _examAttemptService.CheckIfStudentAttemptAlreadyExists(exam.Id, student.Id);
+            if (examAttempt == null)
+            {
+                var mcqAttempts = new List<ExamMcqAttempt>();
+                foreach(var mcq in exam.MultiChoiceQuestions)
+                {
+                    mcqAttempts.Add(new ExamMcqAttempt()
+                    {
+                        DateCreated = DateTime.Now,
+                        DateCreatedUtc = DateTime.UtcNow,
+                        DateModified = DateTime.Now,
+                        DateModifiedUtc = DateTime.UtcNow,
+                        McqId = mcq.Id,
+                        SelectedOptionId = -1,
+                        McqOptions = mcq.Options,
+                    });
+                }
+                examAttempt = new ExamAttempt()
+                {
+                    CourseId = exam.Course.Id,
+                    StudentId = student.Id,
+                    ExamId = exam.Id,
+                    Mcqs = mcqAttempts,
+                };
+                examAttempt = await _examAttemptService.CreateExamAttempt(examAttempt);
+            }
+            var model = new ExamModel(exam,examAttempt);
             return View(model);
+        }
+
+        public async Task<IActionResult> SubmitMcqAnswer(int mcqAttemptId, int answerId)
+        {
+            var mcqAnswer = _examMcqAttemptService.Get(mcqAttemptId);
+            mcqAnswer.SelectedOptionId = answerId;
+            await _examMcqAttemptService.Update(mcqAnswer);
+            return Json(new { });
         }
 
         [HttpPost]
@@ -30,5 +69,7 @@ namespace OnlineSchool.Controllers
         {
             return View();
         }
+
+
     }
 }

@@ -1,9 +1,12 @@
-﻿using OnlineSchool.Data.Contract;
+﻿using OnlineSchool.Core;
+using OnlineSchool.Data.Contract;
 using OnlineSchool.Data.Implementation;
 using OnlineSchool.Service.Contract;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineSchool.Service.Implementation
 {
@@ -13,6 +16,18 @@ namespace OnlineSchool.Service.Implementation
         public ExamAttemptService(IUnitOfWork uow)
         {
             _uow = uow as UnitOfWork;
+        }
+
+        public ExamAttempt CheckIfStudentAttemptAlreadyExists(int examId, int studentId)
+        {
+            return _uow.ExamAttemptRepo.FindInclude(ex => ex.ExamId == examId && ex.StudentId == studentId).FirstOrDefault();
+        }
+
+        public async Task<ExamAttempt> CreateExamAttempt(ExamAttempt examAttempt)
+        {
+            _uow.ExamAttemptRepo.Add(examAttempt);
+            await _uow.Save();
+            return examAttempt;
         }
     }
 }

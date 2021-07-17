@@ -1,42 +1,64 @@
 ﻿@model OnlineSchool.Models.CourseRegModel
 @{
     ViewData["Title"] = "Registeration";
+    Layout = "_AdminLayout";
 }
 
-<h1>Registeration</h1>
-
-<form method="post">
-    <table>
-        <thead>
-            <tr>
-                <th></th>
-                <th>Code</th>
-                <th>Title</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.Courses.Count(); i++)
-            {
-                <input hidden asp-for="Courses[i].Id" />
-                <tr>
-
-                    <td style="width:30px">
-                        <input asp-for="Courses[i].IsSelected" type="checkbox" class="coursesCheckBox"/>
-                    </td>
-                    <td>@Model.Courses[i].CourseCode</td>
-                    <td>@Model.Courses[i].CourseTitle</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <div class="my-2">
-        <input type="button" class="btn btn-primary btn-sm" value="Check all" onclick="selectAll()" />
-        <input type="button" class="btn btn-secondary btn-sm" value="Uncheck all" onclick="UnSelectAll()" />
+<div class="element-wrapper">
+    <div class="element-actions">
+        <input type="button" class="mr-2 mb-2 btn btn-primary btn-rounded" value="Check all" onclick="selectAll()" />
+        <input type="button" class="mr-2 mb-2 btn btn-secoundary btn-rounded" value="Uncheck all"
+            onclick="UnSelectAll()" />
     </div>
-    <input type="submit" class="btn custom-primary-btn" value="Register" />
-</form>
+    <h6 class="element-header">
+        Registeration
+    </h6>
+    <div class="element-box-tp">
+        <div class="table-responsive">
+            <form method="post">
+                <table class="table table-padded">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>
+                                Code
+                            </th>
+                            <th>
+                                Title
+                            </th>
 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Courses.Count(); i++)
+                        {
+                            <input hidden asp-for="Courses[i].Id" />
 
+                            <tr>
+                                <td class="text-center">
+                                    <input asp-for="Courses[i].IsSelected" type="checkbox" class="coursesCheckBox" />
+                                </td>
+                                <td>
+                                    <div class="user-with-avatar">
+                                        <span>@Model.Courses[i].CourseCode</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="smaller lighter">
+                                        @Model.Courses[i].CourseTitle
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+                <input type="submit" class="btn btn-primary" value="Register" />
+            </form>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
     function selectAll() {

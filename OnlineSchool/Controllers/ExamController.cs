@@ -49,9 +49,12 @@ namespace OnlineSchool.Controllers
                     StudentId = student.Id,
                     ExamId = exam.Id,
                     Mcqs = mcqAttempts,
+                    DurationInSeconds = exam.DurationInMinute * 60,
                 };
                 examAttempt = await _examAttemptService.CreateExamAttempt(examAttempt);
             }
+            //examAttempt.DurationInSeconds = exam.DurationInMinute * 60;
+            //await _examAttemptService.Update(examAttempt);
             var model = new ExamModel(exam,examAttempt);
             return View(model);
         }
@@ -61,6 +64,14 @@ namespace OnlineSchool.Controllers
             var mcqAnswer = _examMcqAttemptService.Get(mcqAttemptId);
             mcqAnswer.SelectedOptionId = answerId;
             await _examMcqAttemptService.Update(mcqAnswer);
+            return Json(new { });
+        }
+
+        public async Task<IActionResult> UpdateDuration(int examAttemptId,int durationLeft)
+        {
+            var examAttempt = _examAttemptService.Get(examAttemptId);
+            examAttempt.DurationInSeconds = durationLeft;
+            await _examAttemptService.Update(examAttempt);
             return Json(new { });
         }
 

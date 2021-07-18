@@ -13,6 +13,8 @@
     <h3>@Model.Title</h3>
 </div>
 <form method="post">
+    <input asp-for="DurationInSeconds"  hidden />
+    <input asp-for="AttemptId" hidden />
     @{
         int questionNumber = 1;
         foreach (var mcq in Model.McqQuestions)
@@ -41,13 +43,13 @@
                     }
 
                     <label class="font-italic">@answerLetter.</label>
-                    @if(option.AnsId == mcq.SelectedOptionId)
+                    @if (option.AnsId == mcq.SelectedOptionId)
                     {
-                        <input checked type="radio" onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId)"/>
+                        <input checked type="radio" onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId)" />
                     }
                     else
                     {
-                        <input type="radio" onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId)"/>
+                        <input type="radio" onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId)" />
                     }
 
                     <label class="font-italic mr-3">@option.Option</label>
@@ -59,6 +61,7 @@
     }
 
     <input type="submit" value="submit" />
+    <div>Registration closes in <span id="time"> ...</span> minutes!</div>
 </form>
 
 <script>
@@ -72,4 +75,44 @@
             }
         })
     }
+
+    function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        //debugger;
+        setInterval(function () {
+            UpdateTime(timer);
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                window.location.href = "/home";
+            }
+
+        }, 1000);
+    }
+
+    window.onload = function () {
+        var durationInSeconds = document.getElementById("DurationInSeconds").value;
+            display = document.querySelector('#time');
+        startTimer(durationInSeconds, display);
+    };
+
+
+    function UpdateTime(durationRemaining) {
+        //debugger;
+        var attemptid = document.getElementById("AttemptId").value;
+        $.ajax({
+            url: "/exam/UpdateDuration",
+            data: { examAttemptId: attemptid, durationLeft: durationRemaining },
+            success: function (result) {
+                console.log(durationRemaining);
+            }
+        })
+    }
+
 </script>

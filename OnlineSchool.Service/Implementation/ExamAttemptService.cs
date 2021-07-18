@@ -29,5 +29,16 @@ namespace OnlineSchool.Service.Implementation
             await _uow.Save();
             return examAttempt;
         }
+
+        public ExamAttempt Get(int id)
+        {
+            return _uow.ExamAttemptRepo.GetInclude(id);
+        }
+
+        public async Task Update(ExamAttempt examAttempt)
+        {
+            _uow.ExamAttemptRepo.Update(examAttempt);
+            await _uow.Save();
+        }
     }
 }

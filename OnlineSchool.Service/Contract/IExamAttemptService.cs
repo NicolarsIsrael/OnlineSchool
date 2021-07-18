@@ -10,5 +10,7 @@ namespace OnlineSchool.Service.Contract
     {
         ExamAttempt CheckIfStudentAttemptAlreadyExists(int examId, int studentId);
         Task<ExamAttempt> CreateExamAttempt(ExamAttempt examAttempt);
+        Task Update(ExamAttempt examAttempt);
+        ExamAttempt Get(int id);
     }
 }

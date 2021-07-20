@@ -53,8 +53,10 @@ namespace OnlineSchool.Controllers
                 };
                 examAttempt = await _examAttemptService.CreateExamAttempt(examAttempt);
             }
-            //examAttempt.DurationInSeconds = exam.DurationInMinute * 60;
+
+            //examAttempt.DurationInSeconds = 20;
             //await _examAttemptService.Update(examAttempt);
+
             var model = new ExamModel(exam,examAttempt);
             return View(model);
         }
@@ -71,8 +73,22 @@ namespace OnlineSchool.Controllers
         {
             var examAttempt = _examAttemptService.Get(examAttemptId);
             examAttempt.DurationInSeconds = durationLeft;
-            await _examAttemptService.Update(examAttempt);
+            if (examAttempt.ContinueAttempt)
+                await _examAttemptService.Update(examAttempt);
+            if(examAttempt.DurationInSeconds== 0)
+            {
+                examAttempt.ContinueAttempt = false;
+                await _examAttemptService.Update(examAttempt);
+            }
             return Json(new { });
+        }
+
+        public async Task<IActionResult> AttemptFinished(int id)
+        {
+            var examAttempt = _examAttemptService.Get(id);
+            examAttempt.ContinueAttempt = false;
+            await _examAttemptService.Update(examAttempt);
+            return Content("Done");
         }
 
         [HttpPost]

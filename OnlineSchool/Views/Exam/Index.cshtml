@@ -90,7 +90,7 @@
             display.textContent = minutes + ":" + seconds;
 
             if (--timer < 0) {
-                window.location.href = "/home";
+                window.location.href = "/exam/AttemptFinished/" + document.getElementById("AttemptId").value;
             }
 
         }, 1000);

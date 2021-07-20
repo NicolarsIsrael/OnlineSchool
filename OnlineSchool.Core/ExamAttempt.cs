@@ -11,5 +11,6 @@ namespace OnlineSchool.Core
         public int CourseId { get; set; }
         public int DurationInSeconds { get; set; }
         public IEnumerable<ExamMcqAttempt> Mcqs { get; set; }
+        public bool ContinueAttempt { get; set; }
     }
 }

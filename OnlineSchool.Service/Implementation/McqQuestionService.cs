@@ -4,6 +4,7 @@ using OnlineSchool.Data.Implementation;
 using OnlineSchool.Service.Contract;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ namespace OnlineSchool.Service.Implementation
         public async Task Add(McqQuestion mcq)
         {
             _uow.McqQuestionRepo.Add(mcq);
-            mcq.Exam.TotalScore += mcq.Score;
+            mcq.Exam.TotalScore = mcq.Exam.TotalScore + mcq.Score;
             _uow.ExamRepo.Update(mcq.Exam);
             await _uow.Save();
         }
@@ -35,9 +36,11 @@ namespace OnlineSchool.Service.Implementation
             return _uow.McqQuestionRepo.GetInclude(id);
         }
 
-        public async Task Update(McqQuestion mcq)
+        public async Task Update(McqQuestion mcq, Exam exam)
         {
              _uow.McqQuestionRepo.Update(mcq);
+            exam.TotalScore = exam.MultiChoiceQuestions.Sum(m => m.Score);
+            _uow.ExamRepo.Update(exam);
             await _uow.Save();
         }
 

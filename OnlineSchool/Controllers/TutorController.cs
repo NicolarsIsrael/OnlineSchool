@@ -77,7 +77,8 @@ namespace OnlineSchool.Controllers
             var exam = _examService.Get(id);
             if (exam.Course.TutorId != GetLoggedInTutor().Id)
                 return NotFound();
-            return View(new ViewExamModel(exam));
+            var model = new ViewExamModel(exam);
+            return View(model);
         }
 
         public IActionResult NewExam(int id)
@@ -175,6 +176,7 @@ namespace OnlineSchool.Controllers
             var mcq = _mcqQuestionService.GetById(model.Id);
             if (mcq.Exam.Course.TutorId != GetLoggedInTutor().Id)
                 return NotFound();
+            var exam = _examService.Get(mcq.ExamId);
 
             foreach (var opt in model.Options)
             {
@@ -183,7 +185,7 @@ namespace OnlineSchool.Controllers
                 await _mcqOptionService.Update(option);
             }
             mcq = model.Edit(mcq);
-            await _mcqQuestionService.Update(mcq);
+            await _mcqQuestionService.Update(mcq,exam);
 
             return RedirectToAction(nameof(Exam), new { id = mcq.ExamId });
         }

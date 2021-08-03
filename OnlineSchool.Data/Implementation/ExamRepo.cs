@@ -21,13 +21,20 @@ namespace OnlineSchool.Data.Implementation
 
         public Exam GetInclude(int id)
         {
-            var exam = _dbSet.Where(c => c.Id == id && !c.IsDeleted)
-                .Include(c => c.Course)
-                .Include(c=>c.MultiChoiceQuestions)
-                    .ThenInclude(c=>c.Options)
-                .FirstOrDefault();
-            exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted).ToList();
-            return exam;
+            try
+            {
+                var exam = _dbSet.Where(c => c.Id == id && !c.IsDeleted)
+                       .Include(c => c.Course)
+                       .Include(c => c.MultiChoiceQuestions)
+                           .ThenInclude(c => c.Options)
+                       .FirstOrDefault();
+                //exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted).ToList();
+                return exam;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public IEnumerable<Exam> GetAllInclude()

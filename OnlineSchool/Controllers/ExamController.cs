@@ -26,6 +26,7 @@ namespace OnlineSchool.Controllers
         {
             var exam = _examService.Get(id);
             var student = GetLoggedInStudent();
+
             var examAttempt = _examAttemptService.CheckIfStudentAttemptAlreadyExists(exam.Id, student.Id);
             if (examAttempt == null)
             {
@@ -50,10 +51,12 @@ namespace OnlineSchool.Controllers
                     ExamId = exam.Id,
                     Mcqs = mcqAttempts,
                     DurationInSeconds = exam.DurationInMinute * 60,
+                    ContinueAttempt = true,
                 };
                 examAttempt = await _examAttemptService.CreateExamAttempt(examAttempt);
             }
-
+            if (!CheckIfAttemptIsAllowed(exam, examAttempt))
+                return RedirectToAction(nameof(AttemptFinished), new { id= exam.Id});
             //examAttempt.DurationInSeconds = 20;
             //await _examAttemptService.Update(examAttempt);
 
@@ -97,6 +100,19 @@ namespace OnlineSchool.Controllers
             return View();
         }
 
+        public bool CheckIfAttemptIsAllowed(Exam exam, ExamAttempt attempt)
+        {
+            if (!attempt.ContinueAttempt)
+                return false;
+
+            if (DateTime.Compare(exam.DeadlineStartTime, DateTime.Now) > 0)
+                return false;
+
+            if (DateTime.Compare(exam.DeadlineEndTime, DateTime.Now) < 0)
+                return false;
+
+            return true;
+        }
 
     }
 }

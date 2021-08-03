@@ -31,7 +31,7 @@
     <!-- <h1 class="menu-page-header">
             Page Header
         </h1> -->
-    @if (await UserManager.IsInRoleAsync(UserManager.Users.FirstOrDefault(x => x.Email == @User.Identity.Name), AppConstant.SuperAdminRole))
+    @{if (await UserManager.IsInRoleAsync(UserManager.Users.FirstOrDefault(x => x.Email == @User.Identity.Name), AppConstant.SuperAdminRole))
     {
         <ul class="main-menu">
             <li class="sub-header">
@@ -75,7 +75,9 @@
     else if(await UserManager.IsInRoleAsync(UserManager.Users.FirstOrDefault(x => x.Email == @User.Identity.Name), AppConstant.LecturerRole))
     {
         <partial name="_TutorMenu" />
-    }
+    }else if(await UserManager.IsInRoleAsync(UserManager.Users.FirstOrDefault(x => x.Email == @User.Identity.Name), AppConstant.StudentRole)){
+        <partial name="_StudentMenu" />
+    }}
 
     <div class="side-menu-magic">
         <h4>

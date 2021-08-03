@@ -1,32 +1,76 @@
 ﻿@model OnlineSchool.Models.ViewCourseDetailsModel
 @{
     ViewData["Title"] = "Course";
+    Layout = "_AdminLayout";
 }
-
-<h1>Course</h1>
-<h4>@Model.CourseTitle</h4>
-<h6>@Model.CourseDescription</h6>
-<h6>@Model.TutorName</h6>
-<hr />
-<div>Lectures (@Model.NumberOfLectures)</div>
-<hr />
-@foreach (var lecture in Model.Lectures)
-{
-    <div>
-        <div>@lecture.Title</div>
-        <div>@lecture.BriefDescription</div>
-        <div>
-            <a href="@Url.Content(lecture.FilePath)" target="_blank">View</a>
+<div class="element-wrapper">
+    <h6 class="element-header">
+        Course
+    </h6>
+    <div class="element-box">
+        <h5 class="form-header">
+            @Model.CourseTitle
+        </h5>
+        <div class="form-desc">
+            @Model.CourseDescription <br>
+            @Model.TutorName
         </div>
     </div>
-    <hr />
-}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="element-box">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="form-header">
+                            Lectures (@Model.NumberOfLectures)
+                        </h5>
+                    </div>
 
-<h4>Exams</h4>
-<hr />
-@foreach(var exam in Model.Exams)
-{
-    <div>@exam.Title [@exam.TotalScore]</div>
-    <a asp-action="index" asp-controller="exam" asp-route-id="@exam.Id">Take exam</a>
-}
 
+                </div>
+                <div class="form-desc">
+                    @foreach (var lecture in Model.Lectures)
+                    {
+                        <div class="logged-user-w avatar-inline">
+                            <div class="logged-user-i">
+                                <div class="avatar-w">
+                                    <img alt="" src="@Url.Content(lecture.FilePath)">
+                                </div>
+                                <div class="logged-user-info-w">
+                                    <div class="logged-user-name">
+                                        @lecture.Title
+                                    </div>
+                                    <div class="logged-user-role">
+                                        @lecture.BriefDescription
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="element-box">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="form-header">
+                            Exams (@Model.NumberOfExams)
+                        </h5>
+                    </div>
+                </div>
+                <div class="form-desc">
+                    @foreach (var exam in Model.Exams)
+                    {
+                        <div>
+                            <div>@exam.Title [@exam.TotalScore]</div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

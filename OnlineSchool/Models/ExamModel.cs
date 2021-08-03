@@ -33,7 +33,7 @@ namespace OnlineSchool.Models
             DeadlineEndTime = GeneralFunction.DateInString(exam.DeadlineEndTime);
             DeadlineStartTime = GeneralFunction.DateInString(exam.DeadlineStartTime);
             TotalScore = exam.TotalScore;
-            McqQuestions = exam.MultiChoiceQuestions.Select(mc => new ViewMcqQuestion(mc, true));
+            McqQuestions = exam.MultiChoiceQuestions.Where(mc=>!mc.IsDeleted).Select(mc => new ViewMcqQuestion(mc, true)).ToList();
         }
     }
 

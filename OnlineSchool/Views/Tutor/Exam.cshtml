@@ -100,7 +100,7 @@
                                         <h6 class="ticket-title">
                                             @mcq.Question
                                         </h6>
-                                        <div class="ticket-description">
+                                        <div class="ticket-description" style="height:auto">
                                             @foreach (var option in mcq.Options)
                                             {
                                                 if (option.AnsId == mcq.AnswerId)
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="st-foot">
                                     <a class="btn btn-sm btn-dark" asp-action="EditMcq" asp-route-id="@mcq.Id">Edit</a>
-                                    <a class="btn btn-sm btn-danger" onclick="DeleteMcq(@mcq.Id)">Delete</a>
+                                    <a class="btn btn-sm btn-danger text-white" onclick="DeleteMcq(@mcq.Id)">Delete</a>
                                 </div>
                             </a>
                         </div>

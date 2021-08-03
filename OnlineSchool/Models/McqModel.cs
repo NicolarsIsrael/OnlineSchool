@@ -54,7 +54,7 @@ namespace OnlineSchool.Models
             Id = question.Id;
             Question = question.Question;
             Score = question.Score;
-            Options = question.Options.Select(op => new ViewMcqOptionModel(op));
+            Options = question.Options.Select(op => new ViewMcqOptionModel(op)).ToList();
             AnswerId = sendAnswer ? question.AnswerId : -2;
         }
     }

@@ -19,7 +19,7 @@
         int questionNumber = 1;
         foreach (var mcq in Model.McqQuestions)
         {
-            <div class="font-weight-bold">@questionNumber. mcq.Question</div>
+            <div class="font-weight-bold">@questionNumber. @mcq.Question</div>
             int answerNumber = 1;
             string answerLetter = "";
 

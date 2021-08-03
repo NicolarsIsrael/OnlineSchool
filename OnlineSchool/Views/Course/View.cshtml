@@ -31,21 +31,23 @@
                 <div class="form-desc">
                     @foreach (var lecture in Model.Lectures)
                     {
-                        <div class="logged-user-w avatar-inline">
-                            <div class="logged-user-i">
-                                <div class="avatar-w">
-                                    <img alt="" src="@Url.Content(lecture.FilePath)">
-                                </div>
-                                <div class="logged-user-info-w">
-                                    <div class="logged-user-name">
-                                        @lecture.Title
+                        <a>
+                            <div class="logged-user-w avatar-inline">
+                                <div class="logged-user-i">
+                                    <div class="avatar-w">
+                                        <img alt="" src="@Url.Content(lecture.FilePath)">
                                     </div>
-                                    <div class="logged-user-role">
-                                        @lecture.BriefDescription
+                                    <div class="logged-user-info-w">
+                                        <div class="logged-user-name">
+                                            @lecture.Title
+                                        </div>
+                                        <div class="logged-user-role">
+                                            @lecture.BriefDescription
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     }
                 </div>
             </div>
@@ -64,7 +66,9 @@
                     @foreach (var exam in Model.Exams)
                     {
                         <div>
-                            <div>@exam.Title [@exam.TotalScore]</div>
+                            <a asp-controller="exam" asp-action="index" asp-route-id="@exam.Id">
+                                <div>@exam.Title [@exam.TotalScore]</div>
+                            </a>
                         </div>
                     }
                 </div>

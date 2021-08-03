@@ -192,7 +192,7 @@ namespace OnlineSchool.Models
                 if (_attempt != null)
                     _mcqQuestions.Add(new ExamMcqQuestion(mcq, _attempt.Id, _attempt.SelectedOptionId));
             }
-            McqQuestions = _mcqQuestions;
+            McqQuestions = _mcqQuestions.OrderBy(m=>m.Order).ToList();
         }
 
         public ExamModel()

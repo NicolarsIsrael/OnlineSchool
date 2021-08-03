@@ -57,9 +57,7 @@ namespace OnlineSchool.Controllers
             }
             if (!CheckIfAttemptIsAllowed(exam, examAttempt))
                 return RedirectToAction(nameof(AttemptFinished), new { id= exam.Id});
-            //examAttempt.DurationInSeconds = 20;
-            //await _examAttemptService.Update(examAttempt);
-
+            
             var model = new ExamModel(exam,examAttempt);
             return View(model);
         }
@@ -89,7 +87,7 @@ namespace OnlineSchool.Controllers
         public async Task<IActionResult> AttemptFinished(int id)
         {
             var examAttempt = _examAttemptService.Get(id);
-            examAttempt.ContinueAttempt = false;
+            examAttempt.ContinueAttempt = true;
             await _examAttemptService.Update(examAttempt);
             return Content("Done");
         }
@@ -105,7 +103,7 @@ namespace OnlineSchool.Controllers
             if (!attempt.ContinueAttempt)
                 return false;
 
-            if (DateTime.Compare(exam.DeadlineStartTime, DateTime.Now) > 0)
+            if (DateTime.Compare(exam.StartTime, DateTime.Now) > 0)
                 return false;
 
             if (DateTime.Compare(exam.DeadlineEndTime, DateTime.Now) < 0)

@@ -82,47 +82,51 @@
         <h6 class="element-header">
             Questions
         </h6>
-        @foreach (var mcq in Model.McqQuestions)
-        {
-            <div class="support-index">
-                <div class="support-tickets">
-                    <div class="support-ticket ">
-                        <div class="st-meta">
-                            <div class="badge badge-success-inverted">
-                                @mcq.Score marks
-                            </div>
-
-                        </div>
-                        <div class="st-body">
-                            <div class="ticket-content">
-                                <h6 class="ticket-title">
-                                    @mcq.Question
-                                </h6>
-                                <div class="ticket-description">
-                                    @foreach (var option in mcq.Options)
-                                    {
-                                        if (option.AnsId == mcq.AnswerId)
-                                        {
-                                            <div class="font-weight-bold">@option.Option</div>
-                                        }
-                                        else
-                                        {
-                                            <div>@option.Option</div>
-                                        }
-
-                                    }
+        <div class="row">
+            @foreach (var mcq in Model.McqQuestions)
+            {
+                <div class="support-index mt-2 col-md-6">
+                    <div class="support-tickets">
+                        <div class="support-ticket ">
+                            <div class="st-meta">
+                                <div class="badge badge-success-inverted">
+                                    @mcq.Score marks
                                 </div>
+
                             </div>
-                        </div>
-                        <div class="st-foot">
-                            <a class="btn btn-sm btn-dark" asp-action="EditMcq" asp-route-id="@mcq.Id">Edit</a>
-                            <a class="btn btn-sm btn-danger" onclick="DeleteMcq(@mcq.Id)">Delete</a>
+                            <a  asp-controller="tutor" asp-action="editmcq" asp-route-id="@mcq.Id" style="text-decoration:none">
+                                <div class="st-body">
+                                    <div class="ticket-content">
+                                        <h6 class="ticket-title">
+                                            @mcq.Question
+                                        </h6>
+                                        <div class="ticket-description">
+                                            @foreach (var option in mcq.Options)
+                                            {
+                                                if (option.AnsId == mcq.AnswerId)
+                                                {
+                                                    <div class="font-weight-bold">@option.Option</div>
+                                                }
+                                                else
+                                                {
+                                                    <div>@option.Option</div>
+                                                }
+
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="st-foot">
+                                    <a class="btn btn-sm btn-dark" asp-action="EditMcq" asp-route-id="@mcq.Id">Edit</a>
+                                    <a class="btn btn-sm btn-danger" onclick="DeleteMcq(@mcq.Id)">Delete</a>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        }
+            }
+        </div>
     </div>
     </div>
     <script>

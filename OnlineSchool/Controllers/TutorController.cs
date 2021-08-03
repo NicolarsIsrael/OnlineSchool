@@ -98,7 +98,7 @@ namespace OnlineSchool.Controllers
             var course = _courseService.Get(model.CourseId);
             var exam = model.Add(course);
             await _examService.Add(exam);
-            return RedirectToAction(nameof(Course), new { id = model.CourseId });
+            return RedirectToAction(nameof(Exam), new { id = exam.Id });
         }
 
         public IActionResult EditExam(int id)

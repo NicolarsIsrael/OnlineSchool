@@ -24,6 +24,7 @@
                         <label class="">Option @j</label>
                         <input name="Options[@i].AnsId" hidden value="@i" />
                         <input name="Options[@i].Option" class="form-control" />
+                        <span asp-validation-for="Options[i].Option" class="text-danger"></span>
                     </div>
                 }
             </div>

@@ -17,6 +17,7 @@ namespace OnlineSchool.Models
         public IFormFile QuestionFile { get; set; }
         public List<AddMcqOptionModel> Options { get; set; }
         public int AnswerId { get; set; }
+        [Range(1,int.MaxValue,ErrorMessage ="Score should be greater than 1")]
         public decimal Score { get; set; }
         public AddMcqModel()
         {
@@ -61,6 +62,7 @@ namespace OnlineSchool.Models
     public class AddMcqOptionModel
     {
         public int AnsId { get; set; }
+        [Required(ErrorMessage ="Option is required")]
         public string Option { get; set; }
         public IFormFile OptionFile { get; set; }
 
@@ -94,6 +96,7 @@ namespace OnlineSchool.Models
         public IFormFile QuestionFile { get; set; }
         public List<EditMcqOptionModel> Options { get; set; }
         public int AnswerId { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Score should be greater than 1")]
         public decimal Score { get; set; }
 
         public EditMcqModel()
@@ -123,6 +126,7 @@ namespace OnlineSchool.Models
     public class EditMcqOptionModel
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Option is required")]
         public string Option { get; set; }
         public IFormFile OptionFile { get; set; }
         public EditMcqOptionModel()

@@ -51,6 +51,18 @@ namespace OnlineSchool.Controllers
             return View(model);
         }
 
+        public IActionResult Result(int id)
+        {
+            var tutor = GetLoggedInTutor();
+            var exam = _examService.Get(id);
+            if (tutor.Id != exam.Course.TutorId)
+                return NotFound();
+            var examAttempts = _examAttemptService.GetAllExamAttempts(id);
+            var model = examAttempts.Select(ex => new ExamAttemptModel { StudentFullname = $"{ex.Student.FirstName} {ex.Student.LastName}", StudentId = ex.StudentId,
+                StudentMatricNumber = ex.Student.MatricNumber, StudentScore = ex.Score, TotalGrade = ex.MaximumScore });
+            return View(model);
+        }
+
         public IActionResult NewLecture(int id)
         {
             var course = _courseService.Get(id);

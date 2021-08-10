@@ -50,6 +50,7 @@ namespace OnlineSchool.Controllers
                 {
                     CourseId = exam.Course.Id,
                     StudentId = student.Id,
+                    Student = student,
                     ExamId = exam.Id,
                     Mcqs = mcqAttempts,
                     DurationInSeconds = exam.DurationInMinute * 60,

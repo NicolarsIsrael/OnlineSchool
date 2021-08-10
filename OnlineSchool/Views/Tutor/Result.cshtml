@@ -1,0 +1,19 @@
+﻿@model IEnumerable<OnlineSchool.Models.ExamAttemptModel>
+@{
+    ViewData["Title"] = "Result";
+}
+
+<h1>Result</h1>
+
+<table>
+    <tbody>
+        @foreach(var attempt in Model)
+        {
+            <tr>
+                <td>@attempt.StudentMatricNumber</td>
+                <td>@attempt.StudentFullname</td>
+                <td>@attempt.StudentScore / @attempt.TotalGrade</td>
+            </tr>
+        }
+    </tbody>
+</table>

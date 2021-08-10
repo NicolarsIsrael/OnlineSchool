@@ -8,6 +8,7 @@ namespace OnlineSchool.Core
     {
         public int ExamId { get; set; }
         public int StudentId { get; set; }
+        public Student Student { get; set; }
         public int CourseId { get; set; }
         public int DurationInSeconds { get; set; }
         public IEnumerable<ExamMcqAttempt> Mcqs { get; set; }

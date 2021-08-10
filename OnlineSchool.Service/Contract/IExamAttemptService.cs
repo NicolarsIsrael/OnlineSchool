@@ -12,5 +12,6 @@ namespace OnlineSchool.Service.Contract
         Task<ExamAttempt> CreateExamAttempt(ExamAttempt examAttempt);
         Task Update(ExamAttempt examAttempt);
         ExamAttempt Get(int id);
+        IEnumerable<ExamAttempt> GetAllExamAttempts(int examId);
     }
 }

@@ -7,7 +7,9 @@ namespace OnlineSchool.Core
     public class ExamMcqAttempt : Entity
     {
         public int McqId { get; set; }
+        public int CorrectAnswerId { get; set; }
         public int SelectedOptionId { get; set; }
+        public decimal Score { get; set; }
         public IEnumerable<McqOption> McqOptions { get; set; }
     }
 }

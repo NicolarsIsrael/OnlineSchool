@@ -27,7 +27,7 @@ namespace OnlineSchool.Controllers
             var exam = _examService.Get(id);
             var student = GetLoggedInStudent();
 
-            var examAttempt = _examAttemptService.CheckIfStudentAttemptAlreadyExists(exam.Id, student.Id);
+            ExamAttempt examAttempt = _examAttemptService.CheckIfStudentAttemptAlreadyExists(exam.Id, student.Id);
             if (examAttempt == null)
             {
                 var mcqAttempts = new List<ExamMcqAttempt>();
@@ -41,6 +41,8 @@ namespace OnlineSchool.Controllers
                         DateModifiedUtc = DateTime.UtcNow,
                         McqId = mcq.Id,
                         SelectedOptionId = -1,
+                        CorrectAnswerId = mcq.AnswerId,
+                        Score = mcq.Score,
                         McqOptions = mcq.Options,
                     });
                 }
@@ -52,6 +54,7 @@ namespace OnlineSchool.Controllers
                     Mcqs = mcqAttempts,
                     DurationInSeconds = exam.DurationInMinute * 60,
                     ContinueAttempt = true,
+                    MaximumScore = exam.TotalScore,
                 };
                 examAttempt = await _examAttemptService.CreateExamAttempt(examAttempt);
             }
@@ -88,9 +91,17 @@ namespace OnlineSchool.Controllers
         {
             var examAttempt = _examAttemptService.Get(id);
             examAttempt.ContinueAttempt = true;
+            decimal score = 0;
+            foreach(var mcq in examAttempt.Mcqs)
+            {
+                if (mcq.SelectedOptionId == mcq.CorrectAnswerId)
+                    score += mcq.Score;
+            }
+            examAttempt.Score = score;
             await _examAttemptService.Update(examAttempt);
-            return Content("Done");
+            return Content($"{examAttempt.Score}/{examAttempt.MaximumScore}");
         }
+
 
         [HttpPost]
         public IActionResult Index(ExamModel model)

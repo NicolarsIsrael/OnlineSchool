@@ -18,13 +18,15 @@ namespace OnlineSchool.Controllers
     {
         public readonly IMcqQuestionService _mcqQuestionService;
         public readonly IMcqOptionService _mcqOptionService;
+        public readonly IExamAttemptService _examAttemptService;
 
         public TutorController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService,IExamService examService, IEmailService emailSender, IMcqQuestionService mcqQuestionService,
-            IMcqOptionService mcqOptionService)
+            IMcqOptionService mcqOptionService, IExamAttemptService examAttemptService)
             : base(userManager, roleManager, studentService, lectureService, tutorService, courseService, examService, emailSender)
         {
             _mcqQuestionService = mcqQuestionService;
             _mcqOptionService = mcqOptionService;
+            _examAttemptService = examAttemptService;
         }
         public IActionResult Index()
         {
@@ -154,6 +156,15 @@ namespace OnlineSchool.Controllers
             return RedirectToAction(nameof(Exam), new { id = model.ExamId });
         }
 
+        //public async Task<IActionResult> addMcqData(int id)
+        //{
+        //    var exam = _examService.Get(id);
+        //    var mcq = new List<McqQuestion>()
+        //    {
+        //        new McqQuestion{Exam = exam, Question = "adfhalsdfkj adfsdkjsld",Options = new List<McqOption>{new McqOption { Option = "abd"} }}
+        //    }
+        //}
+
         public IActionResult EditMcq(int id)
         {
             var mcq = _mcqQuestionService.GetById(id);
@@ -200,5 +211,18 @@ namespace OnlineSchool.Controllers
 
             return RedirectToAction(nameof(Exam), new { id = mcq.ExamId });
         }
+
+        //public async Task<IActionResult> GradeExam(int id)
+        //{
+        //    var exam = _examService.Get(id);
+        //    var examAttempts = _examAttemptService.GetAllExamAttempts(id);
+        //    foreach(var examAttempt in examAttempts)
+        //    {
+        //        foreach(var mcq in examAttempt.Mcqs)
+        //        {
+        //            if(mcq.SelectedOptionId==mcq.)
+        //        }
+        //    }
+        //}
     }
 }

@@ -62,16 +62,16 @@
 
     <input type="submit" value="submit" />
     <div>Registration closes in <span id="time"> ...</span> minutes!</div>
+
+    <a  asp-action="attemptFinished" asp-route-id="@Model.AttemptId">Finish attempt</a>
 </form>
 
 <script>
     function SubmitMcqAnswer(attemptId, answerId) {
-        console.log("changed");
         $.ajax({
             url: "/exam/SubmitMcqAnswer",
             data: { mcqAttemptId: attemptId, answerId: answerId },
             success: function (result) {
-                console.log("submitted");
             }
         })
     }
@@ -110,7 +110,6 @@
             url: "/exam/UpdateDuration",
             data: { examAttemptId: attemptid, durationLeft: durationRemaining },
             success: function (result) {
-                console.log(durationRemaining);
             }
         })
     }

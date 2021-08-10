@@ -40,5 +40,10 @@ namespace OnlineSchool.Service.Implementation
             _uow.ExamAttemptRepo.Update(examAttempt);
             await _uow.Save();
         }
+
+        public IEnumerable<ExamAttempt> GetAllExamAttempts(int examId)
+        {
+            return _uow.ExamAttemptRepo.GetAllInclude().Where(e => e.ExamId == examId);
+        }
     }
 }

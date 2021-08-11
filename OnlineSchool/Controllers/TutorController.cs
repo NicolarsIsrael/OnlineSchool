@@ -30,7 +30,7 @@ namespace OnlineSchool.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction(nameof(Courses));
         }
 
         public IActionResult Courses()

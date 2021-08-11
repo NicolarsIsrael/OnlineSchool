@@ -22,10 +22,21 @@ namespace OnlineSchool.Controllers
             : base(userManager, roleManager, studentService, lectureService, tutorService, courseService, examService, emailSender)
         {
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            //return Content(_service.GetCount().ToString());
-            return View();
+            var user = GetLoggedInUser(true);
+            if (user == null)
+                return RedirectToPage("/Account/Login",new { area = "Identity"});
+            if (await _userManager.IsInRoleAsync(user, AppConstant.StudentRole))
+                return RedirectToAction("Index", "Course");
+
+            if(await _userManager.IsInRoleAsync(user, AppConstant.LecturerRole))
+                return RedirectToAction("Index", "Tutor");
+
+            if (await _userManager.IsInRoleAsync(user, AppConstant.SuperAdminRole))
+                return RedirectToAction("Index", "Admin");
+
+            return RedirectToPage("/Account/Login", new { area = "Identity" });
         }
 
         public IActionResult Privacy()

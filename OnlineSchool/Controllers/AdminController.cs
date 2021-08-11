@@ -115,7 +115,7 @@ namespace OnlineSchool.Controllers
                 ModelState.AddModelError("", "One or more validations failed");
                 return View(model);
             }
-            var password = GeneralFunction.GeneratePassword();
+            var password = model.Fullname; // GeneralFunction.GeneratePassword();
             var user = await CreateUserAccount(AppConstant.LecturerRole, model.Email, password);
             try
             {
@@ -127,16 +127,16 @@ namespace OnlineSchool.Controllers
                 await _userManager.DeleteAsync(user);
                 throw;
             }
-            try
-            {
-                await _emailSender.SendEmailAsync(model.Email,
-                       "Lecturer account",
-                                $"A lecturer account has been created for you with the following credentials." +
-                                $"<br>Email: {model.Email}<br>Password: {password}" +
-                                $"<br>Login and change your password to a more familiar one");
-            }
-            catch (Exception ex)
-            { }
+            //try
+            //{
+            //    await _emailSender.SendEmailAsync(model.Email,
+            //           "Lecturer account",
+            //                    $"A lecturer account has been created for you with the following credentials." +
+            //                    $"<br>Email: {model.Email}<br>Password: {password}" +
+            //                    $"<br>Login and change your password to a more familiar one");
+            //}
+            //catch (Exception ex)
+            //{ }
             return RedirectToAction(nameof(Tutors));
         }
 

@@ -63,7 +63,7 @@ namespace OnlineSchool.Models
         [Required(ErrorMessage = "Deadline start time is required")]
         public DateTime DeadlineStartTime { get; set; }
 
-        [Display(Name ="Deadline end time")]
+        [Display(Name ="End time")]
         [Required(ErrorMessage = "Deadline end time is required")]
         public DateTime DeadlineEndTime { get; set; }
 
@@ -123,7 +123,7 @@ namespace OnlineSchool.Models
         [Required(ErrorMessage = "Deadline start time is required")]
         public DateTime DeadlineStartTime { get; set; }
 
-        [Display(Name = "Deadline end time")]
+        [Display(Name = "End time")]
         [Required(ErrorMessage = "Deadline end time is required")]
         public DateTime DeadlineEndTime { get; set; }
 

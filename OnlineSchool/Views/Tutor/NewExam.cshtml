@@ -14,12 +14,12 @@
                 Add Exam
             </h5>
             <div class="form-group">
-                <label asp-for="Title"> Email address</label>
+                <label asp-for="Title"></label>
                 <input class="form-control" placeholder="Enter email" type="text" asp-for="Title" data-error="Title is required">
                 <span asp-validation-for="Title" class="help-block form-text with-errors form-control-feedback"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CoursePerentage">Course Perentage</label>
+                <label asp-for="CoursePerentage"></label>
                 <input class="form-control" placeholder="0.00" type="number" asp-for="CoursePerentage" data-error="Course Perentage is invalid">
                 <span asp-validation-for="CoursePerentage" class="help-block form-text with-errors form-control-feedback"></span>
             </div>
@@ -32,11 +32,6 @@
                 <label asp-for="StartTime" class=""></label>
                 <input asp-for="StartTime" class="form-control" />
                 <span asp-validation-for="StartTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeadlineStartTime" class=""></label>
-                <input asp-for="DeadlineStartTime" class="form-control" />
-                <span asp-validation-for="DeadlineStartTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DeadlineEndTime" class=""></label>

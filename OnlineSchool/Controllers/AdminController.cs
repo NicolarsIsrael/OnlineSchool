@@ -43,7 +43,7 @@ namespace OnlineSchool.Controllers
                 ModelState.AddModelError("", "One or more validations failed");
                 return View(model);
             }
-            var password = GeneralFunction.GeneratePassword();
+            var password = model.LastName;// GeneralFunction.GeneratePassword();
             var user = await CreateUserAccount(AppConstant.StudentRole, model.Email,password);
             try
             {
@@ -58,16 +58,16 @@ namespace OnlineSchool.Controllers
                 await _userManager.DeleteAsync(user);
                 throw;
             }
-            try
-            {
-                await _emailSender.SendEmailAsync(model.Email,
-                       "Student account",
-                                $"A student account has been created for you with the following credentials." +
-                                $"<br>Email: {model.Email}<br>Password: {password}" +
-                                $"<br>Login and change password to a more familiar one.");
-            }
-            catch (Exception ex)
-            { }
+            //try
+            //{
+            //    await _emailSender.SendEmailAsync(model.Email,
+            //           "Student account",
+            //                    $"A student account has been created for you with the following credentials." +
+            //                    $"<br>Email: {model.Email}<br>Password: {password}" +
+            //                    $"<br>Login and change password to a more familiar one.");
+            //}
+            //catch (Exception ex)
+            //{ }
             return RedirectToAction(nameof(Students));
         }
 

@@ -46,7 +46,7 @@ namespace OnlineSchool
 
                     //password validation
                     options.Password.RequireDigit = false;
-                    options.Password.RequiredLength = 6;
+                    options.Password.RequiredLength = 2;
                     options.Password.RequiredUniqueChars = 0;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;

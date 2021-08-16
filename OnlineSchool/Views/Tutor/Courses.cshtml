@@ -1,47 +1,85 @@
 ﻿@model IEnumerable<OnlineSchool.Models.ViewCourseModel>
 
 @{
-    ViewData["Title"] = "Students";
-    Layout = "_AdminLayout";
+    ViewData["Title"] = "Courses";
+    //Layout = "_AdminLayout";
 }
 
 <div class="element-wrapper">
-    <div class="element-actions">
-        <a class="mr-2 mb-2 btn btn-primary btn-rounded" asp-action="AddCourse">Create New</a>
+    <div class="element-header">
+        Basic info
     </div>
-    <h6 class="element-header">
+    <div class="mt-1 mb-3" style="padding:0 20px">
+        <div style="font-size:16px">Full name: @ViewBag.TutorName </div>
+        <div style="font-size:16px">Email: @ViewBag.TutorEmail </div>
+    </div>
+
+    <div class="element-header">
         Courses
-    </h6>
-    <div class="table-responsive">
-        <table class="table table-lightborder">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CourseCode)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CourseTitle)
-                    </th>
-                    <th>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CourseCode)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CourseTitle)
-                        </td>
-                        <td>
-                            <a class="mr-2 mb-2 btn btn-secondary" asp-controller="Tutor" asp-action="Course" asp-route-id="@item.Id">View</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    </div>
+    <div class="row">
+        @{
+            foreach (var course in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card m-1" style="box-shadow: 1px 1px 4px rgb(47 47 47 / 40%);">
+                        <div class="card-body" style=" padding: 10px">
+                            <div style="font-size:18px;font-weight:600;">
+                                @course.CourseTitle.ToUpper()
+                            </div>
+                            <div style="font-size:15px">
+                                @course.CourseCode 
+                            </div>
+                            <div style="font-size:12px">
+                                @course.CourseDescription
+                            </div>
+                            <hr />
+                            <a asp-action="course" asp-route-id="@course.Id" class="btn btn-custom-primary btn-sm w-100">view</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+
+
+    @*<div class="element-actions">
+            <a class="mr-2 mb-2 btn btn-primary btn-rounded" asp-action="AddCourse">Create New</a>
         </div>
+        <h6 class="element-header">
+            Courses
+        </h6>
+        <div class="table-responsive">
+            <table class="table table-lightborder">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CourseCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CourseTitle)
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CourseCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CourseTitle)
+                            </td>
+                            <td>
+                                <a class="mr-2 mb-2 btn btn-secondary" asp-controller="Tutor" asp-action="Course" asp-route-id="@item.Id">View</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>*@
 </div>

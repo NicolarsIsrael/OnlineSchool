@@ -36,6 +36,9 @@ namespace OnlineSchool.Controllers
         public IActionResult Courses()
         {
             var tutor = GetLoggedInTutor();
+            ViewBag.TutorName = tutor.Fullname;
+            ViewBag.TutorEmail = tutor.Email;
+
             var courses = _courseService.GetAllForTutor(tutor.Id);
             var model = courses.Select(c => new ViewCourseModel(c));
             return View(model);

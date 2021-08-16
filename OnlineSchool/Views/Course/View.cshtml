@@ -1,53 +1,61 @@
 ﻿@model OnlineSchool.Models.ViewCourseDetailsModel
 @{
     ViewData["Title"] = "Course";
-    Layout = "_AdminLayout";
+    //Layout = "_AdminLayout";
 }
 <div class="element-wrapper">
-    <h6 class="element-header">
-        Course
+    <h6 class="element-header mt-4 mb-3">
+        <span style="font-size:20px;font-weight:600;">
+            @Model.CourseTitle.ToUpper() |
+        </span>
+        <span style="font-size:17px;font-weight:600">
+            @Model.CourseCode | @Model.TutorName
+        </span>
+        
     </h6>
     <div class="element-box">
-        <h5 class="form-header">
-            @Model.CourseTitle
-        </h5>
-        <div class="form-desc">
-            @Model.CourseDescription <br>
-            @Model.TutorName
+        <div class="card box-shadow">
+            <div class="card-body">
+                <div style="font-size:14px">
+                    @Model.CourseDescription
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row mt-5">
+        <div class="col-md-6 mb-4">
             <div class="element-box">
                 <div class="row">
                     <div class="col-md-12">
-                        <h5 class="form-header">
+                        <h5 class="element-header">
                             Lectures (@Model.NumberOfLectures)
                         </h5>
                     </div>
 
 
                 </div>
-                <div class="form-desc">
-                    @foreach (var lecture in Model.Lectures)
-                    {
-                        <a>
+                <div class="form-desc mt-3">
+                    @{
+                        int lectureCount = 1;
+                        foreach (var lecture in Model.Lectures)
+                        {
                             <div class="logged-user-w avatar-inline">
                                 <div class="logged-user-i">
-                                    <div class="avatar-w">
-                                        <img alt="" src="@Url.Content(lecture.FilePath)">
-                                    </div>
                                     <div class="logged-user-info-w">
-                                        <div class="logged-user-name">
-                                            @lecture.Title
+                                        <div class="logged-user-name" style="font-size:15px;font-weight:600">
+                                            <span>@lectureCount.</span> <span>@lecture.Title.ToUpper()</span>
                                         </div>
-                                        <div class="logged-user-role">
+                                        <div class="logged-user-role" style="padding-left:20px;font-size:13px">
                                             @lecture.BriefDescription
+                                        </div>
+                                        <div style="padding:5px 20px">
+                                            <a target="_blank" href="@Url.Content(lecture.FilePath)">View resource file</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                            lectureCount++;
+                        }
                     }
                 </div>
             </div>
@@ -57,20 +65,38 @@
             <div class="element-box">
                 <div class="row">
                     <div class="col-md-12">
-                        <h5 class="form-header">
+                        <h5 class="element-header">
                             Exams (@Model.NumberOfExams)
                         </h5>
                     </div>
                 </div>
-                <div class="form-desc">
-                    @foreach (var exam in Model.Exams)
-                    {
-                        <div>
-                            <a asp-controller="exam" asp-action="index" asp-route-id="@exam.Id">
-                                <div>@exam.Title [@exam.TotalScore]</div>
-                            </a>
-                        </div>
+                <div class="form-desc mt-3">
+                    @{
+                        int examCount = 1;
+                        foreach (var exam in Model.Exams)
+                        {
+                            <div>
+                                <div class="logged-user-name" style="font-size:15px;font-weight:600">
+                                    <span>@examCount.</span> <span>@exam.Title.ToUpper()</span>
+                                </div>
+                                <div style="padding:0 20px">
+                                    <div class="pb-3 pt-1">
+                                        <div>
+                                            Start time : @exam.StartTime
+                                        </div>
+                                        <div>
+                                            Duration: @exam.DurationInMinutes minutes
+                                        </div>
+                                        <a asp-controller="exam" asp-action="index" asp-route-id="@exam.Id" class="btn btn-custom-primary btn-sm">
+                                            Start test
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            examCount++;
+                        }
                     }
+
                 </div>
             </div>
 

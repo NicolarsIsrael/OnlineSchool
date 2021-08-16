@@ -16,8 +16,8 @@
                 <div class="col-md-4">
                     <div class="card m-1" style="box-shadow: 1px 1px 4px rgb(47 47 47 / 40%);">
                         <div class="card-body" style=" padding: 10px">
-                            <div style="font-size:18px;font-weight:600">
-                                @course.CourseTitle
+                            <div style="font-size:18px;font-weight:600;">
+                                @course.CourseTitle.ToUpper()
                             </div>
                             <div style="font-size:15px">
                                 @course.CourseCode | @course.TutorName
@@ -25,6 +25,8 @@
                             <div style="font-size:12px">
                                 @course.CourseDescription
                             </div>
+                            <hr />
+                            <a asp-action="view" asp-route-id="@course.Id" class="btn btn-custom-primary btn-sm w-100">view</a>
                         </div>
                     </div>
                 </div>

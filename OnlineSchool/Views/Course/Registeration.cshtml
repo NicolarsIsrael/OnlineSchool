@@ -1,19 +1,15 @@
 ﻿@model OnlineSchool.Models.CourseRegModel
 @{
     ViewData["Title"] = "Registeration";
-    Layout = "_AdminLayout";
+    //Layout = "_AdminLayout";
 }
 
 <div class="element-wrapper">
-    <div class="element-actions">
-        <input type="button" class="mr-2 mb-2 btn btn-primary btn-rounded" value="Check all" onclick="selectAll()" />
-        <input type="button" class="mr-2 mb-2 btn btn-secoundary btn-rounded" value="Uncheck all"
-            onclick="UnSelectAll()" />
-    </div>
+    
     <h6 class="element-header">
         Registeration
     </h6>
-    <div class="element-box-tp">
+    <div class="element-box-tp mt-3">
         <div class="table-responsive">
             <form method="post">
                 <table class="table table-padded">
@@ -54,7 +50,14 @@
                         }
                     </tbody>
                 </table>
-                <input type="submit" class="btn btn-primary" value="Register" />
+
+                <div class="element-actions">
+                    <input type="button" class="mr-2 mb-2 btn btn-sm btn-primary btn-rounded" value="Check all" onclick="selectAll()" />
+                    <input type="button" class="mr-2 mb-2 btn btn-sm btn-info btn-rounded" value="Uncheck all"
+                           onclick="UnSelectAll()" />
+                </div>
+
+                <input type="submit" class="btn btn-custom-primary mt-3" value="Register" />
             </form>
         </div>
     </div>
@@ -77,3 +80,7 @@
         }
     }
 </script>
+
+<style>
+
+</style>

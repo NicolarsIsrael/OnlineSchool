@@ -276,3 +276,23 @@ td {
         background-color: #921717;
         color:white;
     }
+
+.element-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 3px;
+    margin-bottom: 0px;
+    position: relative;
+    z-index: 1;
+}
+
+.element-wrapper .element-header:after {
+    content: "";
+    background-color: #580e0e;
+    width: 50px;
+    height: 4px;
+    border-radius: 0px;
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 0px;
+}

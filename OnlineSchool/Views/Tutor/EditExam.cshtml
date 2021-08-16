@@ -1,49 +1,56 @@
 ﻿@model OnlineSchool.Models.EditExamModel
 @{
-    ViewData["Title"] = "New Exam";
-    Layout = "_AdminLayout";
+    ViewData["Title"] = "Edit Exam";
+    //Layout = "_AdminLayout";
 }
 
 <div class="element-wrapper">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >> <a asp-action="course" asp-route-id="@Model.CourseId">@Model.CourseCode</a> >>
+        <span class="breadcrum-link">Edit @Model.Title details </span>
+    </div>
     <h6 class="element-header">
         Manage Exam
     </h6>
-    <div class="element-box">
-        <form method="post" enctype="multipart/form-data">
-            <h5 class="form-header">
-                Edit Exam
-            </h5>
-            <input asp-for="CourseId" hidden />
-            <input asp-for="ExamId" hidden />
-            <div class="form-group">
-                <label asp-for="Title" class=""></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CoursePerentage" class=""></label>
-                <input asp-for="CoursePerentage" class="form-control" />
-                <span asp-validation-for="CoursePerentage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DurationInMinute" class=""></label>
-                <input asp-for="DurationInMinute" class="form-control" />
-                <span asp-validation-for="DurationInMinute" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartTime" class=""></label>
-                <input asp-for="StartTime" class="form-control" />
-                <span asp-validation-for="StartTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeadlineEndTime" class=""></label>
-                <input asp-for="DeadlineEndTime" class="form-control" />
-                <span asp-validation-for="DeadlineEndTime" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Edit exam</button>
-        </form>
+    <div class="card box-shadow  login-card mx-auto my-4">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <h5 class="form-header">
+                    Edit Exam
+                </h5>
+                <input asp-for="CourseId" hidden />
+                <input asp-for="ExamId" hidden />
+                <input asp-for="CourseCode" hidden />
+                <div class="form-group">
+                    <label asp-for="Title" class=""></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CoursePerentage" class=""></label>
+                    <input asp-for="CoursePerentage" class="form-control" />
+                    <span asp-validation-for="CoursePerentage" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DurationInMinute" class=""></label>
+                    <input asp-for="DurationInMinute" class="form-control" />
+                    <span asp-validation-for="DurationInMinute" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StartTime" class=""></label>
+                    <input asp-for="StartTime" class="form-control" />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DeadlineEndTime" class=""></label>
+                    <input asp-for="DeadlineEndTime" class="form-control" />
+                    <span asp-validation-for="DeadlineEndTime" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-custom-primary">Edit exam</button>
+            </form>
         </div>
     </div>
+</div>
         @section Scripts {
             <partial name="_ValidationScriptsPartial" />
         }

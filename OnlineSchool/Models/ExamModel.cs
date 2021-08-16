@@ -117,6 +117,7 @@ namespace OnlineSchool.Models
         public int DurationInMinute { get; set; }
 
         public int CourseId { get; set; }
+        public string CourseCode { get; set; }
 
         [Display(Name = "Start time")]
         [Required(ErrorMessage = "Start time is required")]
@@ -145,6 +146,7 @@ namespace OnlineSchool.Models
             DeadlineEndTime = exam.DeadlineEndTime;
             DeadlineStartTime = exam.DeadlineStartTime;
             CourseId = exam.Course.Id;
+            CourseCode = exam.Course.CourseCode;
         }
 
         public Exam Edit(Exam exam)

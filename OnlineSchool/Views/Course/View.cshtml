@@ -4,6 +4,9 @@
     //Layout = "_AdminLayout";
 }
 <div class="element-wrapper">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >> <span class="breadcrum-link">@Model.CourseCode</span>
+    </div>
     <h6 class="element-header mt-4 mb-3">
         <span style="font-size:20px;font-weight:600;">
             @Model.CourseTitle.ToUpper() |
@@ -11,7 +14,7 @@
         <span style="font-size:17px;font-weight:600">
             @Model.CourseCode | @Model.TutorName
         </span>
-        
+
     </h6>
     <div class="element-box">
         <div class="card box-shadow">

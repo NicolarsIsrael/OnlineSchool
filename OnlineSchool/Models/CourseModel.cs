@@ -176,6 +176,7 @@ namespace OnlineSchool.Models
         public string CourseCode { get; set; }
         public string CourseTitle { get; set; }
         public bool IsSelected { get; set; }
+        public string TutorName { get; set; }
         public CourseRegisterationViewModel() { }
         public CourseRegisterationViewModel(Course course, bool isSelected)
         {
@@ -183,6 +184,7 @@ namespace OnlineSchool.Models
             CourseCode = course.CourseCode;
             CourseTitle = course.CourseTitle;
             IsSelected = isSelected;
+            TutorName = course.Tutor.Fullname;
         }
     }
 }

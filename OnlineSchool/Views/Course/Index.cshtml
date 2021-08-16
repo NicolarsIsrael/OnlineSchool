@@ -5,10 +5,13 @@
     //Layout = "_AdminLayout";
 }
 <div class="element-wrapper">
+    <div class="my-4">
+        <a asp-action="index">Home</a>
+    </div>
     <div class="element-actions text-left mt-5">
         <a class="mr-2 mb-2 btn btn-custom-primary btn-rounded" asp-action="Registeration" asp-controller="Course">Edit course registration</a>
     </div>
-    <hr  class="mt-0 mb-1"/>
+    <hr class="mt-0 mb-1" />
     <div class="row">
         @{
             foreach (var course in Model)
@@ -34,5 +37,5 @@
         }
 
     </div>
-    
+
 </div>

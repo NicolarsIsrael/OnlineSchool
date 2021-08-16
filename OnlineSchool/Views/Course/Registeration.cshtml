@@ -5,60 +5,72 @@
 }
 
 <div class="element-wrapper">
-    
+    <div class="my-4">
+        <a asp-action="index">Home</a>  >> <span class="breadcrum-link">Course registeration</span>
+    </div>
     <h6 class="element-header">
         Registeration
     </h6>
-    <div class="element-box-tp mt-3">
-        <div class="table-responsive">
-            <form method="post">
-                <table class="table table-padded">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>
-                                Code
-                            </th>
-                            <th>
-                                Title
-                            </th>
+    <div class="card box-shadow my-3">
+        <div class="card-body">
+            <div class="element-box-tp mt-3">
+                <div class="table-responsive">
+                    <form method="post">
+                        <table class="table table-padded">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        Code
+                                    </th>
+                                    <th>
+                                        Title
+                                    </th>
+                                    <th>
+                                        Tutor
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Courses.Count(); i++)
+                                {
+                                    <input hidden asp-for="Courses[i].Id" />
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < Model.Courses.Count(); i++)
-                        {
-                            <input hidden asp-for="Courses[i].Id" />
+                                    <tr>
+                                        <td class="text-center">
+                                            <input asp-for="Courses[i].IsSelected" type="checkbox" class="coursesCheckBox" />
+                                        </td>
+                                        <td>
+                                            <div class="user-with-avatar">
+                                                <span>@Model.Courses[i].CourseCode</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="smaller lighter">
+                                                @Model.Courses[i].CourseTitle
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                @Model.Courses[i].TutorName
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                            <tr>
-                                <td class="text-center">
-                                    <input asp-for="Courses[i].IsSelected" type="checkbox" class="coursesCheckBox" />
-                                </td>
-                                <td>
-                                    <div class="user-with-avatar">
-                                        <span>@Model.Courses[i].CourseCode</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="smaller lighter">
-                                        @Model.Courses[i].CourseTitle
-                                    </div>
-                                </td>
+                                }
+                            </tbody>
+                        </table>
 
-                            </tr>
-
-                        }
-                    </tbody>
-                </table>
-
-                <div class="element-actions">
-                    <input type="button" class="mr-2 mb-2 btn btn-sm btn-primary btn-rounded" value="Check all" onclick="selectAll()" />
-                    <input type="button" class="mr-2 mb-2 btn btn-sm btn-info btn-rounded" value="Uncheck all"
-                           onclick="UnSelectAll()" />
+                        <div class="element-actions text-right">
+                            <input type="button" class="mr-2 mb-2 btn btn-sm btn-primary btn-rounded" value="Check all" onclick="selectAll()" />
+                            <input type="button" class="mr-2 mb-2 btn btn-sm btn-info btn-rounded" value="Uncheck all"
+                                   onclick="UnSelectAll()" />
+                        </div>
+                        <hr class="m-1" />
+                        <input type="submit" class="btn btn-custom-primary mt-3" value="Register" />
+                    </form>
                 </div>
-
-                <input type="submit" class="btn btn-custom-primary mt-3" value="Register" />
-            </form>
+            </div>
         </div>
     </div>
 </div>

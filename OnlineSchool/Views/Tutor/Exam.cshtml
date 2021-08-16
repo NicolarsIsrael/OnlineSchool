@@ -1,7 +1,7 @@
 ﻿@model OnlineSchool.Models.ViewExamModel
 @{
     ViewData["Title"] = "Exam";
-    Layout = "_AdminLayout";
+    //Layout = "_AdminLayout";
 }
 <style>
     .el-tablo .value{
@@ -9,61 +9,57 @@
     }
 </style>
 <div class="element-wrapper">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >> <a asp-action="course" asp-route-id="@Model.CourseId">@Model.CourseCode</a> >> 
+        <span class="breadcrum-link">@Model.Title</span> >> <span class="breadcrum-link">Questions</span>
+    </div>
+
     <h6 class="element-header">
-        @Model.CourseTitle
+        <span style="font-size:20px;font-weight:600">@Model.CourseTitle.ToUpper() | @Model.CourseCode.ToUpper()</span>
     </h6>
     <div class="element-box">
-        <h5 class="form-header">
-            @Model.CourseCode
-        </h5>
-        <div class="form-desc">
+        <div class="form-desc my-2" style="font-size:18px">
             @Model.Title
         </div>
     </div>
-    <h6 class="element-header">
+    <h6 class="element-header my-4" style="font-size:15px;font-weight:600">
         Quick Statistics
     </h6>
-    <div class="element-content">
-        <div class="row">
+    <div class="card box-shadow">
+        <div class="row card-body">
             <div class="col-md-3">
-                <a class="element-box el-tablo" href="#">
-                    <div class="label">
+                <div>
+                    <div class="label" style="font-size:16px;">
                         Total score
                     </div>
-                    <div class="value">
+                    <div class="value" style="font-size:16px; font-weight:600">
                         @Model.TotalScore
                     </div>
-                </a>
+                </div>
             </div>
             <div class="col-md-3">
-                <a class="element-box el-tablo" href="#">
-                    <div class="label">
-                        Duration
-                    </div>
-                    <div class="value">
-                        @Model.DurationInMinutes minutes
-                    </div>
-                </a>
+                <div class="label" style="font-size:16px;">
+                    Duration
+                </div>
+                <div class="value" style="font-size:16px; font-weight:600">
+                    @Model.DurationInMinutes minutes
+                </div>
             </div>
             <div class="col-md-3">
-                <a class="element-box el-tablo" href="#">
-                    <div class="label">
-                        Start time
-                    </div>
-                    <div class="value">
-                        @Model.StartTime
-                    </div>
-                </a>
+                <div class="label" style="font-size:16px;">
+                    Start time
+                </div>
+                <div class="value" style="font-size:16px; font-weight:600">
+                    @Model.StartTime
+                </div>
             </div>
             <div class="col-md-3">
-                <a class="element-box el-tablo" href="#">
-                    <div class="label">
-                        End time
-                    </div>
-                    <div class="value">
-                        @Model.DeadlineEndTime
-                    </div>
-                </a>
+                <div class="label" style="font-size:16px;">
+                    End time
+                </div>
+                <div class="value" style="font-size:16px; font-weight:600">
+                    @Model.DeadlineEndTime
+                </div>
             </div>
         </div>
     </div>
@@ -75,9 +71,9 @@
     <div class="element-content">
 
     </div>
-    <div class="element-wrapper">
-        <div class="element-actions">
-            <a class="mr-2 mb-2 btn btn-primary btn-rounded" asp-action="AddMcq" asp-controller="tutor" asp-route-id="@Model.Id">Add MCQ</a>
+    <div class="element-wrapper my-3">
+        <div class="element-actions text-right">
+            <a class="mr-2 mb-2 btn btn-custom-primary" asp-action="AddMcq" asp-controller="tutor" asp-route-id="@Model.Id">Add MCQ</a>
         </div>
         <h6 class="element-header">
             Questions
@@ -86,41 +82,40 @@
             @foreach (var mcq in Model.McqQuestions)
             {
                 <div class="support-index mt-2 col-md-6">
-                    <div class="support-tickets">
-                        <div class="support-ticket ">
+                    <div class="card box-shadow">
+                        <div class="card-body">
                             <div class="st-meta">
-                                <div class="badge badge-success-inverted">
-                                    @mcq.Score marks
-                                </div>
 
                             </div>
-                            <a  asp-controller="tutor" asp-action="editmcq" asp-route-id="@mcq.Id" style="text-decoration:none">
-                                <div class="st-body">
-                                    <div class="ticket-content">
-                                        <h6 class="ticket-title">
-                                            @mcq.Question
-                                        </h6>
-                                        <div class="ticket-description" style="height:auto">
-                                            @foreach (var option in mcq.Options)
-                                            {
-                                                if (option.AnsId == mcq.AnswerId)
+                            <div class="st-body">
+                                <div class="ticket-content">
+                                    <h6 class="ticket-title" style="font-size:16px">
+                                        Question: @mcq.Question
+                                    </h6>
+                                    <hr class="m-1" />
+                                    <div class="ticket-description" style="height:auto">
+                                        Options:
+                                        @foreach (var option in mcq.Options)
+                                        {
+                                            <div style="padding:0 25px;font-size:13px">
+                                                @if (option.AnsId == mcq.AnswerId)
                                                 {
-                                                    <div class="font-weight-bold">@option.Option</div>
+                                                    <div class="font-weight-bold" style="color:#580e0e">- @option.Option</div>
                                                 }
                                                 else
                                                 {
-                                                    <div>@option.Option</div>
+                                                    <div>- @option.Option</div>
                                                 }
-
-                                            }
-                                        </div>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
-                                <div class="st-foot">
-                                    <a class="btn btn-sm btn-dark" asp-action="EditMcq" asp-route-id="@mcq.Id">Edit</a>
-                                    <a class="btn btn-sm btn-danger text-white" onclick="DeleteMcq(@mcq.Id)">Delete</a>
-                                </div>
-                            </a>
+                            </div>
+                            <div class="st-foot text-right">
+                                [@mcq.Score marks]
+                                <a class="btn btn-sm btn-dark" asp-action="EditMcq" asp-route-id="@mcq.Id">Edit</a>
+                                <a class="btn btn-sm btn-danger text-white" onclick="DeleteMcq(@mcq.Id)">Delete</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -128,7 +123,7 @@
             }
         </div>
     </div>
-    </div>
+</div>
     <script>
         function DeleteMcq(id) {
             if (confirm("Are you sure you want to delete this question?")) {

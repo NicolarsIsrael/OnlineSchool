@@ -4,6 +4,9 @@
     //Layout = "_AdminLayout";
 }
 <div class="element-wrapper">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >> <a asp-action="course" asp-route-id="@Model.Id">@Model.CourseCode</a> 
+    </div>
     <h6 class="element-header mt-4 mb-3">
         <span style="font-size:20px;font-weight:600;">
             @Model.CourseTitle.ToUpper() |
@@ -33,7 +36,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="element-actions">
-                            
+
                         </div>
                     </div>
 

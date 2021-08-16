@@ -15,6 +15,7 @@ namespace OnlineSchool.Models
         public decimal TotalScore { get; set; }
         public decimal CoursePercentage { get; set; }
         public int DurationInMinutes { get; set; }
+        public int CourseId { get; set; }
         public string CourseTitle { get; set; }
         public string CourseCode { get; set; }
         public string StartTime { get; set; }
@@ -27,6 +28,7 @@ namespace OnlineSchool.Models
             Title = exam.ExamTitle;
             CoursePercentage = exam.CoursePerentage;
             DurationInMinutes = exam.DurationInMinute;
+            CourseId = exam.Course.Id;
             CourseTitle = exam.Course.CourseTitle;
             CourseCode = exam.Course.CourseCode;
             StartTime = GeneralFunction.DateInString(exam.StartTime);

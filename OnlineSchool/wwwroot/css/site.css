@@ -266,3 +266,13 @@ body {
 td {
     word-break: break-all;
 }
+
+.btn-custom-primary {
+    background-color: #580e0e;
+    color: white;
+}
+
+    .btn-custom-primary:hover {
+        background-color: #921717;
+        color:white;
+    }

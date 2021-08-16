@@ -2,16 +2,37 @@
 
 @{
     ViewData["Title"] = "Students";
-    Layout = "_AdminLayout";
+    //Layout = "_AdminLayout";
 }
 <div class="element-wrapper">
-    <div class="element-actions">
-        <a class="mr-2 mb-2 btn btn-primary btn-rounded" asp-action="Registeration" asp-controller="Course">Register</a>
+    <div class="element-actions text-left mt-5">
+        <a class="mr-2 mb-2 btn btn-custom-primary btn-rounded" asp-action="Registeration" asp-controller="Course">Edit course registration</a>
     </div>
-    <h6 class="element-header">
-        Courses
-    </h6>
-    <div class="table-responsive">
+    <hr  class="mt-0 mb-1"/>
+    <div class="row">
+        @{
+            foreach (var course in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card m-1" style="box-shadow: 1px 1px 4px rgb(47 47 47 / 40%);">
+                        <div class="card-body" style=" padding: 10px">
+                            <div style="font-size:18px;font-weight:600">
+                                @course.CourseTitle
+                            </div>
+                            <div style="font-size:15px">
+                                @course.CourseCode | @course.TutorName
+                            </div>
+                            <div style="font-size:12px">
+                                @course.CourseDescription
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+    @*<div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
@@ -50,11 +71,11 @@
                         </td>
                         <td>
                             <a class="mr-2 mb-2 btn btn-secondary" asp-action="View" asp-controller="Course"
-                            asp-route-id="@item.Id">View</a>
+                               asp-route-id="@item.Id">View</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-    </div>
+    </div>*@
 </div>

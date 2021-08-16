@@ -175,6 +175,10 @@ body {
     overflow-x: hidden;
 }
 
+.nav-link{
+    font-weight:500;
+}
+
 .login-card {
     width: 400px;
 }
@@ -299,4 +303,8 @@ td {
     position: absolute;
     bottom: -3px;
     left: 0px;
+}
+
+.breadcrum-link {
+    color: #0366d6;
 }

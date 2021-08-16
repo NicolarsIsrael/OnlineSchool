@@ -55,6 +55,8 @@ namespace OnlineSchool.Models
 
         public int CourseId { get; set; }
 
+        public string CourseCode { get; set; }
+
         [Display(Name ="Start time")]
         [Required(ErrorMessage = "Start time is required")]
         public DateTime StartTime { get; set; }
@@ -72,9 +74,10 @@ namespace OnlineSchool.Models
 
         }
 
-        public NewExamModel(int courseId)
+        public NewExamModel(int courseId, string courseCode)
         {
             CourseId = courseId;
+            CourseCode = courseCode;
             StartTime = DateTime.Now;
             DeadlineEndTime = DateTime.Now;
             DeadlineStartTime = DateTime.Now;

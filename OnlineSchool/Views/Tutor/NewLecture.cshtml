@@ -4,6 +4,11 @@
     //Layout = "_AdminLayout";
 }
 <div class="element-wrapper">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >> <a asp-action="course" asp-route-id="@Model.CourseId">@Model.CourseCode</a> >>
+        <span class="breadcrum-link">New Lecture</span>
+    </div>
+
     <h6 class="element-header mt-4">
         Manage Lecture
     </h6>
@@ -11,6 +16,7 @@
         <div class="card-body">
             <form method="post" enctype="multipart/form-data">
                 <input hidden asp-for="CourseId" />
+                <input hidden asp-for="CourseCode" />
                 <h5 class="form-header">
                     ADD LECTURE RESOURCE
                 </h5>

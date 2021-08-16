@@ -28,6 +28,8 @@ namespace OnlineSchool.Models
     {
         public int CourseId { get; set; }
 
+        public string CourseCode { get; set; }
+
         [Required(ErrorMessage ="Title is required")]
         [RegularExpression("^[a-zA-Z0-9].*$", ErrorMessage = "Title should begin with letter or number")]
         public string Title { get; set; }
@@ -38,9 +40,10 @@ namespace OnlineSchool.Models
         [Required(ErrorMessage ="Lecture file is required")]
         public IFormFile File { get; set; }
         public AddLectureModel() { }
-        public AddLectureModel(int courseId)
+        public AddLectureModel(int courseId, string courseCode)
         {
             CourseId = courseId;
+            CourseCode = courseCode;
         }
         public Lecture Add(string filePath, Course course)
         {

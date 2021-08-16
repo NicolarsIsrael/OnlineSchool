@@ -69,7 +69,7 @@ namespace OnlineSchool.Controllers
         public IActionResult NewLecture(int id)
         {
             var course = _courseService.Get(id);
-            return View(new AddLectureModel(course.Id));
+            return View(new AddLectureModel(course.Id,course.CourseCode));
         }
 
         [HttpPost]
@@ -101,7 +101,7 @@ namespace OnlineSchool.Controllers
         public IActionResult NewExam(int id)
         {
             var course = _courseService.Get(id);
-            return View(new NewExamModel(course.Id));
+            return View(new NewExamModel(course.Id,course.CourseCode));
         }
 
         [HttpPost]

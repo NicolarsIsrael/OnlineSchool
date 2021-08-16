@@ -19,6 +19,9 @@ namespace OnlineSchool.Models
         public int AnswerId { get; set; }
         [Range(1,int.MaxValue,ErrorMessage ="Score should be greater than 1")]
         public decimal Score { get; set; }
+        public int CourseId { get; set; }
+        public string CourseCode { get; set; }
+        public string ExamTitle { get; set; }
         public AddMcqModel()
         {
 
@@ -27,6 +30,9 @@ namespace OnlineSchool.Models
         {
             ExamId = exam.Id;
             Score = 1;
+            CourseId = exam.Course.Id;
+            CourseCode = exam.Course.CourseCode;
+            ExamTitle = exam.ExamTitle;
         }
 
         public McqQuestion Add(IEnumerable<McqOption> options, Exam exam)
@@ -98,6 +104,10 @@ namespace OnlineSchool.Models
         public int AnswerId { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Score should be greater than 1")]
         public decimal Score { get; set; }
+        public int CourseId { get; set; }
+        public string CourseCode { get; set; }
+        public string ExamTitle { get; set; }
+        public int ExamId { get; set; }
 
         public EditMcqModel()
         {
@@ -111,6 +121,10 @@ namespace OnlineSchool.Models
             AnswerId = question.AnswerId;
             Question = question.Question;
             Options = question.Options.Select(op => new EditMcqOptionModel(op)).ToList();
+            CourseId = question.Exam.Course.Id;
+            CourseCode = question.Exam.Course.CourseCode;
+            ExamTitle = question.Exam.ExamTitle;
+            ExamId = question.Exam.Id;
         }
 
         public McqQuestion Edit(McqQuestion question)

@@ -1,0 +1,30 @@
+﻿@model OnlineSchool.Models.ExamModel
+<div>
+    @for (int i = 0; i < Model.McqQuestions.Count; i++)
+    {
+        string questionClass = Model.McqQuestions[i].SelectedOptionId == -1 ? "unanswered-question" : "answered-question";
+        int questionNumber = i + 1;
+        string questionTabId = $"question-tab-{Model.McqQuestions[i].Id}-{Model.McqQuestions[i].QuestionNumber}";
+        <div class="@questionClass" id="@questionTabId">
+            @questionNumber
+        </div>
+    }
+</div>
+
+<style>
+    .answered-question {
+        display: inline-block;
+        padding: 10px;
+        background-color: #580e0e;
+        color: white;
+        border: 1px solid black;
+    }
+
+    .unanswered-question {
+        display: inline-block;
+        padding: 10px;
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+    }
+</style>

@@ -197,9 +197,9 @@ namespace OnlineSchool.Models
             {
                 var _attempt = attempt.Mcqs.Where(at => at.McqId == mcq.Id).FirstOrDefault();
                 if (_attempt != null)
-                    _mcqQuestions.Add(new ExamMcqQuestion(mcq, _attempt.Id, _attempt.SelectedOptionId));
+                    _mcqQuestions.Add(new ExamMcqQuestion(mcq, _attempt.Id,_attempt.QuestionNumber, _attempt.SelectedOptionId));
             }
-            McqQuestions = _mcqQuestions.OrderBy(m=>m.Order).ToList();
+            McqQuestions = _mcqQuestions.OrderBy(m=>m.QuestionNumber).ToList();
         }
 
         public ExamModel()
@@ -217,7 +217,8 @@ namespace OnlineSchool.Models
         public IEnumerable<ExamMcqOptionModel> Options { get; set; }
         public int SelectedOptionId { get; set; }
         public int Order { get; set; }
-        public ExamMcqQuestion(McqQuestion question,int attemptId, int selectedOption)
+        public int QuestionNumber { get; set; }
+        public ExamMcqQuestion(McqQuestion question,int attemptId, int questionNumber, int selectedOption)
         {
             SelectedOptionId = selectedOption;
             Id = question.Id;
@@ -227,6 +228,7 @@ namespace OnlineSchool.Models
             Options = question.Options.Select(op => new ExamMcqOptionModel(op)).OrderBy(or => or.Order).ToList();
             Random rand = new Random();
             Order = rand.Next(1, 100);
+            QuestionNumber = questionNumber;
         }
 
         public ExamMcqQuestion()

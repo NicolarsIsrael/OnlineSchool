@@ -3,17 +3,16 @@
     ViewData["Title"] = "Exam";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
 <div>
     <h2>@Model.CourseCode | @Model.CourseTitle | </h2>
     <h3>@Model.Title</h3>
 </div>
+
+<partial name="_QuestionsTab" model="Model" />
+<div class="m-4"><span id="time" style="padding: 15px; border: 3px solid black; border-radius: 44px; font-size: 18px;">00:00</span></div>
+
 <form method="post">
-    <input asp-for="DurationInSeconds"  hidden />
+    <input asp-for="DurationInSeconds" hidden />
     <input asp-for="AttemptId" hidden />
     @{
         int questionNumber = 1;
@@ -49,7 +48,7 @@
                     }
                     else
                     {
-                        <input type="radio" onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId)" />
+                        <input type="radio" onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId, @mcq.QuestionNumber, @mcq.Id)" />
                     }
 
                     <label class="font-italic mr-3">@option.Option</label>
@@ -61,17 +60,21 @@
     }
 
     <input type="submit" value="submit" />
-    <div>Registration closes in <span id="time"> ...</span> minutes!</div>
 
-    <a  asp-action="attemptFinished" asp-route-id="@Model.AttemptId">Finish attempt</a>
+
+    <a asp-action="attemptFinished" asp-route-id="@Model.AttemptId">Finish attempt</a>
 </form>
 
 <script>
-    function SubmitMcqAnswer(attemptId, answerId) {
+    function SubmitMcqAnswer(attemptId, answerId, questionNumber, mcqId) {
         $.ajax({
             url: "/exam/SubmitMcqAnswer",
             data: { mcqAttemptId: attemptId, answerId: answerId },
             success: function (result) {
+                var questionTabId = "question-tab-" + mcqId + "-" + questionNumber;
+                var questionTab = document.getElementById(questionTabId);
+                questionTab.classList.remove("unanswered-question");
+                questionTab.classList.add("answered-question");
             }
         })
     }
@@ -98,7 +101,7 @@
 
     window.onload = function () {
         var durationInSeconds = document.getElementById("DurationInSeconds").value;
-            display = document.querySelector('#time');
+        display = document.querySelector('#time');
         startTimer(durationInSeconds, display);
     };
 

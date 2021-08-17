@@ -27,12 +27,17 @@ namespace OnlineSchool.Controllers
             var exam = _examService.Get(id);
             var student = GetLoggedInStudent();
 
-            ExamAttempt examAttempt = _examAttemptService.CheckIfStudentAttemptAlreadyExists(exam.Id, student.Id);
+            ExamAttempt examAttempt = null;// _examAttemptService.CheckIfStudentAttemptAlreadyExists(exam.Id, student.Id);
             if (examAttempt == null)
             {
                 var mcqAttempts = new List<ExamMcqAttempt>();
-                foreach(var mcq in exam.MultiChoiceQuestions)
+                var questionNumbers = Enumerable.Range(1, exam.MultiChoiceQuestions.Count()).ToList();
+                foreach (var mcq in exam.MultiChoiceQuestions)
                 {
+                    var questionNumberIndex = new Random().Next(0, questionNumbers.Count());
+                    var questionNumber = questionNumbers[questionNumberIndex];
+                    questionNumbers.Remove(questionNumber);
+
                     mcqAttempts.Add(new ExamMcqAttempt()
                     {
                         DateCreated = DateTime.Now,
@@ -44,6 +49,7 @@ namespace OnlineSchool.Controllers
                         CorrectAnswerId = mcq.AnswerId,
                         Score = mcq.Score,
                         McqOptions = mcq.Options,
+                        QuestionNumber = questionNumber,
                     });
                 }
                 examAttempt = new ExamAttempt()
@@ -59,8 +65,8 @@ namespace OnlineSchool.Controllers
                 };
                 examAttempt = await _examAttemptService.CreateExamAttempt(examAttempt);
             }
-            if (!CheckIfAttemptIsAllowed(exam, examAttempt))
-                return RedirectToAction(nameof(AttemptFinished), new { id= exam.Id});
+            //if (!CheckIfAttemptIsAllowed(exam, examAttempt))
+            //    return RedirectToAction(nameof(AttemptFinished), new { id= exam.Id});
             
             var model = new ExamModel(exam,examAttempt);
             return View(model);

@@ -27,7 +27,7 @@ namespace OnlineSchool.Controllers
             var exam = _examService.Get(id);
             var student = GetLoggedInStudent();
 
-            ExamAttempt examAttempt = null;// _examAttemptService.CheckIfStudentAttemptAlreadyExists(exam.Id, student.Id);
+            ExamAttempt examAttempt = _examAttemptService.CheckIfStudentAttemptAlreadyExists(exam.Id, student.Id);
             if (examAttempt == null)
             {
                 var mcqAttempts = new List<ExamMcqAttempt>();

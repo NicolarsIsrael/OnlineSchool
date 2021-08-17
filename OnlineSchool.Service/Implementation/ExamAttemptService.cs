@@ -20,7 +20,7 @@ namespace OnlineSchool.Service.Implementation
 
         public ExamAttempt CheckIfStudentAttemptAlreadyExists(int examId, int studentId)
         {
-            return _uow.ExamAttemptRepo.FindInclude(ex => ex.ExamId == examId && ex.StudentId == studentId).FirstOrDefault();
+            return _uow.ExamAttemptRepo.FindInclude(ex => ex.ExamId == examId && ex.StudentId == studentId).LastOrDefault();
         }
 
         public async Task<ExamAttempt> CreateExamAttempt(ExamAttempt examAttempt)

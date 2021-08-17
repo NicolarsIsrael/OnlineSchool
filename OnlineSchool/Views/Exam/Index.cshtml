@@ -4,67 +4,74 @@
 }
 
 <div>
-    <h2>@Model.CourseCode | @Model.CourseTitle | </h2>
+    <h2>@Model.CourseCode | @Model.CourseTitle </h2>
     <h3>@Model.Title</h3>
 </div>
-
-<partial name="_QuestionsTab" model="Model" />
-<div class="m-4"><span id="time" style="padding: 15px; border: 3px solid black; border-radius: 44px; font-size: 18px;">00:00</span></div>
-
-<form method="post">
-    <input asp-for="DurationInSeconds" hidden />
-    <input asp-for="AttemptId" hidden />
-    @{
-        int questionNumber = 1;
-        foreach (var mcq in Model.McqQuestions)
-        {
-            <div class="font-weight-bold">@questionNumber. @mcq.Question</div>
-            int answerNumber = 1;
-            string answerLetter = "";
-
-            <div class="ml-5">
-                @foreach (var option in mcq.Options)
+<div class="row">
+    <div class="col-md-3">
+        <partial name="_QuestionsTab" model="Model" />
+        <div class="my-5"><span id="time" style="padding: 15px; border: 3px solid black; border-radius: 44px; font-size: 18px;">00:00</span></div>
+    </div>
+    <div class="col-md-9">
+        <form method="post">
+            <input asp-for="DurationInSeconds" hidden />
+            <input asp-for="AttemptId" hidden />
+            @{
+                foreach (var mcq in Model.McqQuestions)
                 {
-                    switch (answerNumber)
-                    {
-                        case 1:
-                            answerLetter = "a";
-                            break;
-                        case 2:
-                            answerLetter = "b";
-                            break;
-                        case 3:
-                            answerLetter = "c";
-                            break;
-                        case 4:
-                            answerLetter = "d";
-                            break;
-                    }
+                    <div class="card my-3 box-shadow">
+                        <div class="card-body">
+                            <div class="font-weight-bold mb-1">@mcq.QuestionNumber) @mcq.Question</div>
+                                
+                            @{
+                                int answerNumber = 1;
+                                string answerLetter = "";
+                            }
+                                  
+                            <div class="ml-5">
+                                @foreach (var option in mcq.Options)
+                                {
+                                    switch (answerNumber)
+                                    {
+                                        case 1:
+                                            answerLetter = "a";
+                                            break;
+                                        case 2:
+                                            answerLetter = "b";
+                                            break;
+                                        case 3:
+                                            answerLetter = "c";
+                                            break;
+                                        case 4:
+                                            answerLetter = "d";
+                                            break;
+                                    }
+                                    <div>
+                                        <label class="font-italic">@answerLetter.</label>
+                                        @{ 
+                                            string checkedOption = option.AnsId == mcq.SelectedOptionId ? "checked" : "";
+                                            string optionName = "mcq-question-" + mcq.Id + "-" + mcq.QuestionNumber;
+                                            <input type="radio" name="@optionName" @checkedOption onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId,  @mcq.QuestionNumber, @mcq.Id)" />
+                                        }
 
-                    <label class="font-italic">@answerLetter.</label>
-                    @if (option.AnsId == mcq.SelectedOptionId)
-                    {
-                        <input checked type="radio" onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId)" />
-                    }
-                    else
-                    {
-                        <input type="radio" onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId, @mcq.QuestionNumber, @mcq.Id)" />
-                    }
-
-                    <label class="font-italic mr-3">@option.Option</label>
-                    answerNumber++;
+                                        <label class="font-italic mr-3">@option.Option</label>
+                                    </div>
+                                    answerNumber++;
+                                }
+                            </div>
+                            
+                        </div>
+                    </div>
                 }
-            </div>
-            questionNumber++;
-        }
-    }
+            }
 
-    <input type="submit" value="submit" />
+            <input type="submit" value="submit" />
 
 
-    <a asp-action="attemptFinished" asp-route-id="@Model.AttemptId">Finish attempt</a>
-</form>
-
+            <a asp-action="attemptFinished" asp-route-id="@Model.AttemptId">Finish attempt</a>
+        </form>
+    </div>
+</div>
 <script>
     function SubmitMcqAnswer(attemptId, answerId, questionNumber, mcqId) {
         $.ajax({

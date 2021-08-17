@@ -177,8 +177,10 @@ namespace OnlineSchool.Models
         public string StartTime { get; set; }
         public string DeadlineStartTime { get; set; }
         public string DeadlineEndTime { get; set; }
+        public int PageNumber { get; set; }
+        public int TotalPage { get; set; }
         public List<ExamMcqQuestion> McqQuestions { get; set; }
-        public ExamModel(Exam exam,ExamAttempt attempt)
+        public ExamModel(Exam exam,ExamAttempt attempt, int pageNumber)
         {
             Id = exam.Id;
             AttemptId = attempt.Id;
@@ -192,14 +194,18 @@ namespace OnlineSchool.Models
             DeadlineEndTime = GeneralFunction.DateInString(exam.DeadlineEndTime);
             DeadlineStartTime = GeneralFunction.DateInString(exam.DeadlineStartTime);
             TotalScore = TotalScore;
+            PageNumber = pageNumber;
             var _mcqQuestions = new List<ExamMcqQuestion>();
             foreach(var mcq in exam.MultiChoiceQuestions)
             {
                 var _attempt = attempt.Mcqs.Where(at => at.McqId == mcq.Id).FirstOrDefault();
                 if (_attempt != null)
-                    _mcqQuestions.Add(new ExamMcqQuestion(mcq, _attempt.Id,_attempt.QuestionNumber, _attempt.SelectedOptionId));
+                    _mcqQuestions.Add(new ExamMcqQuestion(mcq, _attempt));
             }
             McqQuestions = _mcqQuestions.OrderBy(m=>m.QuestionNumber).ToList();
+            TotalPage = McqQuestions.Count() % AppConstant.NumberOfQuestionsPerPage == 0
+                        ? McqQuestions.Count() / AppConstant.NumberOfQuestionsPerPage
+                        : (McqQuestions.Count() / AppConstant.NumberOfQuestionsPerPage) + 1;
         }
 
         public ExamModel()
@@ -218,17 +224,19 @@ namespace OnlineSchool.Models
         public int SelectedOptionId { get; set; }
         public int Order { get; set; }
         public int QuestionNumber { get; set; }
-        public ExamMcqQuestion(McqQuestion question,int attemptId, int questionNumber, int selectedOption)
+        public int PageNumber { get; set; }
+        public ExamMcqQuestion(McqQuestion question, ExamMcqAttempt attempt)
         {
-            SelectedOptionId = selectedOption;
+            SelectedOptionId = attempt.SelectedOptionId;
             Id = question.Id;
-            AttemptId = attemptId;
+            AttemptId = attempt.Id;
             Question = question.Question;
             Score = question.Score;
             Options = question.Options.Select(op => new ExamMcqOptionModel(op)).OrderBy(or => or.Order).ToList();
             Random rand = new Random();
             Order = rand.Next(1, 100);
-            QuestionNumber = questionNumber;
+            QuestionNumber = attempt.QuestionNumber;
+            PageNumber = attempt.PageNumber;
         }
 
         public ExamMcqQuestion()

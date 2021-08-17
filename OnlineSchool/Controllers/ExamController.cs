@@ -50,6 +50,9 @@ namespace OnlineSchool.Controllers
                         Score = mcq.Score,
                         McqOptions = mcq.Options,
                         QuestionNumber = questionNumber,
+                        PageNumber = questionNumber % AppConstant.NumberOfQuestionsPerPage == 0
+                                    ? questionNumber / AppConstant.NumberOfQuestionsPerPage
+                                    : (questionNumber / AppConstant.NumberOfQuestionsPerPage) + 1,
                     });
                 }
                 examAttempt = new ExamAttempt()
@@ -68,8 +71,16 @@ namespace OnlineSchool.Controllers
             //if (!CheckIfAttemptIsAllowed(exam, examAttempt))
             //    return RedirectToAction(nameof(AttemptFinished), new { id= exam.Id});
             
-            var model = new ExamModel(exam,examAttempt);
+            var model = new ExamModel(exam,examAttempt,1);
             return View(model);
+        }
+
+        public IActionResult movetopage(int attemptId, int pageNumber)
+        {
+            var attempt = _examAttemptService.Get(attemptId);
+            var exam = _examService.Get(attempt.ExamId);
+            var model = new ExamModel(exam, attempt, pageNumber);
+            return PartialView("_QuestionsList", model);
         }
 
         public async Task<IActionResult> SubmitMcqAnswer(int mcqAttemptId, int answerId)

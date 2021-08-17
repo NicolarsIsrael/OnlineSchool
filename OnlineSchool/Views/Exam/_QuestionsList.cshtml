@@ -1,0 +1,72 @@
+﻿@model OnlineSchool.Models.ExamModel
+
+<form method="post">
+    <input asp-for="DurationInSeconds" hidden />
+    <input asp-for="AttemptId" hidden />
+    @{
+        foreach (var mcq in Model.McqQuestions.Where(m => m.PageNumber == Model.PageNumber))
+        {
+            <div class="card my-3 box-shadow">
+                <div class="card-body">
+                    <div class="font-weight-bold mb-2">@mcq.QuestionNumber) @mcq.Question</div>
+
+                    @{
+                        int answerNumber = 1;
+                        string answerLetter = "";
+                    }
+
+                    <div class="ml-0">
+                        @foreach (var option in mcq.Options)
+                        {
+                            switch (answerNumber)
+                            {
+                                case 1:
+                                    answerLetter = "a";
+                                    break;
+                                case 2:
+                                    answerLetter = "b";
+                                    break;
+                                case 3:
+                                    answerLetter = "c";
+                                    break;
+                                case 4:
+                                    answerLetter = "d";
+                                    break;
+                            }
+                            <div>
+                                <label class="font-italic">@answerLetter.</label>
+                                @{
+                                    string checkedOption = option.AnsId == mcq.SelectedOptionId ? "checked" : "";
+                                    string optionName = "mcq-question-" + mcq.Id + "-" + mcq.QuestionNumber;
+                                    <input type="radio" name="@optionName" @checkedOption onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId,  @mcq.QuestionNumber, @mcq.Id)" />
+                                }
+
+                                <label class="font-italic mr-3">@option.Option</label>
+                            </div>
+                            answerNumber++;
+                        }
+                    </div>
+
+                </div>
+            </div>
+        }
+    }
+<div class="text-center">
+    @{
+        int prevPage = Model.PageNumber - 1;
+        int nextPage = Model.PageNumber + 1;
+
+        if (Model.PageNumber != 1)
+        {
+            <a class="btn btn-sm btn-custom-primary text-white" style="cursor:pointer" onclick="MoveToPage(@Model.AttemptId, @prevPage)">Previous page</a>
+        }
+        if (Model.PageNumber != Model.TotalPage)
+        {
+            <a class="btn btn-sm btn-custom-primary text-white" style="cursor:pointer" onclick="MoveToPage(@Model.AttemptId, @nextPage)">Next page</a>
+        }
+    }
+
+</div>
+
+    <a asp-action="attemptFinished" asp-route-id="@Model.AttemptId">Finish attempt</a>
+</form>

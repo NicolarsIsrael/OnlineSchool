@@ -13,66 +13,26 @@
         <div class="my-5"><span id="time" style="padding: 15px; border: 3px solid black; border-radius: 44px; font-size: 18px;">00:00</span></div>
     </div>
     <div class="col-md-9">
-        <form method="post">
-            <input asp-for="DurationInSeconds" hidden />
-            <input asp-for="AttemptId" hidden />
-            @{
-                foreach (var mcq in Model.McqQuestions)
-                {
-                    <div class="card my-3 box-shadow">
-                        <div class="card-body">
-                            <div class="font-weight-bold mb-1">@mcq.QuestionNumber) @mcq.Question</div>
-                                
-                            @{
-                                int answerNumber = 1;
-                                string answerLetter = "";
-                            }
-                                  
-                            <div class="ml-5">
-                                @foreach (var option in mcq.Options)
-                                {
-                                    switch (answerNumber)
-                                    {
-                                        case 1:
-                                            answerLetter = "a";
-                                            break;
-                                        case 2:
-                                            answerLetter = "b";
-                                            break;
-                                        case 3:
-                                            answerLetter = "c";
-                                            break;
-                                        case 4:
-                                            answerLetter = "d";
-                                            break;
-                                    }
-                                    <div>
-                                        <label class="font-italic">@answerLetter.</label>
-                                        @{ 
-                                            string checkedOption = option.AnsId == mcq.SelectedOptionId ? "checked" : "";
-                                            string optionName = "mcq-question-" + mcq.Id + "-" + mcq.QuestionNumber;
-                                            <input type="radio" name="@optionName" @checkedOption onchange="SubmitMcqAnswer(@mcq.AttemptId,@option.AnsId,  @mcq.QuestionNumber, @mcq.Id)" />
-                                        }
+        <div id="questions-list-id">
+            <partial name="_QuestionsList" model="Model" />
+        </div>
 
-                                        <label class="font-italic mr-3">@option.Option</label>
-                                    </div>
-                                    answerNumber++;
-                                }
-                            </div>
-                            
-                        </div>
-                    </div>
-                }
-            }
+        
 
-            <input type="submit" value="submit" />
-
-
-            <a asp-action="attemptFinished" asp-route-id="@Model.AttemptId">Finish attempt</a>
-        </form>
     </div>
 </div>
 <script>
+
+    function MoveToPage(attemptId, pageNumber) {
+        $.ajax({
+            url: "/exam/movetopage",
+            data: { pageNumber: pageNumber, attemptId: attemptId },
+            success: function (result) {
+                document.getElementById("questions-list-id").innerHTML = result;
+            }
+        })
+    }
+
     function SubmitMcqAnswer(attemptId, answerId, questionNumber, mcqId) {
         $.ajax({
             url: "/exam/SubmitMcqAnswer",

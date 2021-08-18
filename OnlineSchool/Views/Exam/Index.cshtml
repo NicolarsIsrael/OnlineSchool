@@ -10,18 +10,24 @@
 <div class="row">
     <div class="col-md-3">
         <partial name="_QuestionsTab" model="Model" />
-        <div class="my-5"><span id="time" style="padding: 15px; border: 3px solid black; border-radius: 44px; font-size: 18px;">00:00</span></div>
+        <div class="mt-4 text-center"><span id="time" style="padding: 15px; border: 3px solid black; border-radius: 44px; font-size: 18px;">00:00</span></div>
+        <div class="text-center">
+            <a onclick="FinishAttempt(@Model.AttemptId)" class="mt-4 btn btn-sm btn-custom-primary text-center text-white" href="#">Finish attempt</a>
+        </div>
     </div>
     <div class="col-md-9">
         <div id="questions-list-id">
             <partial name="_QuestionsList" model="Model" />
         </div>
-
-        
-
     </div>
 </div>
 <script>
+
+    function FinishAttempt(attemptId) {
+        if (confirm("Are you sure you want to submit this attempt?")) {
+            location.href = "/exam/attemptFinished/" + attemptId;
+        }
+    }
 
     function MoveToPage(attemptId, pageNumber, pageScrollId) {
         $.ajax({

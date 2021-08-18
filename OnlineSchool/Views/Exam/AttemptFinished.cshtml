@@ -1,0 +1,19 @@
+﻿@model OnlineSchool.Models.AttemptCompletedModel
+@{
+    ViewData["Title"] = "Attempt Finished";
+}
+
+<div style="margin-top:100px">
+    <div class="text-center">
+        <div style=" font-size: 20px; font-weight: 600;text-transform:uppercase">@Model.CourseTitle | @Model.CourseCode</div>
+        <div style="font-size:17px; font-weight:600">@Model.ExamTitle</div>
+    </div>
+    <div class="card box-shadow mx-auto login-card my-3">
+        <div class="card-body text-center">
+            You attempt has been saved successfully.
+            <div class="my-1">
+                <a asp-action="view" asp-controller="course" asp-route-id="@Model.CourseId" class="btn btn-custom-primary btn-sm">Back to course</a>
+            </div>
+        </div>
+    </div>
+</div>

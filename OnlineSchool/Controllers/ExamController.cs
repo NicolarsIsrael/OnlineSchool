@@ -117,7 +117,9 @@ namespace OnlineSchool.Controllers
             }
             examAttempt.Score = score;
             await _examAttemptService.Update(examAttempt);
-            return Content($"{examAttempt.Score}/{examAttempt.MaximumScore}");
+            var exam = _examService.Get(examAttempt.ExamId);
+            var model = new AttemptCompletedModel(exam, examAttempt);
+            return View(model);
         }
 
 

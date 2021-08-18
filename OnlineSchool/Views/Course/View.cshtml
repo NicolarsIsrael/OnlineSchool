@@ -42,8 +42,8 @@
                         int lectureCount = 1;
                         foreach (var lecture in Model.Lectures)
                         {
-                            <div class="logged-user-w avatar-inline">
-                                <div class="logged-user-i">
+                            <div class="card box-shadow my-3">
+                                <div class="card-body">
                                     <div class="logged-user-info-w">
                                         <div class="logged-user-name" style="font-size:15px;font-weight:600">
                                             <span>@lectureCount.</span> <span>@lecture.Title.ToUpper()</span>
@@ -78,21 +78,23 @@
                         int examCount = 1;
                         foreach (var exam in Model.Exams)
                         {
-                            <div>
-                                <div class="logged-user-name" style="font-size:15px;font-weight:600">
-                                    <span>@examCount.</span> <span>@exam.Title.ToUpper()</span>
-                                </div>
-                                <div style="padding:0 20px">
-                                    <div class="pb-3 pt-1">
-                                        <div>
-                                            Start time : @exam.StartTime
+                            <div class="card box-shadow my-3">
+                                <div class="card-body">
+                                    <div class="logged-user-name" style="font-size:15px;font-weight:600">
+                                        <span>@examCount.</span> <span>@exam.Title.ToUpper()</span>
+                                    </div>
+                                    <div style="padding:0 20px">
+                                        <div class="pt-1">
+                                            <div>
+                                                Start time : @exam.StartTime
+                                            </div>
+                                            <div>
+                                                Duration: @exam.DurationInMinutes minutes
+                                            </div>
+                                            <a asp-controller="exam" asp-action="index" asp-route-id="@exam.Id" class="btn btn-custom-primary btn-sm">
+                                                Start test
+                                            </a>
                                         </div>
-                                        <div>
-                                            Duration: @exam.DurationInMinutes minutes
-                                        </div>
-                                        <a asp-controller="exam" asp-action="index" asp-route-id="@exam.Id" class="btn btn-custom-primary btn-sm">
-                                            Start test
-                                        </a>
                                     </div>
                                 </div>
                             </div>

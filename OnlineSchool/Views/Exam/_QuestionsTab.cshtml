@@ -5,7 +5,8 @@
         string questionClass = Model.McqQuestions[i].SelectedOptionId == -1 ? "unanswered-question" : "answered-question";
         int questionNumber = i + 1;
         string questionTabId = $"question-tab-{Model.McqQuestions[i].Id}-{Model.McqQuestions[i].QuestionNumber}";
-        <div class="@questionClass mb-1" id="@questionTabId">
+        string questionDivId = $"question-div-{Model.McqQuestions[i].Id}-{Model.McqQuestions[i].QuestionNumber}";
+        <div class="@questionClass mb-1" id="@questionTabId" onclick="MoveToPage(@Model.AttemptId, @Model.McqQuestions[i].PageNumber, '@questionDivId')" style="cursor:pointer">
             @questionNumber
         </div>
     }

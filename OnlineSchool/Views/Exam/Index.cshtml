@@ -23,12 +23,17 @@
 </div>
 <script>
 
-    function MoveToPage(attemptId, pageNumber) {
+    function MoveToPage(attemptId, pageNumber, pageScrollId) {
         $.ajax({
             url: "/exam/movetopage",
             data: { pageNumber: pageNumber, attemptId: attemptId },
             success: function (result) {
                 document.getElementById("questions-list-id").innerHTML = result;
+                if (pageScrollId != "") {
+                    $('html, body').animate({
+                        scrollTop: $("#"+pageScrollId).offset().top
+                    }, 'slow');
+                }
             }
         })
     }

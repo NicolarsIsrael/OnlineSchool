@@ -12,7 +12,7 @@
 
 <div class="element-wrapper mb-2">
     <div class="element-actions text-right">
-        <a class="mr-2 mb-2 btn btn-custom-primary btn-rounded" asp-action="AddStudent">Create New</a>
+        <a class="mr-2 mb-2 btn btn-custom-primary btn-rounded" asp-action="AddStudent">Add New</a>
     </div>
     <div class="card box-shadow mx-auto login-card">
         <div class="card-body">
@@ -69,7 +69,7 @@
                                     @*<img src="@Url.Content(item.ProfilePicture)" style="width:50px;height:50px" />*@
                                 </td>
                                 <td>
-                                    <div style="width:40px">
+                                    <div style="width:40px" class="text-center">
                                         <a class="mr-2 mb-2" asp-controller="Admin" asp-action="EditStudent" asp-route-id="@item.Id">Edit</a>
                                     </div>
                                 </td>

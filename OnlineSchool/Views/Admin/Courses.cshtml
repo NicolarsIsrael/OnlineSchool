@@ -15,11 +15,11 @@
     <div class="element-actions text-right">
         <a class="mr-2 mb-2 btn btn-custom-primary btn-rounded" asp-action="AddCourse">Create New</a>
     </div>
-    <h6 class="element-header mb-2">
-        Courses
-    </h6>
     <div class="card box-shadow mt-1">
         <div class="card-body">
+            <h6 class="element-header mb-2">
+                Courses
+            </h6>
             <div class="table-responsive">
                 <table class="table table-lightborder">
                     <thead>
@@ -55,10 +55,14 @@
                                     @Html.DisplayFor(modelItem => item.CourseDescription)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.TutorName)
+                                    <div style="width:100px">
+                                        @Html.DisplayFor(modelItem => item.TutorName)
+                                    </div>
                                 </td>
                                 <td style="width:50px">
-                                    <a asp-controller="Admin" asp-action="EditCourse" asp-route-id="@item.Id">Edit</a>
+                                    <div style="width:35px">
+                                        <a asp-controller="Admin" asp-action="EditCourse" asp-route-id="@item.Id">Edit</a>
+                                    </div>
                                 </td>
                             </tr>
                         }

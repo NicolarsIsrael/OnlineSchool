@@ -1,20 +1,49 @@
-﻿@model IEnumerable<OnlineSchool.Models.ExamAttemptModel>
+﻿@model OnlineSchool.Models.ResultsModel
 @{
     ViewData["Title"] = "Result";
 }
 
-@*todo : design page*@
-<h1>Result</h1>
-
-<table>
-    <tbody>
-        @foreach(var attempt in Model)
-        {
-            <tr>
-                <td>@attempt.StudentMatricNumber</td>
-                <td>@attempt.StudentFullname</td>
-                <td>@attempt.StudentScore / @attempt.TotalGrade</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="mt-4 card box-shadow mb-3">
+    <div class="card-body">
+        <div style="text-transform:uppercase;font-size:20px;font-weight:600">
+            @Model.CourseTitle | @Model.CourseCode
+        </div>
+        <div>
+            @Model.ExamTitle
+        </div>
+        <div>
+            Number of attempts: @Model.NumberOfAttempts
+        </div>
+        <div style="font-size:17px;font-weight:600">
+            Highest Possible score: @Model.PossibleScore
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card box-shadow">
+            <div class="card-body">
+                <div class="font-weight-bold">RESULTS</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Matric No</th>
+                            <th>Full name</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var attempt in Model.Attempts)
+                        {
+                            <tr>
+                                <td>@attempt.StudentMatricNumber</td>
+                                <td>@attempt.StudentFullname</td>
+                                <td>@attempt.StudentScore</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -61,8 +61,15 @@ namespace OnlineSchool.Controllers
             if (tutor.Id != exam.Course.TutorId)
                 return NotFound();
             var examAttempts = _examAttemptService.GetAllExamAttempts(id);
-            var model = examAttempts.Select(ex => new ExamAttemptModel { StudentFullname = $"{ex.Student.FirstName} {ex.Student.LastName}", StudentId = ex.StudentId,
-                StudentMatricNumber = ex.Student.MatricNumber, StudentScore = ex.Score, TotalGrade = ex.MaximumScore });
+            var attempts = examAttempts.Select(ex => new ExamAttemptModel
+            {
+                StudentFullname = $"{ex.Student.FirstName} {ex.Student.LastName}",
+                StudentId = ex.StudentId,
+                StudentMatricNumber = ex.Student.MatricNumber,
+                StudentScore = ex.Score,
+                TotalGrade = ex.MaximumScore
+            }).OrderByDescending(m=>m.StudentScore);
+            var model = new ResultsModel(exam, attempts);
             return View(model);
         }
 

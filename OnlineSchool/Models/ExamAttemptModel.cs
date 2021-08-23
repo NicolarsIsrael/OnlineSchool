@@ -6,6 +6,29 @@ using System.Threading.Tasks;
 
 namespace OnlineSchool.Models
 {
+
+    public class ResultsModel
+    {
+        public int CourseId { get; set; }
+        public string CourseCode { get; set; }
+        public string CourseTitle { get; set; }
+        public int ExamId { get; set; }
+        public string ExamTitle { get; set; }
+        public decimal PossibleScore { get; set; }
+        public int NumberOfAttempts { get; set; }
+        public IEnumerable<ExamAttemptModel> Attempts { get; set; }
+        public ResultsModel(Exam exam, IEnumerable<ExamAttemptModel> attempts)
+        {
+            Attempts = attempts;
+            CourseTitle = exam.Course.CourseTitle;
+            CourseId = exam.Course.Id;
+            CourseCode = exam.Course.CourseCode;
+            ExamId = exam.Id;
+            ExamTitle = exam.ExamTitle;
+            PossibleScore = exam.TotalScore;
+            NumberOfAttempts = attempts.Count();
+        }
+    }
     public class ExamAttemptModel
     {
         public int StudentId { get; set; }

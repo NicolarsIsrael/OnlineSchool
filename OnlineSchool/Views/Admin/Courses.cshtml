@@ -1,16 +1,21 @@
 ﻿@model IEnumerable<OnlineSchool.Models.ViewCourseModel>
 
 @{
-    ViewData["Title"] = "Students";
+    ViewData["Title"] = "Admin-Courses";
     //Layout = "_AdminLayout";
 
 }
+
+<div class="my-4">
+    <a asp-action="index">Home</a> >>
+    <span class="breadcrum-link">Courses</span>
+</div>
 
 <div class="element-wrapper">
     <div class="element-actions text-right">
         <a class="mr-2 mb-2 btn btn-custom-primary btn-rounded" asp-action="AddCourse">Create New</a>
     </div>
-    <h6 class="element-header">
+    <h6 class="element-header mb-2">
         Courses
     </h6>
     <div class="card box-shadow mt-1">

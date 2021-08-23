@@ -20,7 +20,7 @@ namespace OnlineSchool.Controllers
         }
         public IActionResult Index()
         {
-            return RedirectToAction(nameof(Courses));
+            return View();
         }
 
         public IActionResult Students()

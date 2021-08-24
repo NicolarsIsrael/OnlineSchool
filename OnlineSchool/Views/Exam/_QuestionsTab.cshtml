@@ -3,20 +3,19 @@
     @for (int i = 0; i < Model.McqQuestions.Count; i++)
     {
         string questionClass = Model.McqQuestions[i].SelectedOptionId == -1 ? "unanswered-question" : "answered-question";
-        int questionNumber = i + 1;
         string questionTabId = $"question-tab-{Model.McqQuestions[i].Id}-{Model.McqQuestions[i].QuestionNumber}";
         string questionDivId = $"question-div-{Model.McqQuestions[i].Id}-{Model.McqQuestions[i].QuestionNumber}";
         <div class="@questionClass mb-1" id="@questionTabId" onclick="MoveToPage(@Model.AttemptId, @Model.McqQuestions[i].PageNumber, '@questionDivId')" style="cursor:pointer">
-            @questionNumber
+            @Model.McqQuestions[i].QuestionNumber
         </div>
     }
-    @for (int i = 0, questionNumber = Model.TheoryQuestions.Count()+1; i < Model.TheoryQuestions.Count; i++,questionNumber++)
+    @for (int i = 0; i < Model.TheoryQuestions.Count; i++)
     {
         string questionClass = string.IsNullOrEmpty(Model.TheoryQuestions[i].Answer) ? "unanswered-question" : "answered-question";
         string questionTabId = $"question-tab-{Model.TheoryQuestions[i].Id}-{Model.TheoryQuestions[i].QuestionNumber}";
         string questionDivId = $"question-div-{Model.TheoryQuestions[i].Id}-{Model.TheoryQuestions[i].QuestionNumber}";
         <div class="@questionClass mb-1" id="@questionTabId" onclick="MoveToPage(@Model.AttemptId, @Model.TheoryQuestions[i].PageNumber, '@questionDivId')" style="cursor:pointer">
-            @questionNumber
+            @Model.TheoryQuestions[i].QuestionNumber
         </div>
     }
 </div>

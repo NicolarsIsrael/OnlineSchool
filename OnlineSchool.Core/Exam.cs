@@ -15,5 +15,6 @@ namespace OnlineSchool.Core
         public DateTime DeadlineStartTime { get; set; }
         public DateTime DeadlineEndTime { get; set; }
         public IEnumerable<McqQuestion> MultiChoiceQuestions { get; set; }
+        public IEnumerable<TheoryQuestion> TheoryQuestions { get; set; }
     }
 }

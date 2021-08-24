@@ -1,0 +1,44 @@
+﻿@model OnlineSchool.Models.AddTheoryQuestionModel
+@{
+    ViewData["Title"] = "Add theory";
+    //Layout = "_AdminLayout";
+}
+<div class="element-wrapper">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >> <a asp-action="course" asp-route-id="@Model.CourseId">@Model.CourseCode</a> >>
+        <a asp-action="exam" asp-route-id="@Model.ExamId">@Model.ExamTitle</a> >> <span class="breadcrum-link">Add Theory question</span>
+    </div>
+
+    <h6 class="element-header my-3">
+        Manage Theory question
+    </h6>
+    <div class="card box-shadow">
+        <div class="card-body">
+            <h5 class="form-header">Add Theory question</h5>
+            <hr class="m-1" />
+            <form method="post" enctype="multipart/form-data">
+                <input asp-for="ExamId" hidden />
+                <input asp-for="ExamTitle" hidden />
+                <input asp-for="CourseCode" hidden />
+                <input asp-for="CourseId" hidden />
+                <div class="form-group">
+                    <label asp-for="Question" class=""></label>
+                    <textarea asp-for="Question" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Question" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-12">
+                        <label asp-for="Score" class=""></label>
+                        <input asp-for="Score" class="form-control" />
+                        <span asp-validation-for="Score" class="text-danger"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-custom-primary">Add theory</button>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

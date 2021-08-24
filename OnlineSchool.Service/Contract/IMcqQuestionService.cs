@@ -12,6 +12,6 @@ namespace OnlineSchool.Service.Contract
         IEnumerable<McqQuestion> GetAllForExam(int examId);
         McqQuestion GetById(int id);
         Task Update(McqQuestion mcq, Exam exam);
-        Task Delete(McqQuestion mcq);
+        Task Delete(McqQuestion mcq, Exam exam);
     }
 }

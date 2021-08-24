@@ -27,6 +27,7 @@ namespace OnlineSchool.Data.Implementation
                        .Include(c => c.Course)
                        .Include(c => c.MultiChoiceQuestions)
                            .ThenInclude(c => c.Options)
+                        .Include(c=>c.TheoryQuestions)
                        .FirstOrDefault();
                 //exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted).ToList();
                 return exam;
@@ -42,7 +43,8 @@ namespace OnlineSchool.Data.Implementation
             var exams = _dbSet.Where(c => !c.IsDeleted)
                .Include(c => c.Course)
                 .Include(c => c.MultiChoiceQuestions)
-                    .ThenInclude(c => c.Options);
+                    .ThenInclude(c => c.Options)
+                .Include(c => c.TheoryQuestions);
 
             foreach(var exam in exams)
                 exam.MultiChoiceQuestions = exam.MultiChoiceQuestions.Where(mcq => !mcq.IsDeleted).ToList();
@@ -52,6 +54,7 @@ namespace OnlineSchool.Data.Implementation
         {
             var exams = _dbSet.Where(predicate).Where(t => t.IsDeleted == false)
                    .Include(m => m.Course)
+                  .Include(c => c.TheoryQuestions)
                 .Include(c => c.MultiChoiceQuestions)
                     .ThenInclude(c => c.Options);
 

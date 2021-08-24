@@ -76,7 +76,7 @@
             <a class="mr-2 mb-2 btn btn-custom-primary" asp-action="AddMcq" asp-controller="tutor" asp-route-id="@Model.Id">Add MCQ</a>
         </div>
         <h6 class="element-header">
-            Questions
+            Mcq Questions
         </h6>
         <div class="row">
             @foreach (var mcq in Model.McqQuestions)
@@ -122,12 +122,54 @@
 
             }
         </div>
+
+        <div class="element-actions text-right mt-5">
+            <a class="mr-2 mb-2 btn btn-custom-primary" asp-action="AddTheoryQuestion" asp-controller="tutor" asp-route-id="@Model.Id">Add Theory question</a>
+        </div>
+        <h6 class="element-header mb-3">
+            Theory type questions
+        </h6>
+        <div class="row">
+            @foreach (var theory in Model.TheoryQuestions)
+            {
+                <div class="support-index mt-2 col-md-6">
+                    <div class="card box-shadow">
+                        <div class="card-body">
+                            <div class="st-meta">
+
+                            </div>
+                            <div class="st-body">
+                                <div class="ticket-content">
+                                    <h6 class="ticket-title" style="font-size:16px">
+                                        Question: @theory.Question
+                                    </h6>
+                                    <hr class="m-1" />
+                                </div>
+                            </div>
+                            <div class="st-foot text-right">
+                                [@theory.Score marks]
+                                <a class="btn btn-sm btn-dark" asp-action="EditTheoryQuestion" asp-route-id="@theory.Id">Edit</a>
+                                <a class="btn btn-sm btn-danger text-white" onclick="DeleteTheoryQuestion(@theory.Id)">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+
     </div>
 </div>
     <script>
         function DeleteMcq(id) {
             if (confirm("Are you sure you want to delete this question?")) {
                 location.href = "/tutor/deletemcq/" + id;
+            }
+        }
+
+        function DeleteTheoryQuestion(id){
+            if (confirm("Are you sure you want to delete this question?")) {
+                location.href = "/tutor/deletetheoryquestion/" + id;
             }
         }
     </script>

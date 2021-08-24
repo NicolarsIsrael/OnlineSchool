@@ -19,14 +19,16 @@ namespace OnlineSchool.Controllers
         public readonly IMcqQuestionService _mcqQuestionService;
         public readonly IMcqOptionService _mcqOptionService;
         public readonly IExamAttemptService _examAttemptService;
+        public readonly ITheoryQuestionService _theoryQuestionService;
 
         public TutorController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService,IExamService examService, IEmailService emailSender, IMcqQuestionService mcqQuestionService,
-            IMcqOptionService mcqOptionService, IExamAttemptService examAttemptService)
+            IMcqOptionService mcqOptionService, IExamAttemptService examAttemptService, ITheoryQuestionService theoryQuestionService)
             : base(userManager, roleManager, studentService, lectureService, tutorService, courseService, examService, emailSender)
         {
             _mcqQuestionService = mcqQuestionService;
             _mcqOptionService = mcqOptionService;
             _examAttemptService = examAttemptService;
+            _theoryQuestionService = theoryQuestionService;
         }
         public IActionResult Index()
         {
@@ -228,10 +230,75 @@ namespace OnlineSchool.Controllers
             var mcq = _mcqQuestionService.GetById(id);
             if (mcq.Exam.Course.TutorId != GetLoggedInTutor().Id)
                 return NotFound();
-
-            await _mcqQuestionService.Delete(mcq);
+            var exam = _examService.Get(mcq.Exam.Id);
+            await _mcqQuestionService.Delete(mcq,exam);
 
             return RedirectToAction(nameof(Exam), new { id = mcq.ExamId });
+        }
+
+        public IActionResult AddTheoryQuestion(int id)
+        {
+            var exam = _examService.Get(id);
+            if (exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
+
+            return View(new AddTheoryQuestionModel(exam));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddTheoryQuestion(AddTheoryQuestionModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "One or more validations failed");
+                return View(model);
+            }
+            var exam = _examService.Get(model.ExamId);
+            if (exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
+
+            await _theoryQuestionService.Add(model.Add(exam));
+            return RedirectToAction(nameof(Exam), new { id = model.ExamId });
+        }
+
+        public IActionResult EditTheoryQuestion(int id)
+        {
+            var theoryQuestion = _theoryQuestionService.Get(id);
+            if (theoryQuestion.Exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
+
+            var model = new EditTheoryQuestionModel(theoryQuestion);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTheoryQuestion(EditTheoryQuestionModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "One or more validations failed");
+                return View(model);
+            }
+
+            var theoryQuestion = _theoryQuestionService.Get(model.Id);
+            if (theoryQuestion.Exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
+
+            var exam = _examService.Get(theoryQuestion.ExamId);
+            theoryQuestion = model.Edit(theoryQuestion);
+            await _theoryQuestionService.Update(theoryQuestion, exam);
+
+            return RedirectToAction(nameof(Exam), new { id = theoryQuestion.ExamId });
+        }
+
+        public async Task<IActionResult> deletetheoryquestion(int id)
+        {
+            var theoryQuestion = _theoryQuestionService.Get(id);
+            if (theoryQuestion.Exam.Course.TutorId != GetLoggedInTutor().Id)
+                return NotFound();
+            var exam = _examService.Get(theoryQuestion.Exam.Id);
+            await _theoryQuestionService.Delete(theoryQuestion, exam);
+            return RedirectToAction(nameof(Exam), new { id = theoryQuestion.ExamId });
         }
 
         //public async Task<IActionResult> GradeExam(int id)

@@ -18,6 +18,7 @@ namespace OnlineSchool.Data.Implementation
         public McqQuestionRepo McqQuestionRepo { get; set; }
         public ExamAttemptRepo ExamAttemptRepo { get; set; }
         public ExamMcqAttemptRepo ExamMcqAttemptRepo { get; set; }
+        public TheoryQuestionRepo TheoryQuestionRepo { get; set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             this._context = context;
@@ -30,6 +31,7 @@ namespace OnlineSchool.Data.Implementation
             this.McqOptionRepo = new McqOptionRepo(this._context);
             this.ExamMcqAttemptRepo = new ExamMcqAttemptRepo(this._context);
             this.ExamAttemptRepo = new ExamAttemptRepo(this._context);
+            this.TheoryQuestionRepo = new TheoryQuestionRepo(this._context);
         }
 
         public async Task Save()

@@ -22,6 +22,7 @@ namespace OnlineSchool.Models
         public string DeadlineStartTime { get; set; }
         public string DeadlineEndTime { get; set; }
         public IEnumerable<ViewMcqQuestion> McqQuestions { get; set; }
+        public IEnumerable<TheoryQuestionModel> TheoryQuestions { get; set; }
         public ViewExamModel(Exam exam)
         {
             Id = exam.Id;
@@ -36,6 +37,7 @@ namespace OnlineSchool.Models
             DeadlineStartTime = GeneralFunction.DateInString(exam.DeadlineStartTime);
             TotalScore = exam.TotalScore;
             McqQuestions = exam.MultiChoiceQuestions.Where(mc=>!mc.IsDeleted).Select(mc => new ViewMcqQuestion(mc, true)).ToList();
+            TheoryQuestions = exam.TheoryQuestions.Where(mc => !mc.IsDeleted).Select(e => new TheoryQuestionModel(e));
         }
     }
 

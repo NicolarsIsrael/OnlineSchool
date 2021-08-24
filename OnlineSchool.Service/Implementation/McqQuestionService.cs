@@ -39,14 +39,18 @@ namespace OnlineSchool.Service.Implementation
         public async Task Update(McqQuestion mcq, Exam exam)
         {
              _uow.McqQuestionRepo.Update(mcq);
-            exam.TotalScore = exam.MultiChoiceQuestions.Sum(m => m.Score);
+            exam.TotalScore = exam.MultiChoiceQuestions.Where(e => !e.IsDeleted).Sum(m => m.Score) 
+                + exam.TheoryQuestions.Where(e => !e.IsDeleted).Sum(m => m.Score);
             _uow.ExamRepo.Update(exam);
             await _uow.Save();
         }
 
-        public async Task Delete(McqQuestion mcq)
+        public async Task Delete(McqQuestion mcq, Exam exam)
         {
             _uow.McqQuestionRepo.Remove(mcq);
+            exam.TotalScore = exam.MultiChoiceQuestions.Where(e => !e.IsDeleted).Sum(m => m.Score)
+                 + exam.TheoryQuestions.Where(e => !e.IsDeleted).Sum(m => m.Score);
+
             await _uow.Save();
         }
     }

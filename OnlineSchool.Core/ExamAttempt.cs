@@ -12,6 +12,7 @@ namespace OnlineSchool.Core
         public int CourseId { get; set; }
         public int DurationInSeconds { get; set; }
         public IEnumerable<ExamMcqAttempt> Mcqs { get; set; }
+        public IEnumerable<ExamTheoryAttempt> Theorys { get; set; }
         public bool ContinueAttempt { get; set; }
         public decimal Score { get; set; }
         public decimal MaximumScore { get; set; }

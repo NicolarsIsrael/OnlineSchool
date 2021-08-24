@@ -22,6 +22,7 @@ namespace OnlineSchool.Controllers
             _examMcqAttemptService = examMcqAttemptService;
         }
 
+        [Route("exam")]
         public async Task<IActionResult> Index(int id)
         {
             var exam = _examService.Get(id);
@@ -30,31 +31,10 @@ namespace OnlineSchool.Controllers
             ExamAttempt examAttempt = null;// _examAttemptService.CheckIfStudentAttemptAlreadyExists(exam.Id, student.Id);
             if (examAttempt == null)
             {
-                var mcqAttempts = new List<ExamMcqAttempt>();
-                var questionNumbers = Enumerable.Range(1, exam.MultiChoiceQuestions.Count()).ToList();
-                foreach (var mcq in exam.MultiChoiceQuestions)
-                {
-                    var questionNumberIndex = new Random().Next(0, questionNumbers.Count());
-                    var questionNumber = questionNumbers[questionNumberIndex];
-                    questionNumbers.Remove(questionNumber);
+                var totalNumberOfQuestions = exam.MultiChoiceQuestions.Count() + exam.TheoryQuestions.Count();
+                var mcqAttempts = GenerateMcqQuestions(exam);
+                var theoryAttempts = GenerateTheoryQuestions(exam);
 
-                    mcqAttempts.Add(new ExamMcqAttempt()
-                    {
-                        DateCreated = DateTime.Now,
-                        DateCreatedUtc = DateTime.UtcNow,
-                        DateModified = DateTime.Now,
-                        DateModifiedUtc = DateTime.UtcNow,
-                        McqId = mcq.Id,
-                        SelectedOptionId = -1,
-                        CorrectAnswerId = mcq.AnswerId,
-                        Score = mcq.Score,
-                        McqOptions = mcq.Options,
-                        QuestionNumber = questionNumber,
-                        PageNumber = questionNumber % AppConstant.NumberOfQuestionsPerPage == 0
-                                    ? questionNumber / AppConstant.NumberOfQuestionsPerPage
-                                    : (questionNumber / AppConstant.NumberOfQuestionsPerPage) + 1,
-                    });
-                }
                 examAttempt = new ExamAttempt()
                 {
                     CourseId = exam.Course.Id,
@@ -62,6 +42,7 @@ namespace OnlineSchool.Controllers
                     Student = student,
                     ExamId = exam.Id,
                     Mcqs = mcqAttempts,
+                    Theorys = theoryAttempts,
                     DurationInSeconds = exam.DurationInMinute * 60,
                     ContinueAttempt = true,
                     MaximumScore = exam.TotalScore,
@@ -74,6 +55,66 @@ namespace OnlineSchool.Controllers
             var model = new ExamModel(exam,examAttempt,1);
             return View(model);
         }
+
+        private IEnumerable<ExamMcqAttempt> GenerateMcqQuestions(Exam exam)
+        {
+            var mcqAttempts = new List<ExamMcqAttempt>();
+            var questionNumbers = Enumerable.Range(1, exam.MultiChoiceQuestions.Count()).ToList();
+            foreach (var mcq in exam.MultiChoiceQuestions)
+            {
+                var questionNumberIndex = new Random().Next(0, questionNumbers.Count());
+                var questionNumber = questionNumbers[questionNumberIndex];
+                questionNumbers.Remove(questionNumber);
+
+                mcqAttempts.Add(new ExamMcqAttempt()
+                {
+                    DateCreated = DateTime.Now,
+                    DateCreatedUtc = DateTime.UtcNow,
+                    DateModified = DateTime.Now,
+                    DateModifiedUtc = DateTime.UtcNow,
+                    McqId = mcq.Id,
+                    SelectedOptionId = -1,
+                    CorrectAnswerId = mcq.AnswerId,
+                    Score = mcq.Score,
+                    McqOptions = mcq.Options,
+                    QuestionNumber = questionNumber,
+                    PageNumber = questionNumber % AppConstant.NumberOfQuestionsPerPage == 0
+                                ? questionNumber / AppConstant.NumberOfQuestionsPerPage
+                                : (questionNumber / AppConstant.NumberOfQuestionsPerPage) + 1,
+                });
+            }
+            return mcqAttempts;
+        }
+
+        private IEnumerable<ExamTheoryAttempt> GenerateTheoryQuestions(Exam exam)
+        {
+            var theoryAttemps = new List<ExamTheoryAttempt>();
+            var questionNumbers = Enumerable.Range(exam.MultiChoiceQuestions.Count()+1, exam.TheoryQuestions.Count()).ToList();
+
+            foreach(var theory in exam.TheoryQuestions)
+            {
+                var questionNumberIndex = new Random().Next(0, questionNumbers.Count());
+                var questionNumber = questionNumbers[questionNumberIndex];
+                questionNumbers.Remove(questionNumber);
+
+                theoryAttemps.Add(new ExamTheoryAttempt()
+                {
+                    DateCreated = DateTime.Now,
+                    DateCreatedUtc = DateTime.UtcNow,
+                    DateModified = DateTime.Now,
+                    DateModifiedUtc = DateTime.UtcNow,
+                    TheoryQuestionId = theory.Id,
+                    IsDeleted = false,
+                    QuestionNumber = questionNumber,
+                    PageNumber = questionNumber % AppConstant.NumberOfQuestionsPerPage == 0
+                                ? questionNumber / AppConstant.NumberOfQuestionsPerPage
+                                : (questionNumber / AppConstant.NumberOfQuestionsPerPage) + 1,
+                });
+                
+            }
+            return theoryAttemps;
+        }
+
 
         public IActionResult movetopage(int attemptId, int pageNumber)
         {

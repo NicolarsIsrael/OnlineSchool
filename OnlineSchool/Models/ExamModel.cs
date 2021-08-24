@@ -182,6 +182,9 @@ namespace OnlineSchool.Models
         public int PageNumber { get; set; }
         public int TotalPage { get; set; }
         public List<ExamMcqQuestion> McqQuestions { get; set; }
+        public List<ExamTheoryQuestionModel> TheoryQuestions { get; set; }
+        public int TotalQuestionsCount { get; set; }
+
         public ExamModel(Exam exam,ExamAttempt attempt, int pageNumber)
         {
             Id = exam.Id;
@@ -205,12 +208,51 @@ namespace OnlineSchool.Models
                     _mcqQuestions.Add(new ExamMcqQuestion(mcq, _attempt));
             }
             McqQuestions = _mcqQuestions.OrderBy(m=>m.QuestionNumber).ToList();
-            TotalPage = McqQuestions.Count() % AppConstant.NumberOfQuestionsPerPage == 0
-                        ? McqQuestions.Count() / AppConstant.NumberOfQuestionsPerPage
-                        : (McqQuestions.Count() / AppConstant.NumberOfQuestionsPerPage) + 1;
+
+            var _theoryQuestions = new List<ExamTheoryQuestionModel>();
+            foreach(var theory in exam.TheoryQuestions)
+            {
+                var _attempt = attempt.Theorys.Where(at => at.TheoryQuestionId == theory.Id).FirstOrDefault();
+                if (_attempt != null)
+                    _theoryQuestions.Add(new ExamTheoryQuestionModel(theory, _attempt));
+            }
+            TheoryQuestions = _theoryQuestions.OrderBy(m => m.QuestionNumber).ToList();
+            TotalQuestionsCount = McqQuestions.Count() + TheoryQuestions.Count();
+            TotalPage = TotalQuestionsCount % AppConstant.NumberOfQuestionsPerPage == 0
+                        ? TotalQuestionsCount / AppConstant.NumberOfQuestionsPerPage
+                        : (TotalQuestionsCount / AppConstant.NumberOfQuestionsPerPage) + 1;
         }
 
         public ExamModel()
+        {
+
+        }
+    }
+
+    public class ExamTheoryQuestionModel
+    {
+        public int Id { get; set; }
+        public int AttemptId { get; set; }
+        public string Question { get; set; }
+        public decimal Score { get; set; }
+        public string Answer { get; set; }
+        public int Order { get; set; }
+        public int QuestionNumber { get; set; }
+        public int PageNumber { get; set; }
+        public ExamTheoryQuestionModel(TheoryQuestion question, ExamTheoryAttempt attempt)
+        {
+            Id = question.Id;
+            AttemptId = attempt.Id;
+            Question = question.Question;
+            Score = question.Score;
+            Answer = attempt.Answer;
+            Random rand = new Random();
+            Order = rand.Next(1, 100);
+            QuestionNumber = attempt.QuestionNumber;
+            PageNumber = attempt.PageNumber;
+        }
+
+        public ExamTheoryQuestionModel()
         {
 
         }

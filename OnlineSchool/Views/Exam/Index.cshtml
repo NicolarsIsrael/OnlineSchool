@@ -57,6 +57,20 @@
         })
     }
 
+    function SubmitTheoryAnswer(attemptId, answerId, questionNumber, mcqId) {
+        var answer = document.getElementById(answerId).value;
+        $.ajax({
+            url: "/exam/SubmitTheoryAnswer",
+            data: { theoryAttemptId: attemptId, answer: answer },
+            success: function (result) {
+                var questionTabId = "question-tab-" + mcqId + "-" + questionNumber;
+                var questionTab = document.getElementById(questionTabId);
+                questionTab.classList.remove("unanswered-question");
+                questionTab.classList.add("answered-question");
+            }
+        })
+    }
+
     function startTimer(duration, display) {
         var timer = duration, minutes, seconds;
         //debugger;

@@ -245,7 +245,7 @@ namespace OnlineSchool.Models
             AttemptId = attempt.Id;
             Question = question.Question;
             Score = question.Score;
-            Answer = attempt.Answer;
+            Answer = string.IsNullOrEmpty(attempt.Answer) ? "" : attempt.Answer;
             Random rand = new Random();
             Order = rand.Next(1, 100);
             QuestionNumber = attempt.QuestionNumber;

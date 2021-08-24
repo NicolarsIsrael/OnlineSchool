@@ -15,11 +15,14 @@ namespace OnlineSchool.Controllers
     {
         private readonly IExamAttemptService _examAttemptService;
         private readonly IExamMcqAttemptService _examMcqAttemptService;
-        public ExamController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService, IExamService examService, IExamAttemptService examAttemptService, IExamMcqAttemptService examMcqAttemptService, IEmailService emailSender)
+        private readonly IExamTheoryAttemptService _examTheoryAttemptService;
+
+        public ExamController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService, IExamService examService, IExamAttemptService examAttemptService, IExamMcqAttemptService examMcqAttemptService, IEmailService emailSender, IExamTheoryAttemptService examTheoryAttemptService)
             : base(userManager, roleManager, studentService, lectureService, tutorService, courseService, examService, emailSender)
         {
             _examAttemptService = examAttemptService;
             _examMcqAttemptService = examMcqAttemptService;
+            _examTheoryAttemptService = examTheoryAttemptService;
         }
 
         [Route("exam")]
@@ -105,6 +108,7 @@ namespace OnlineSchool.Controllers
                     DateModifiedUtc = DateTime.UtcNow,
                     TheoryQuestionId = theory.Id,
                     IsDeleted = false,
+                    Answer = "",
                     QuestionNumber = questionNumber,
                     PageNumber = questionNumber % AppConstant.NumberOfQuestionsPerPage == 0
                                 ? questionNumber / AppConstant.NumberOfQuestionsPerPage
@@ -118,10 +122,18 @@ namespace OnlineSchool.Controllers
 
         public IActionResult movetopage(int attemptId, int pageNumber)
         {
-            var attempt = _examAttemptService.Get(attemptId);
-            var exam = _examService.Get(attempt.ExamId);
-            var model = new ExamModel(exam, attempt, pageNumber);
-            return PartialView("_QuestionsList", model);
+            try
+            {
+                var attempt = _examAttemptService.Get(attemptId);
+                var exam = _examService.Get(attempt.ExamId);
+                var model = new ExamModel(exam, attempt, pageNumber);
+                return PartialView("_QuestionsList", model);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         public async Task<IActionResult> SubmitMcqAnswer(int mcqAttemptId, int answerId)
@@ -129,6 +141,14 @@ namespace OnlineSchool.Controllers
             var mcqAnswer = _examMcqAttemptService.Get(mcqAttemptId);
             mcqAnswer.SelectedOptionId = answerId;
             await _examMcqAttemptService.Update(mcqAnswer);
+            return Json(new { });
+        }
+
+        public async Task<IActionResult> SubmitTheoryAnswer(int theoryAttemptId, string answer)
+        {
+            var theoryAttempt = _examTheoryAttemptService.Get(theoryAttemptId);
+            theoryAttempt.Answer = answer;
+            await _examTheoryAttemptService.Updte(theoryAttempt);
             return Json(new { });
         }
 

@@ -11,5 +11,6 @@ namespace OnlineSchool.Core
         public int TheoryQuestionId { get; set; }
         public string Answer { get; set; }
         public decimal Score { get; set; }
+        public decimal StudentScore { get; set; }
     }
 }

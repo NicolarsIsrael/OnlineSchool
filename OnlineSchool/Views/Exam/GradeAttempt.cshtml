@@ -1,0 +1,120 @@
+﻿@model OnlineSchool.Models.AttemptResultModel
+@{
+    ViewData["Title"] = "Grade Attempt";
+}
+
+<div class="my-4">
+    <a asp-action="index">Home</a> >> <a asp-controller="tutor" asp-action="course" asp-route-id="@Model.Exam.CourseId">@Model.Exam.CourseCode</a> >>
+    <a asp-controller="tutor" asp-action="exam" asp-route-id="@Model.Exam.Id">@Model.Exam.Title</a>
+    >> <a asp-action="result" asp-controller="tutor" asp-route-id="@Model.Exam.Id">Results</a>
+    >> <span class="breadcrum-link">Grade attempt</span>
+</div>
+
+<div class="mt-4 card box-shadow mb-3">
+    <div class="card-body">
+        <div style="text-transform:uppercase;font-size:20px;font-weight:600">
+            @Model.Exam.CourseTitle | @Model.Exam.CourseCode
+        </div>
+        <div>
+            @Model.Exam.Title
+        </div>
+        <div style="font-size:17px;font-weight:600">
+            Highest Possible score: @Model.Attempt.TotalGrade
+        </div>
+    </div>
+</div>
+
+
+<div class="mt-4 card box-shadow mb-3">
+    <div class="card-body">
+        <div style="text-transform:uppercase;font-size:20px;font-weight:600">
+            @Model.Attempt.StudentMatricNumber | @Model.Attempt.StudentFullname
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var mcq in Model.Exam.McqQuestions)
+    {
+        <div class="col-md-6">
+            <div class="card box-shadow my-2">
+                <div class="card-body">
+                    <div style="font-size:17px;font-weight:600">
+                        @mcq.Question
+                    </div>
+                    <hr class="m-0" />
+                    @foreach (var option in mcq.Options)
+                    {
+                        string optionClass = "";
+                        if (option.AnsId == mcq.CorrectAnswerId)
+                        {
+                            optionClass = "correct-answer";
+                        }
+                        else if (option.AnsId == mcq.SelectedOptionId)
+                        {
+                            optionClass = "wrong-answer";
+                        }
+                        <div class="@optionClass p-1 my-1">
+                            @option.Option
+                        </div>
+                    }
+                </div>
+                <hr class="m-0" />
+                <div class="st-foot text-right my-1 mr-3">
+                    [@mcq.Score marks]
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<form asp-action="GradeAttempt">
+    <input asp-for="AttemptId" hidden />
+    @for (int i = 0; i < Model.Exam.TheoryQuestions.Count(); i++)
+    {
+        <div class="card box-shadow my-2">
+            <div class="card-body pb-0">
+                <div style="font-size:17px;font-weight:600">
+                    @Model.Exam.TheoryQuestions[i].Question
+                </div>
+                <hr class="m-0" />
+                <textarea class="form-control" rows="6" readonly>@Model.Exam.TheoryQuestions[i].Answer</textarea>
+                <hr class="m-0" />
+                <div class="float-right d-block my-1">
+                    @{
+                        <label class="font-weight-bold">Score:</label>
+                        string scoreValue = Model.Exam.TheoryQuestions[i].StudentScore == 0 ? "" : Model.Exam.TheoryQuestions[i].StudentScore.ToString();
+                        <input asp-for="Exam.TheoryQuestions[i].StudentScore" min="0" max="@Model.Exam.TheoryQuestions[i].Score"
+                               value="@scoreValue" required class="form-control d-inline-block" style="width:200px">
+                    }
+                    <input asp-for="Exam.TheoryQuestions[i].AttemptId" hidden />
+
+                </div>
+            </div>
+            <hr class="m-0" />
+            <div class="st-foot text-right my-1 mr-3">
+                [@Model.Exam.TheoryQuestions[i].Score marks]
+            </div>
+        </div>
+    }
+
+    <input class="btn btn-custom-primary" type="submit" value="Save changes" />
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+<style>
+    .correct-answer {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .wrong-answer {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>

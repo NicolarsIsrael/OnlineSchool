@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineSchool.Core;
@@ -49,6 +50,7 @@ namespace OnlineSchool.Controllers
                     DurationInSeconds = exam.DurationInMinute * 60,
                     ContinueAttempt = true,
                     MaximumScore = exam.TotalScore,
+                    IsGrraded = false,
                 };
                 examAttempt = await _examAttemptService.CreateExamAttempt(examAttempt);
             }
@@ -170,13 +172,9 @@ namespace OnlineSchool.Controllers
         {
             var examAttempt = _examAttemptService.Get(id);
             examAttempt.ContinueAttempt = true;
-            decimal score = 0;
-            foreach(var mcq in examAttempt.Mcqs)
-            {
-                if (mcq.SelectedOptionId == mcq.CorrectAnswerId)
-                    score += mcq.Score;
-            }
-            examAttempt.Score = score;
+            examAttempt.Score = CalculateScore(examAttempt);
+
+            examAttempt.IsGrraded = examAttempt.Theorys.Count() > 0 ? false : true;
             await _examAttemptService.Update(examAttempt);
             var exam = _examService.Get(examAttempt.ExamId);
             var model = new AttemptCompletedModel(exam, examAttempt);
@@ -204,5 +202,47 @@ namespace OnlineSchool.Controllers
             return true;
         }
 
+
+        //[Route("grade-attempt/{id}")]
+        [Authorize(Roles =AppConstant.LecturerRole)]
+        public IActionResult GradeAttempt(int id)
+        {
+            var examAttempt = _examAttemptService.Get(id);
+            if (examAttempt == null)
+                return NotFound();
+            var examModel = new ExamModel(_examService.Get(examAttempt.ExamId), examAttempt, 1, true);
+            var model = new AttemptResultModel(new ExamAttemptModel(examAttempt), examModel);
+            return View(model);
+        }
+
+        [Authorize(Roles=AppConstant.LecturerRole)]
+        [HttpPost]
+        public async Task<IActionResult> GradeAttempt(AttemptResultModel model)
+        {
+            var examAttempt = _examAttemptService.Get(model.AttemptId);
+            foreach(var theory in model.Exam.TheoryQuestions.ToList())
+            {
+                var theoryAttempt = _examTheoryAttemptService.Get(theory.AttemptId);
+                theoryAttempt.StudentScore = theory.StudentScore;
+                await _examTheoryAttemptService.Updte(theoryAttempt);
+            }
+            examAttempt.Score = CalculateScore(examAttempt);
+            examAttempt.IsGrraded = true;
+            await _examAttemptService.Update(examAttempt);
+
+            return RedirectToAction("Result", "tutor", new { id = examAttempt.ExamId });
+        }
+
+        private decimal CalculateScore(ExamAttempt examAttempt)
+        {
+            decimal score = 0;
+            foreach (var mcq in examAttempt.Mcqs)
+            {
+                if (mcq.SelectedOptionId == mcq.CorrectAnswerId)
+                    score += mcq.Score;
+            }
+            score += examAttempt.Theorys.Sum(t => t.StudentScore);
+            return score;
+        }
     }
 }

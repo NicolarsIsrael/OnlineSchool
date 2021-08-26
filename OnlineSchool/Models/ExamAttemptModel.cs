@@ -31,11 +31,27 @@ namespace OnlineSchool.Models
     }
     public class ExamAttemptModel
     {
+        public int Id { get; set; }
         public int StudentId { get; set; }
         public string StudentMatricNumber { get; set; }
         public string StudentFullname { get; set; }
         public decimal StudentScore { get; set; }
         public decimal TotalGrade { get; set; }
+        public bool IsGraded { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string DateCreatedString { get; set; }
+        public ExamAttemptModel(ExamAttempt ex)
+        {
+            Id = ex.Id;
+            StudentFullname = $"{ex.Student.FirstName} {ex.Student.LastName}";
+            StudentId = ex.StudentId;
+            StudentMatricNumber = ex.Student.MatricNumber;
+            StudentScore = ex.Score;
+            TotalGrade = ex.MaximumScore;
+            IsGraded = ex.IsGrraded;
+            DateCreated = ex.DateCreated;
+            DateCreatedString = ex.DateCreated.ToString("dd/MMM/yyyy - hh:mm:ss:tt");
+        }
     }
 
     public class AttemptCompletedModel

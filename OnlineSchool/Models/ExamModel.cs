@@ -176,6 +176,7 @@ namespace OnlineSchool.Models
         public int DurationInSeconds { get; set; }
         public string CourseTitle { get; set; }
         public string CourseCode { get; set; }
+        public int CourseId { get; set; }
         public string StartTime { get; set; }
         public string DeadlineStartTime { get; set; }
         public string DeadlineEndTime { get; set; }
@@ -185,7 +186,7 @@ namespace OnlineSchool.Models
         public List<ExamTheoryQuestionModel> TheoryQuestions { get; set; }
         public int TotalQuestionsCount { get; set; }
 
-        public ExamModel(Exam exam,ExamAttempt attempt, int pageNumber)
+        public ExamModel(Exam exam,ExamAttempt attempt, int pageNumber, bool showCorrectAnswer=false)
         {
             Id = exam.Id;
             AttemptId = attempt.Id;
@@ -195,6 +196,7 @@ namespace OnlineSchool.Models
             DurationInSeconds = attempt.DurationInSeconds;
             CourseTitle = exam.Course.CourseTitle;
             CourseCode = exam.Course.CourseCode;
+            CourseId = exam.Course.Id;
             StartTime = GeneralFunction.DateInString(exam.StartTime);
             DeadlineEndTime = GeneralFunction.DateInString(exam.DeadlineEndTime);
             DeadlineStartTime = GeneralFunction.DateInString(exam.DeadlineStartTime);
@@ -205,7 +207,7 @@ namespace OnlineSchool.Models
             {
                 var _attempt = attempt.Mcqs.Where(at => at.McqId == mcq.Id).FirstOrDefault();
                 if (_attempt != null)
-                    _mcqQuestions.Add(new ExamMcqQuestion(mcq, _attempt));
+                    _mcqQuestions.Add(new ExamMcqQuestion(mcq, _attempt, showCorrectAnswer));
             }
             McqQuestions = _mcqQuestions.OrderBy(m=>m.QuestionNumber).ToList();
 
@@ -235,6 +237,7 @@ namespace OnlineSchool.Models
         public int AttemptId { get; set; }
         public string Question { get; set; }
         public decimal Score { get; set; }
+        public decimal StudentScore { get; set; }
         public string Answer { get; set; }
         public int Order { get; set; }
         public int QuestionNumber { get; set; }
@@ -250,6 +253,7 @@ namespace OnlineSchool.Models
             Order = rand.Next(1, 100);
             QuestionNumber = attempt.QuestionNumber;
             PageNumber = attempt.PageNumber;
+            StudentScore = attempt.StudentScore;
         }
 
         public ExamTheoryQuestionModel()
@@ -269,7 +273,8 @@ namespace OnlineSchool.Models
         public int Order { get; set; }
         public int QuestionNumber { get; set; }
         public int PageNumber { get; set; }
-        public ExamMcqQuestion(McqQuestion question, ExamMcqAttempt attempt)
+        public int CorrectAnswerId { get; set; }
+        public ExamMcqQuestion(McqQuestion question, ExamMcqAttempt attempt, bool showCorrectAnswer=false)
         {
             SelectedOptionId = attempt.SelectedOptionId;
             Id = question.Id;
@@ -281,6 +286,7 @@ namespace OnlineSchool.Models
             Order = rand.Next(1, 100);
             QuestionNumber = attempt.QuestionNumber;
             PageNumber = attempt.PageNumber;
+            CorrectAnswerId = showCorrectAnswer ? question.AnswerId : 0;
         }
 
         public ExamMcqQuestion()
@@ -309,6 +315,25 @@ namespace OnlineSchool.Models
 
     public class McqAttemptModel
     {
+    }
+
+    public class AttemptResultModel
+    {
+        public int AttemptId { get; set; }
+        public ExamAttemptModel Attempt { get; set; }
+        public ExamModel Exam { get; set; }
+
+        public AttemptResultModel(ExamAttemptModel attempt, ExamModel exam)
+        {
+            AttemptId = attempt.Id;
+            Attempt = attempt;
+            Exam = exam;
+        }
+
+        public AttemptResultModel()
+        {
+
+        }
     }
 
 }

@@ -14,6 +14,7 @@ namespace OnlineSchool.Core
         public IEnumerable<ExamMcqAttempt> Mcqs { get; set; }
         public IEnumerable<ExamTheoryAttempt> Theorys { get; set; }
         public bool ContinueAttempt { get; set; }
+        public bool IsGrraded { get; set; }
         public decimal Score { get; set; }
         public decimal MaximumScore { get; set; }
     }

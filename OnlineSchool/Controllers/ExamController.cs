@@ -233,6 +233,17 @@ namespace OnlineSchool.Controllers
             return RedirectToAction("Result", "tutor", new { id = examAttempt.ExamId });
         }
 
+        public async Task<IActionResult> Invigilate(int id)
+        {
+            var username = GetLoggedInUser().UserName;
+
+            ViewBag.Room = "";
+            ViewBag.Topic = "";
+            ViewBag.Username = username;
+            ViewBag.Token = GeneralFunction.GenerateVideoMeetingToken(username);
+            return View();
+        }
+
         private decimal CalculateScore(ExamAttempt examAttempt)
         {
             decimal score = 0;

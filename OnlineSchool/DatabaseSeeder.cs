@@ -61,7 +61,7 @@ namespace OnlineSchool
                             DateModifiedUtc = DateTime.Now,
                             Description = "Test your knowledge on general knowledge",
                             IsDeleted = false,
-                            Lectures = new List<Lecture>() 
+                            Lectures = new List<Lecture>()
                             {
                                 new Lecture{IsDeleted = false,Title= "General Understanding", BriefDescription = "Deals with the general knowledge of the student in several sections", FilePath = "https://media.proprofs.com/images/QM/user_images/2503852/New%20Project%20(63)(189).jpg"},
                                 new Lecture{IsDeleted = false,Title= "World war II", BriefDescription = "Knowledge on the events that occured in world war ii", FilePath = "https://cdn.britannica.com/53/71453-131-6717E1F1/Pershing-troops-Mexico-World-War-I-1917.jpg"},
@@ -69,6 +69,244 @@ namespace OnlineSchool
                             },
                             Tutor = tutor1,
                         };
+
+                        var exams = new List<Exam>()
+                        {
+                            new Exam{
+                                    Course = course1, ExamTitle = "Test 1", DurationInMinute = 10, StartTime = DateTime.Now, DeadlineEndTime = DateTime.Now.AddYears(2),DeadlineStartTime = DateTime.Now,CoursePerentage = 10,
+                                MultiChoiceQuestions = new List<McqQuestion>()
+                                {
+                                    new McqQuestion {
+                                        Question = "What is the longest that an elephant has ever lived? (That we know of)",
+                                        AnswerId = 2,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "17 years"},
+                                            new McqOption {AnsId = 1, Option = "49 years"},
+                                            new McqOption {AnsId = 2, Option = "86 years"},
+                                            new McqOption {AnsId = 3, Option = "142 years"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "How many rings are on the Olympic flag?",
+                                        AnswerId = 2,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "None"},
+                                            new McqOption {AnsId = 1, Option = "4"},
+                                            new McqOption {AnsId = 2, Option = "5"},
+                                            new McqOption {AnsId = 3, Option = "7"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "How many rings are on the Olympic flag?",
+                                        AnswerId = 2,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "None"},
+                                            new McqOption {AnsId = 1, Option = "4"},
+                                            new McqOption {AnsId = 2, Option = "5"},
+                                            new McqOption {AnsId = 3, Option = "7"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "What is a tarsier?",
+                                        AnswerId = 0,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "A primate"},
+                                            new McqOption {AnsId = 1, Option = "A bird"},
+                                            new McqOption {AnsId = 2, Option = "A lizard"},
+                                            new McqOption {AnsId = 3, Option = "A cat"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "How did Spider-Man get his powers?",
+                                        AnswerId = 3,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "Military experiment gone awry"},
+                                            new McqOption {AnsId = 1, Option = "Born with them"},
+                                            new McqOption {AnsId = 2, Option = "Woke up with them after a strange dream"},
+                                            new McqOption {AnsId = 3, Option = "Bitten by a radio active spider"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "In darts, what's the most points you can score with a single throw?",
+                                        AnswerId = 2,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "20"},
+                                            new McqOption {AnsId = 1, Option = "50"},
+                                            new McqOption {AnsId = 2, Option = "60"},
+                                            new McqOption {AnsId = 3, Option = "100"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "Which of these animals does NOT appear in the Chinese zodiac?",
+                                        AnswerId = 0,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "Bear"},
+                                            new McqOption {AnsId = 1, Option = "Rabbit"},
+                                            new McqOption {AnsId = 2, Option = "Dragon"},
+                                            new McqOption {AnsId = 3, Option = "Dog"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "Who are known as Brahmins?",
+                                        AnswerId = 1,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "Surfers in California"},
+                                            new McqOption {AnsId = 1, Option = "Members of india's highest caste"},
+                                            new McqOption {AnsId = 2, Option = "It's a totally made up word"},
+                                            new McqOption {AnsId = 3, Option = "Whites from africa"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "How many holes are on a standard bowling ball?",
+                                        AnswerId = 1,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "2"},
+                                            new McqOption {AnsId = 1, Option = "3"},
+                                            new McqOption {AnsId = 2, Option = "5"},
+                                            new McqOption {AnsId = 3, Option = "10"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "Would a Catholic living in the United States ever celebrate Easter in May?",
+                                        AnswerId = 1,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "Yes"},
+                                            new McqOption {AnsId = 1, Option = "No"},
+                                            new McqOption {AnsId = 2, Option = "Sometimes"},
+                                            new McqOption {AnsId = 3, Option = "All of the above"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "What are the main colors on the flag of Spain?",
+                                        AnswerId = 3,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "Black and Yellow"},
+                                            new McqOption {AnsId = 1, Option = "Green and white"},
+                                            new McqOption {AnsId = 2, Option = "Blue and white"},
+                                            new McqOption {AnsId = 3, Option = "Red and Yellow"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "What is the name of this symbol: ¶",
+                                        AnswerId = 1,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "Fermata"},
+                                            new McqOption {AnsId = 1, Option = "Pilcrow"},
+                                            new McqOption {AnsId = 2, Option = "Interrobang"},
+                                            new McqOption {AnsId = 3, Option = "Biltong"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "In the nursery rhyme, how many blackbirds were baked in a pie?",
+                                        AnswerId = 2,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "4"},
+                                            new McqOption {AnsId = 1, Option = "11"},
+                                            new McqOption {AnsId = 2, Option = "24"},
+                                            new McqOption {AnsId = 3, Option = "99"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "What is a pomelo?",
+                                        AnswerId = 2,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "An old-fashioned punching bag"},
+                                            new McqOption {AnsId = 1, Option = "A breed of dog"},
+                                            new McqOption {AnsId = 2, Option = "The largest citrus tree"},
+                                            new McqOption {AnsId = 3, Option = "A university"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "Who killed Greedo?",
+                                        AnswerId = 1,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "Hannibal Lecter"},
+                                            new McqOption {AnsId = 1, Option = "Han solo"},
+                                            new McqOption {AnsId = 2, Option = "Hermione Granger"},
+                                            new McqOption {AnsId = 3, Option = "Hercules"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "Are giant pandas a type of bear?",
+                                        AnswerId = 0,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "Yes"},
+                                            new McqOption {AnsId = 1, Option = "No"},
+                                            new McqOption {AnsId = 2, Option = "All of the above"},
+                                            new McqOption {AnsId = 3, Option = "Sometimes true"},
+                                        },
+                                        Score = 1,
+                                    },
+
+                                    new McqQuestion {
+                                        Question = "How many points is the letter X worth in English-language Scrabble?",
+                                        AnswerId = 0,
+                                        Options = new List<McqOption>()
+                                        {
+                                            new McqOption {AnsId = 0, Option = "None"},
+                                            new McqOption {AnsId = 1, Option = "8"},
+                                            new McqOption {AnsId = 2, Option = "11"},
+                                            new McqOption {AnsId = 3, Option = "20"},
+                                        },
+                                        Score = 1,
+                                    },
+                                },
+                                TheoryQuestions = new List<TheoryQuestion>
+                                {
+                                    new TheoryQuestion {Question = "In what year did Nigeria become a repubulic?", Score = 2},
+                                    new TheoryQuestion {Question = "Explain the events that occured in the abolishment of slave trade", Score=10}
+                                },
+                                TotalScore = 28,
+                            },
+                        };
+                        context.Exam.AddRange(exams);
+
 
                         userName = "Kemiadeosun@gmail.com";
                         password = "kemi";

@@ -10,7 +10,7 @@ namespace OnlineSchool.Utility
         public const string StudentRole = "StudentRole";
         public const string LecturerRole = "LecturerRole";
         public const string MatricNumberStarter = "150408";
-        public const int NumberOfQuestionsPerPage = 3;
+        public const int NumberOfQuestionsPerPage = 10;
     }
 
     public class AppSettings

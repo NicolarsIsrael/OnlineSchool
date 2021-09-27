@@ -24,6 +24,7 @@ namespace OnlineSchool.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            //return View();
             var user = GetLoggedInUser(true);
             if (user == null)
                 return RedirectToPage("/Account/Login",new { area = "Identity"});

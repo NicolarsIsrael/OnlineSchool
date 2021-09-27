@@ -91,7 +91,7 @@
                                             <div>
                                                 Duration: @exam.DurationInMinutes minutes
                                             </div>
-                                            <a asp-controller="exam" asp-action="index" asp-route-id="@exam.Id" class="btn btn-custom-primary btn-sm">
+                                            <a class="btn btn-custom-primary btn-sm text-white" onclick="StartExam(@exam.Id)">
                                                 Start test
                                             </a>
                                         </div>
@@ -109,3 +109,13 @@
     </div>
 
 </div>
+
+<script>
+function StartExam(id) {
+    var confirmation = confirm("Are you sure you want to start the examination?");
+    if (confirmation == true) {
+        location.href = "/exam/" + id;
+    }
+
+}
+</script>

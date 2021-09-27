@@ -26,7 +26,7 @@ namespace OnlineSchool.Controllers
             _examTheoryAttemptService = examTheoryAttemptService;
         }
 
-        [Route("exam")]
+        [Route("exam/{id}")]
         public async Task<IActionResult> Index(int id)
         {
             var exam = _examService.Get(id);

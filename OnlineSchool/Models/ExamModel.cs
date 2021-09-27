@@ -200,7 +200,7 @@ namespace OnlineSchool.Models
             StartTime = GeneralFunction.DateInString(exam.StartTime);
             DeadlineEndTime = GeneralFunction.DateInString(exam.DeadlineEndTime);
             DeadlineStartTime = GeneralFunction.DateInString(exam.DeadlineStartTime);
-            TotalScore = TotalScore;
+            TotalScore = exam.TotalScore;
             PageNumber = pageNumber;
             var _mcqQuestions = new List<ExamMcqQuestion>();
             foreach(var mcq in exam.MultiChoiceQuestions)

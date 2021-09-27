@@ -384,7 +384,97 @@ namespace OnlineSchool
 
 
                     if (await _roleManager.FindByNameAsync(AppConstant.StudentRole) == null)
+                    {
                         await _roleManager.CreateAsync(new ApplicationRole(AppConstant.StudentRole));
+                        var courses = context.Course;
+
+                        string userName = "josepholadunjoye@gmail.com";
+                        string password = "joseph";
+                        var studentUser1 = new ApplicationUser { UserName = userName, Email = userName };
+                        var result = await _userManager.CreateAsync(studentUser1, password);
+                        await _userManager.AddToRoleAsync(studentUser1, AppConstant.StudentRole);
+                        var student1 = new Student { UserId = studentUser1.Id, Email = studentUser1.Email, FirstName = "Joseph",
+                        LastName = "Oladunjoye",MatricNumber = "150302010"};
+
+                        userName = "benitaohane@gmail.com";
+                        password = "benita";
+                        var studentUser2 = new ApplicationUser { UserName = userName, Email = userName };
+                        result = await _userManager.CreateAsync(studentUser2, password);
+                        await _userManager.AddToRoleAsync(studentUser2, AppConstant.StudentRole);
+                        var student2 = new Student
+                        {
+                            UserId = studentUser2.Id,
+                            Email = studentUser2.Email,
+                            FirstName = "Benita",
+                            LastName = "Ohanekwurum",
+                            MatricNumber = "150302011",
+                            Courses = courses.ToList(),
+                        };
+
+                        userName = "timilehinKayode@gmail.com";
+                        password = "timilehin";
+                        var studentUser3 = new ApplicationUser { UserName = userName, Email = userName };
+                        result = await _userManager.CreateAsync(studentUser3, password);
+                        await _userManager.AddToRoleAsync(studentUser3, AppConstant.StudentRole);
+                        var student3 = new Student
+                        {
+                            UserId = studentUser3.Id,
+                            Email = studentUser3.Email,
+                            FirstName = "Timilehin",
+                            LastName = "Kayode",
+                            MatricNumber = "150302041",
+                            Courses = courses.ToList(),
+                        };
+
+                        userName = "TifaseAyomide@gmail.com";
+                        password = "tifase";
+                        var studentUser4 = new ApplicationUser { UserName = userName, Email = userName };
+                        result = await _userManager.CreateAsync(studentUser4, password);
+                        await _userManager.AddToRoleAsync(studentUser4, AppConstant.StudentRole);
+                        var student4 = new Student
+                        {
+                            UserId = studentUser3.Id,
+                            Email = studentUser3.Email,
+                            FirstName = "Tifase",
+                            LastName = "Ayomide",
+                            MatricNumber = "150302036",
+                            Courses = courses.ToList(),
+                        };
+
+                        userName = "TomisinAgboola@gmail.com";
+                        password = "tomisin";
+                        var studentUser5 = new ApplicationUser { UserName = userName, Email = userName };
+                        result = await _userManager.CreateAsync(studentUser5, password);
+                        await _userManager.AddToRoleAsync(studentUser5, AppConstant.StudentRole);
+                        var student5 = new Student
+                        {
+                            UserId = studentUser5.Id,
+                            Email = studentUser5.Email,
+                            FirstName = "Tomisin",
+                            LastName = "Agboola",
+                            MatricNumber = "150302033",
+                            Courses = courses.ToList(),
+                        };
+
+                        userName = "ToluhiAnu@gmail.com";
+                        password = "toluhi";
+                        var studentUser6 = new ApplicationUser { UserName = userName, Email = userName };
+                        result = await _userManager.CreateAsync(studentUser6, password);
+                        await _userManager.AddToRoleAsync(studentUser6, AppConstant.StudentRole);
+                        var student6 = new Student
+                        {
+                            UserId = studentUser6.Id,
+                            Email = studentUser6.Email,
+                            FirstName = "Toluhi",
+                            LastName = "Anuoluwapo",
+                            MatricNumber = "150302035",
+                            Courses = courses.ToList(),
+                        };
+
+                        context.Student.AddRange(student1, student2, student3,student4, student5, student6);
+                        await context.SaveChangesAsync();
+                    }
+
                 }
             }
             catch (Exception ex)

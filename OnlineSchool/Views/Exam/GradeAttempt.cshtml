@@ -58,6 +58,12 @@
                             @option.Option
                         </div>
                     }
+                    @if (mcq.SelectedOptionId == -1)
+                    {
+                        <div class="wrong-answer">
+                            no option selected
+                        </div>
+                    }
                 </div>
                 <hr class="m-0" />
                 <div class="st-foot text-right my-1 mr-3">
@@ -85,7 +91,7 @@
                         <label class="font-weight-bold">Score:</label>
                         string scoreValue = Model.Exam.TheoryQuestions[i].StudentScore == 0 ? "" : Model.Exam.TheoryQuestions[i].StudentScore.ToString();
                         <input asp-for="Exam.TheoryQuestions[i].StudentScore" min="0" max="@Model.Exam.TheoryQuestions[i].Score"
-                               value="@scoreValue" required class="form-control d-inline-block" style="width:200px">
+                               required class="form-control d-inline-block" style="width:200px">
                     }
                     <input asp-for="Exam.TheoryQuestions[i].AttemptId" hidden />
 

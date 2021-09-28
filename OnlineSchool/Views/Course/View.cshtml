@@ -94,6 +94,9 @@
                                             <a class="btn btn-custom-primary btn-sm text-white" onclick="StartExam(@exam.Id)">
                                                 Start test
                                             </a>
+                                            <a class="btn btn-secondary btn-sm text-white" asp-controller="course" asp-action="result" asp-route-id="@exam.Id">
+                                                View result
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

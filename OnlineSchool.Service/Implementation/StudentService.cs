@@ -74,8 +74,8 @@ namespace OnlineSchool.Service.Implementation
                 return false;
             if (string.IsNullOrEmpty(student.Email) || string.IsNullOrWhiteSpace(student.Email))
                 return false;
-            if (string.IsNullOrEmpty(student.ProfilePicturePath) || string.IsNullOrWhiteSpace(student.ProfilePicturePath))
-                return false;
+            //if (string.IsNullOrEmpty(student.ProfilePicturePath) || string.IsNullOrWhiteSpace(student.ProfilePicturePath))
+            //    return false;
             if (string.IsNullOrEmpty(student.UserId) || string.IsNullOrWhiteSpace(student.UserId))
                 return false;
             return true;

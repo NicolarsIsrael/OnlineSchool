@@ -15,9 +15,11 @@ namespace OnlineSchool.Controllers
 {
     public class CourseController : BaseController
     {
-        public CourseController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService, IExamService examService, IEmailService emailSender)
+        private IExamAttemptService _examAttemptService;
+        public CourseController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IStudentService studentService, ILectureService lectureService, ITutorService tutorService, ICourseService courseService, IExamService examService, IEmailService emailSender, IExamAttemptService examAttemptService)
             : base(userManager, roleManager, studentService, lectureService, tutorService, courseService, examService, emailSender)
         {
+            _examAttemptService = examAttemptService;
         }
 
         [Authorize(Roles =AppConstant.StudentRole)]
@@ -61,6 +63,24 @@ namespace OnlineSchool.Controllers
             student.Courses = registeredCourses;
             await _studentService.Update(student);
             return RedirectToAction(nameof(Index));
+        }
+
+
+        [Authorize(Roles = AppConstant.StudentRole)]
+        public IActionResult Result(int id)
+        {
+            var studentAttempt = _examAttemptService.GetAllExamAttempts(id).Where(s => s.StudentId == GetLoggedInStudent().Id).FirstOrDefault();
+
+            if (studentAttempt == null)
+                return View(null);
+
+
+            if (!studentAttempt.IsGrraded)
+                return View(null);
+
+            var examModel = new ExamModel(_examService.Get(studentAttempt.ExamId), studentAttempt, 1, true);
+            var model = new AttemptResultModel(new ExamAttemptModel(studentAttempt), examModel);
+            return View(model);
         }
 
     }

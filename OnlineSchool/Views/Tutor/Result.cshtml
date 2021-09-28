@@ -2,76 +2,77 @@
 @{
     ViewData["Title"] = "Result";
 }
+<div class="container">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >> <a asp-controller="tutor" asp-action="course" asp-route-id="@Model.CourseId">@Model.CourseCode</a> >>
+        <a asp-action="exam" asp-controller="tutor" asp-route-id="@Model.ExamId">@Model.ExamTitle</a> >> <span class="breadcrum-link">Results</span>
+    </div>
 
-<div class="my-4">
-    <a asp-action="index">Home</a> >> <a asp-controller="tutor" asp-action="course" asp-route-id="@Model.CourseId">@Model.CourseCode</a> >>
-    <a asp-action="exam" asp-controller="tutor" asp-route-id="@Model.ExamId">@Model.ExamTitle</a> >> <span class="breadcrum-link">Results</span>
-</div>
-
-<div class="mt-4 card box-shadow mb-3">
-    <div class="card-body">
-        <div style="text-transform:uppercase;font-size:20px;font-weight:600">
-            @Model.CourseTitle | @Model.CourseCode
-        </div>
-        <div>
-            @Model.ExamTitle
-        </div>
-        <div>
-            Number of attempts: @Model.NumberOfAttempts
-        </div>
-        <div style="font-size:17px;font-weight:600">
-            Highest Possible score: @Model.PossibleScore
+    <div class="mt-4 card box-shadow mb-3">
+        <div class="card-body">
+            <div style="text-transform:uppercase;font-size:20px;font-weight:600">
+                @Model.CourseTitle | @Model.CourseCode
+            </div>
+            <div>
+                @Model.ExamTitle
+            </div>
+            <div>
+                Number of attempts: @Model.NumberOfAttempts
+            </div>
+            <div style="font-size:17px;font-weight:600">
+                Highest Possible score: @Model.PossibleScore
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="card box-shadow">
-            <div class="card-body">
-                <div class="font-weight-bold">RESULTS</div>
-                <table class="table table-responsive-sm">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Matric No</th>
-                            <th>Full name</th>
-                            <th>Score</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var attempt in Model.Attempts)
-                        {
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card box-shadow">
+                <div class="card-body">
+                    <div class="font-weight-bold">RESULTS</div>
+                    <table class="table table-responsive-sm">
+                        <thead>
                             <tr>
-                                <td>@attempt.DateCreatedString</td>
-                                <td>@attempt.StudentMatricNumber</td>
-                                <td>@attempt.StudentFullname</td>
-                                <td>
-                                    @if (attempt.IsGraded)
-                                    {
-                                        @attempt.StudentScore
-                                    }
-                                    else
-                                    {
-                                        <span>Not yet graded</span>
-                                    }
-                                </td>
-                                <td>
-                                    <div style="width:100px">
+                                <th>Date</th>
+                                <th>Matric No</th>
+                                <th>Full name</th>
+                                <th>Score</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var attempt in Model.Attempts)
+                            {
+                                <tr>
+                                    <td>@attempt.DateCreatedString</td>
+                                    <td>@attempt.StudentMatricNumber</td>
+                                    <td>@attempt.StudentFullname</td>
+                                    <td>
                                         @if (attempt.IsGraded)
                                         {
-                                            <a asp-action="gradeattempt" asp-controller="exam" asp-route-id="@attempt.Id" class="btn btn-secondary">Re-grade</a>
+                                            @attempt.StudentScore
                                         }
                                         else
                                         {
-                                            <a asp-action="gradeattempt" asp-controller="exam" asp-route-id="@attempt.Id" class="btn btn-custom-primary">Grade</a>
+                                            <span>Not yet graded</span>
                                         }
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                    </td>
+                                    <td>
+                                        <div style="width:100px">
+                                            @if (attempt.IsGraded)
+                                            {
+                                                <a asp-action="gradeattempt" asp-controller="exam" asp-route-id="@attempt.Id" class="btn btn-secondary">Re-grade</a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-action="gradeattempt" asp-controller="exam" asp-route-id="@attempt.Id" class="btn btn-custom-primary">Grade</a>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

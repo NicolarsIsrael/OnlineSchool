@@ -4,71 +4,72 @@
     ViewData["Title"] = "Admin-Students";
     //Layout = "_AdminLayout";
 }
-
-<div class="my-4">
-    <a asp-action="index">Home</a> >>
-    <span class="breadcrum-link">Students</span>
-</div>
-
-<div class="element-wrapper mb-2">
-    <div class="element-actions text-right">
-        <a class="mr-2 mb-2 btn btn-custom-primary btn-rounded" asp-action="AddStudent">Add New</a>
+<div class="container">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >>
+        <span class="breadcrum-link">Students</span>
     </div>
-    <div class="card box-shadow mx-auto">
-        <div class="card-body">
-            <h6 class="element-header">
-                Students
-            </h6>
-            <div class="table-responsive">
-                <table class="table table-lightborder">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Email)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Firstname)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Lastname)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.MatricNumber)
-                            </th>
-                            <th>
-                            </th>
-                            <th>
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+
+    <div class="element-wrapper mb-2">
+        <div class="element-actions text-right">
+            <a class="mr-2 mb-2 btn btn-custom-primary btn-rounded" asp-action="AddStudent">Add New</a>
+        </div>
+        <div class="card box-shadow mx-auto">
+            <div class="card-body">
+                <h6 class="element-header">
+                    Students
+                </h6>
+                <div class="table-responsive">
+                    <table class="table table-lightborder">
+                        <thead>
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Firstname)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Lastname)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.MatricNumber)
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    <div style="width:40px" class="text-center">
-                                        <a class="mr-2 mb-2" asp-controller="Admin" asp-action="EditStudent" asp-route-id="@item.Id">Edit</a>
-                                    </div>
-                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Firstname)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Lastname)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.MatricNumber)
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                    Actions
+                                </th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Firstname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Lastname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MatricNumber)
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <div style="width:40px" class="text-center">
+                                            <a class="mr-2 mb-2" asp-controller="Admin" asp-action="EditStudent" asp-route-id="@item.Id">Edit</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

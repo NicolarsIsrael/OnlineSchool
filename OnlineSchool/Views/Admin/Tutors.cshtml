@@ -4,55 +4,56 @@
     ViewData["Title"] = "Admin-Tutors";
     //Layout = "_AdminLayout";
 }
-
-<div class="my-4">
-    <a asp-action="index">Home</a> >>
-    <span class="breadcrum-link">Tutors</span>
-</div>
-
-<div class="element-wrapper">
-    <div class="element-actions text-right">
-        <a class="mr-2 mb-2 btn btn-custom-primary btn-rounded" asp-action="AddTutor">Create New</a>
+<div class="container">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >>
+        <span class="breadcrum-link">Tutors</span>
     </div>
-    <div class="card box-shadow mx-auto">
-        <div class="card-body">
-            <h6 class="element-header mb-3">
-                Tutors
-            </h6>
-            <div class="table-responsive">
-                <table class="table table-lightborder">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Email)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Fullname)
-                            </th>
-                            <th>
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+
+    <div class="element-wrapper">
+        <div class="element-actions text-right">
+            <a class="mr-2 mb-2 btn btn-custom-primary btn-rounded" asp-action="AddTutor">Create New</a>
+        </div>
+        <div class="card box-shadow mx-auto">
+            <div class="card-body">
+                <h6 class="element-header mb-3">
+                    Tutors
+                </h6>
+                <div class="table-responsive">
+                    <table class="table table-lightborder">
+                        <thead>
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Fullname)
-                                </td>
-                                <td>
-                                    <div class="text-center" style="width:65px">
-                                        <a class="mr-2 mb-2 btn btn-secondary" asp-controller="Admin" asp-action="EditTutor" asp-route-id="@item.Id">Edit</a>
-                                    </div>
-                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fullname)
+                                </th>
+                                <th>
+                                    Actions
+                                </th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fullname)
+                                    </td>
+                                    <td>
+                                        <div class="text-center" style="width:65px">
+                                            <a class="mr-2 mb-2 btn btn-secondary" asp-controller="Admin" asp-action="EditTutor" asp-route-id="@item.Id">Edit</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

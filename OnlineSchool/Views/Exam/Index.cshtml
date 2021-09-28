@@ -2,22 +2,23 @@
 @{
     ViewData["Title"] = "Exam";
 }
-
-<div>
-    <h2>@Model.CourseCode | @Model.CourseTitle </h2>
-    <h3>@Model.Title</h3>
-</div>
-<div class="row">
-    <div class="col-md-3">
-        <partial name="_QuestionsTab" model="Model" />
-        <div class="mt-4 text-center"><span id="time" style="padding: 15px; border: 3px solid black; border-radius: 44px; font-size: 18px;">00:00</span></div>
-        <div class="text-center">
-            <a onclick="FinishAttempt(@Model.AttemptId)" class="mt-4 btn btn-sm btn-custom-primary text-center text-white" href="#">Finish attempt</a>
-        </div>
+<div class="container">
+    <div>
+        <h2>@Model.CourseCode | @Model.CourseTitle </h2>
+        <h3>@Model.Title</h3>
     </div>
-    <div class="col-md-9">
-        <div id="questions-list-id">
-            <partial name="_QuestionsList" model="Model" />
+    <div class="row">
+        <div class="col-md-3">
+            <partial name="_QuestionsTab" model="Model" />
+            <div class="mt-4 text-center"><span id="time" style="padding: 15px; border: 3px solid black; border-radius: 44px; font-size: 18px;">00:00</span></div>
+            <div class="text-center">
+                <a onclick="FinishAttempt(@Model.AttemptId)" class="mt-4 btn btn-sm btn-custom-primary text-center text-white" href="#">Finish attempt</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div id="questions-list-id">
+                <partial name="_QuestionsList" model="Model" />
+            </div>
         </div>
     </div>
 </div>

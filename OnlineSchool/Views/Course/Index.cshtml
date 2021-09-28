@@ -4,7 +4,10 @@
     ViewData["Title"] = "Students";
     //Layout = "_AdminLayout";
 }
-<div class="element-wrapper">
+
+<img class="img-fluid cover-img" src="https://cdn.pixabay.com/photo/2017/02/24/02/37/classroom-2093744_960_720.jpg">
+
+<div class="element-wrapper container">
     <div class="my-4">
         <a asp-action="index">Home</a>
     </div>
@@ -39,3 +42,18 @@
     </div>
 
 </div>
+
+
+<style>
+    .cover-img {
+    /*border-radius: var(--border-radius-max);*/
+    width: 100%;
+    height: 350px;
+}
+
+@@media screen and (max-width: 480px) {
+    .cover-img {
+        height: 220px;
+    }
+}
+</style>

@@ -3,51 +3,51 @@
     ViewData["Title"] = "Admin-Add Course";
     //Layout = "_AdminLayout";
 }
+<div class="container">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >> <a asp-action="courses">Courses</a> >>
+        <span class="breadcrum-link">Add course</span>
+    </div>
 
-<div class="my-4">
-    <a asp-action="index">Home</a> >> <a asp-action="courses" >Courses</a> >>
-    <span class="breadcrum-link">Add course</span>
-</div>
-
-<div class="element-wrapper">
-    <h6 class="element-header mb-2">
-        Manage Course
-    </h6>
-    <div class="element-box card box-shadow mx-auto login-card">
-        <div class="card-body">
-            <form method="post">
-                <h5 class="form-header text-uppercase">
-                    Add Course
-                </h5>
-                <hr />
-                <div class="form-group">
-                    <label asp-for="CourseCode"> Course Code</label>
-                    <input class="form-control" type="text" asp-for="CourseCode">
-                    <span asp-validation-for="CourseCode" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CourseTitle"> Course Title</label>
-                    <input class="form-control" type="text" asp-for="CourseTitle" data-error="Course Tile is required">
-                    <span asp-validation-for="CourseTitle" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CourseDescription"> Course Description</label>
-                    <textarea class="form-control" asp-for="CourseDescription" rows="3"></textarea>
-                    <span asp-validation-for="CourseDescription" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Tutors"></label>
-                    <select asp-for="SelectedTutor" class="form-control" asp-items="Model.Tutors"></select>
-                    <span asp-validation-for="Tutors" class="text-danger"></span>
-                </div>
-                <div class="form-buttons-w">
-                    <button type="submit" class="btn btn-custom-primary"> Add Course</button>
-                </div>
-            </form>
+    <div class="element-wrapper">
+        <h6 class="element-header mb-2">
+            Manage Course
+        </h6>
+        <div class="element-box card box-shadow mx-auto login-card">
+            <div class="card-body">
+                <form method="post">
+                    <h5 class="form-header text-uppercase">
+                        Add Course
+                    </h5>
+                    <hr />
+                    <div class="form-group">
+                        <label asp-for="CourseCode"> Course Code</label>
+                        <input class="form-control" type="text" asp-for="CourseCode">
+                        <span asp-validation-for="CourseCode" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CourseTitle"> Course Title</label>
+                        <input class="form-control" type="text" asp-for="CourseTitle" data-error="Course Tile is required">
+                        <span asp-validation-for="CourseTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CourseDescription"> Course Description</label>
+                        <textarea class="form-control" asp-for="CourseDescription" rows="3"></textarea>
+                        <span asp-validation-for="CourseDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Tutors"></label>
+                        <select asp-for="SelectedTutor" class="form-control" asp-items="Model.Tutors"></select>
+                        <span asp-validation-for="Tutors" class="text-danger"></span>
+                    </div>
+                    <div class="form-buttons-w">
+                        <button type="submit" class="btn btn-custom-primary"> Add Course</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

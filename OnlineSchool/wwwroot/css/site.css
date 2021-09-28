@@ -308,3 +308,15 @@ td {
 .breadcrum-link {
     color: #0366d6;
 }
+
+.cover-img {
+    /*border-radius: var(--border-radius-max);*/
+    width: 100%;
+    height: 250px;
+}
+
+@media screen and (max-width: 480px) {
+    .cover-img {
+        height: 220px;
+    }
+}

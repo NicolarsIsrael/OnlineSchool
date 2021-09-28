@@ -3,47 +3,48 @@
     ViewData["Title"] = "Admin-Edit Course";
     //Layout = "_AdminLayout";
 }
+<div class="container">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >> <a asp-action="courses">Courses</a> >>
+        <span class="breadcrum-link">Edit course</span>
+    </div>
 
-<div class="my-4">
-    <a asp-action="index">Home</a> >> <a asp-action="courses">Courses</a> >>
-    <span class="breadcrum-link">Edit course</span>
-</div>
-
-<div class="element-wrapper">
-    <h6 class="element-header mb-2">
-        Manage Course
-    </h6>
-    <div class="element-box card box-shadow mx-auto login-card">
-        <div class="card-body">
-            <form method="post" enctype="multipart/form-data">
-                <input hidden asp-for="Id" />
-                <h5 class="form-header">
-                    Edit Course
-                </h5>
-                <div class="form-group">
-                    <label asp-for="CourseCode"> Course Code</label>
-                    <input class="form-control" type="text" asp-for="CourseCode" data-error="Course Code is required">
-                    <span asp-validation-for="CourseCode" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CourseTitle"> Course Title</label>
-                    <input class="form-control" type="text" asp-for="CourseTitle" data-error="Course Tile is required">
-                    <span asp-validation-for="CourseTitle" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CourseDescription"> Course Description</label>
-                    <textarea class="form-control" asp-for="CourseDescription" rows="3"></textarea>
-                    <span asp-validation-for="CourseDescription" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Tutors"></label>
-                    <select asp-for="SelectedTutor" class="form-control" asp-items="Model.Tutors"></select>
-                    <span asp-validation-for="Tutors" class="help-block form-text with-errors form-control-feedback"></span>
-                </div>
-                <div class="form-buttons-w">
-                    <button type="submit" class="btn btn-custom-primary" onclick="return validate()"> Edit Course</button>
-                </div>
-            </form>
+    <div class="element-wrapper">
+        <h6 class="element-header mb-2">
+            Manage Course
+        </h6>
+        <div class="element-box card box-shadow mx-auto login-card">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    <input hidden asp-for="Id" />
+                    <h5 class="form-header">
+                        Edit Course
+                    </h5>
+                    <div class="form-group">
+                        <label asp-for="CourseCode"> Course Code</label>
+                        <input class="form-control" type="text" asp-for="CourseCode" data-error="Course Code is required">
+                        <span asp-validation-for="CourseCode" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CourseTitle"> Course Title</label>
+                        <input class="form-control" type="text" asp-for="CourseTitle" data-error="Course Tile is required">
+                        <span asp-validation-for="CourseTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CourseDescription"> Course Description</label>
+                        <textarea class="form-control" asp-for="CourseDescription" rows="3"></textarea>
+                        <span asp-validation-for="CourseDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Tutors"></label>
+                        <select asp-for="SelectedTutor" class="form-control" asp-items="Model.Tutors"></select>
+                        <span asp-validation-for="Tutors" class="help-block form-text with-errors form-control-feedback"></span>
+                    </div>
+                    <div class="form-buttons-w">
+                        <button type="submit" class="btn btn-custom-primary" onclick="return validate()"> Edit Course</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

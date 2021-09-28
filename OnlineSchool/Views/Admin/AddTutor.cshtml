@@ -3,42 +3,42 @@
     ViewData["Title"] = "Admin-Add Tutor";
     //Layout = "_AdminLayout";
 }
+<div class="container">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >> <a asp-action="tutors">Tutors</a> >>
+        <span class="breadcrum-link">Add tutor</span>
+    </div>
 
-<div class="my-4">
-    <a asp-action="index">Home</a> >> <a asp-action="tutors">Tutors</a> >>
-    <span class="breadcrum-link">Add tutor</span>
-</div>
+    <div class="element-wrapper">
+        <h6 class="element-header mb-3">
+            Manage Tutor
+        </h6>
+        <div class="card box-shadow login-card mx-auto">
+            <div class="element-box card-body">
+                <form method="post">
+                    <h5 class="form-header text-uppercase">
+                        Add Tutor
+                    </h5>
+                    <hr />
+                    <div class="form-group">
+                        <label asp-for="Email"> Email address</label>
+                        <input class="form-control" type="email" asp-for="Email" data-error="Email address is invalid">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Fullname">First Name</label>
+                        <input class="form-control" type="text" asp-for="Fullname" data-error="Full Name address is invalid">
+                        <span asp-validation-for="Fullname" class="text-danger"></span>
+                    </div>
 
-<div class="element-wrapper">
-    <h6 class="element-header mb-3">
-        Manage Tutor
-    </h6>
-    <div class="card box-shadow login-card mx-auto">
-        <div class="element-box card-body">
-            <form method="post">
-                <h5 class="form-header text-uppercase">
-                    Add Tutor
-                </h5>
-                <hr />
-                <div class="form-group">
-                    <label asp-for="Email"> Email address</label>
-                    <input class="form-control" type="email" asp-for="Email" data-error="Email address is invalid">
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Fullname">First Name</label>
-                    <input class="form-control" type="text" asp-for="Fullname" data-error="Full Name address is invalid">
-                    <span asp-validation-for="Fullname" class="text-danger"></span>
-                </div>
-
-                <div class="form-buttons-w">
-                    <button type="submit" class="btn btn-custom-primary"> Add Tutor</button>
-                </div>
-            </form>
+                    <div class="form-buttons-w">
+                        <button type="submit" class="btn btn-custom-primary"> Add Tutor</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -4,55 +4,56 @@
     //Layout = "_AdminLayout";
 }
 
+<div class="container">
+    <div class="my-4">
+        <a asp-action="index">Home</a> >> <a asp-action="students">Students</a> >>
+        <span class="breadcrum-link">Edit Student</span>
+    </div>
 
-<div class="my-4">
-    <a asp-action="index">Home</a> >> <a asp-action="students">Students</a> >>
-    <span class="breadcrum-link">Edit Student</span>
-</div>
 
-
-<div class="element-wrapper">
-    <h6 class="element-header mb-3">
-        Manage Student
-    </h6>
-    <div class="card-body mx-auto box-shadow login-card" style="background-color:white">
-        <div class="card-body">
-            <form method="post" enctype="multipart/form-data">
-                <input hidden asp-for="Id" />
-                <h5 class="form-header text-uppercase">
-                    Edit Student
-                </h5>
-                <hr />
-                <div class="form-group">
-                    <label asp-for="Email"> Email address</label>
-                    <input class="form-control" placeholder="Enter email" type="email" asp-for="Email" readonly>
-                </div>
-                <div class="form-group">
-                    <label asp-for="MatricNumber">Matric Number</label>
-                    <input class="form-control" placeholder="First Name" type="text" asp-for="MatricNumber" readonly>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FirstName">First Name</label>
-                    <input class="form-control" placeholder="First Name" type="text" asp-for="FirstName" data-error="First Name address is invalid">
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="LastName"> Last Name</label>
-                    <input class="form-control" placeholder="Last Name" type="text" asp-for="LastName" data-error="Last Name address is invalid">
-                    <span asp-validation-for="LastName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ProfileImage" class=""></label>
-                    <img class="img-responsive d-block mb-3" id="targetImg" style="height:100px;width:100px;" src="@Url.Content(Model.ProfilePicture)" />
-                    <input asp-for="ProfileImage" class="form-control" accept="image/x-png,image/jpg,image/jpeg" />
-                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
-                    <p class="text-danger mb-0" id="imgFileSizeError"></p>
-                    <p class="text-danger mb-0" id="imgFileFormatError"></p>
-                </div>
-                <div class="form-buttons-w">
-                    <button type="submit" class="btn btn-custom-primary" onclick="return validate()"> Edit Student</button>
-                </div>
-            </form>
+    <div class="element-wrapper">
+        <h6 class="element-header mb-3">
+            Manage Student
+        </h6>
+        <div class="card-body mx-auto box-shadow login-card" style="background-color:white">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    <input hidden asp-for="Id" />
+                    <h5 class="form-header text-uppercase">
+                        Edit Student
+                    </h5>
+                    <hr />
+                    <div class="form-group">
+                        <label asp-for="Email"> Email address</label>
+                        <input class="form-control" placeholder="Enter email" type="email" asp-for="Email" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MatricNumber">Matric Number</label>
+                        <input class="form-control" placeholder="First Name" type="text" asp-for="MatricNumber" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FirstName">First Name</label>
+                        <input class="form-control" placeholder="First Name" type="text" asp-for="FirstName" data-error="First Name address is invalid">
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName"> Last Name</label>
+                        <input class="form-control" placeholder="Last Name" type="text" asp-for="LastName" data-error="Last Name address is invalid">
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProfileImage" class=""></label>
+                        <img class="img-responsive d-block mb-3" id="targetImg" style="height:100px;width:100px;" src="@Url.Content(Model.ProfilePicture)" />
+                        <input asp-for="ProfileImage" class="form-control" accept="image/x-png,image/jpg,image/jpeg" />
+                        <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                        <p class="text-danger mb-0" id="imgFileSizeError"></p>
+                        <p class="text-danger mb-0" id="imgFileFormatError"></p>
+                    </div>
+                    <div class="form-buttons-w">
+                        <button type="submit" class="btn btn-custom-primary" onclick="return validate()"> Edit Student</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

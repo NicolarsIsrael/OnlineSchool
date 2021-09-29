@@ -69,7 +69,8 @@ namespace OnlineSchool.Controllers
         [Authorize(Roles = AppConstant.StudentRole)]
         public IActionResult Result(int id)
         {
-            var studentAttempt = _examAttemptService.GetAllExamAttempts(id).Where(s => s.StudentId == GetLoggedInStudent().Id).FirstOrDefault();
+            var studentId = GetLoggedInStudent().Id;
+            var studentAttempt = _examAttemptService.GetAllExamAttempts(id).Where(s => s.StudentId ==studentId).FirstOrDefault();
 
             if (studentAttempt == null)
                 return View(null);

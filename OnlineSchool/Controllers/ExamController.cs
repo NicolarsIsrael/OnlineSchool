@@ -32,7 +32,7 @@ namespace OnlineSchool.Controllers
             var exam = _examService.Get(id);
             var student = GetLoggedInStudent();
 
-            ExamAttempt examAttempt = null;// _examAttemptService.CheckIfStudentAttemptAlreadyExists(exam.Id, student.Id);
+            ExamAttempt examAttempt =  _examAttemptService.CheckIfStudentAttemptAlreadyExists(exam.Id, student.Id);
             if (examAttempt == null)
             {
                 var totalNumberOfQuestions = exam.MultiChoiceQuestions.Count() + exam.TheoryQuestions.Count();
@@ -54,9 +54,9 @@ namespace OnlineSchool.Controllers
                 };
                 examAttempt = await _examAttemptService.CreateExamAttempt(examAttempt);
             }
-            //if (!CheckIfAttemptIsAllowed(exam, examAttempt))
-            //    return RedirectToAction(nameof(AttemptFinished), new { id= exam.Id});
-            
+            if (!CheckIfAttemptIsAllowed(exam, examAttempt))
+                return RedirectToAction(nameof(AttemptFinished), new { id = exam.Id });
+
             var model = new ExamModel(exam,examAttempt,1);
             return View(model);
         }
@@ -193,11 +193,11 @@ namespace OnlineSchool.Controllers
             if (!attempt.ContinueAttempt)
                 return false;
 
-            if (DateTime.Compare(exam.StartTime, DateTime.Now) > 0)
-                return false;
+            //if (DateTime.Compare(exam.StartTime, DateTime.Now) > 0)
+            //    return false;
 
-            if (DateTime.Compare(exam.DeadlineEndTime, DateTime.Now) < 0)
-                return false;
+            //if (DateTime.Compare(exam.DeadlineEndTime, DateTime.Now) < 0)
+            //    return false;
 
             return true;
         }

@@ -10,6 +10,10 @@ using OnlineSchool.Core;
 using OnlineSchool.Models;
 using OnlineSchool.Service.Contract;
 using OnlineSchool.Utility;
+using Twilio.Rest.Video.V1;
+using Twilio;
+using XSockets.Core.Common.Socket;
+using Twilio.Jwt.AccessToken;
 
 namespace OnlineSchool.Controllers
 {
@@ -41,6 +45,12 @@ namespace OnlineSchool.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Chat(string room,string username)
         {
             return View();
         }
